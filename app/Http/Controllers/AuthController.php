@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Laravel\Socialite\Facades\Socialite;
-use Exception;
 
 class AuthController extends Controller
 {
@@ -93,60 +91,6 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('home')->with('success', 'Anda telah berhasil keluar.');
-    }
-
-    // Google OAuth Redirect
-    public function redirectToGoogle()
-    {
-        $clientId = config('services.google.client_id');
-        if (empty($clientId)) {
-            return redirect()->route('login')->with('warning', 'Fitur Login Google membutuhkan GOOGLE_CLIENT_ID & GOOGLE_CLIENT_SECRET di file .env. Silakan login menggunakan email & kata sandi atau daftar akun baru.');
-        }
-
-        try {
-            return Socialite::driver('google')->stateless()->redirect();
-        } catch (\Exception $e) {
-            return redirect()->route('login')->with('error', 'Gagal menghubungkan ke Google: ' . $e->getMessage());
-        }
-    }
-
-    // Google OAuth Callback
-    public function handleGoogleCallback(Request $request)
-    {
-        try {
-            $googleUser = Socialite::driver('google')->stateless()->user();
-
-            $user = User::where('google_id', $googleUser->getId())
-                ->orWhere('email', $googleUser->getEmail())
-                ->first();
-
-            if ($user) {
-                $user->update([
-                    'google_id' => $googleUser->getId(),
-                    'avatar' => $googleUser->getAvatar() ?: $user->avatar,
-                ]);
-            } else {
-                $user = User::create([
-                    'name' => $googleUser->getName() ?: 'User Google',
-                    'email' => $googleUser->getEmail(),
-                    'google_id' => $googleUser->getId(),
-                    'avatar' => $googleUser->getAvatar(),
-                    'password' => Hash::make(Str::random(24)),
-                    'role' => 'user',
-                ]);
-            }
-
-            Auth::login($user, true);
-            $request->session()->regenerate();
-
-            if ($user->isAdmin()) {
-                return redirect()->route('admin.dashboard')->with('success', 'Login Google berhasil! Selamat datang Admin, ' . $user->name . '.');
-            }
-
-            return redirect()->route('home')->with('success', 'Login Google berhasil! Selamat datang, ' . $user->name . '.');
-        } catch (\Exception $e) {
-            return redirect()->route('login')->with('error', 'Login Google gagal: ' . $e->getMessage());
-        }
     }
 
     // User Profile
