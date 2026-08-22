@@ -91,41 +91,48 @@
                 <div class="nav-actions">
                     @auth
                         <!-- Wishlist Button with Live Badge -->
-                        <a href="{{ route('wishlist.index') }}" class="btn btn-secondary btn-icon" title="Wishlist Akun Favorit" style="position: relative;">
-                            <i data-lucide="heart" style="width: 18px; height: 18px; color: #f43f5e; {{ Auth::user()->wishlists()->count() > 0 ? 'fill: #f43f5e;' : '' }}"></i>
+                        <a href="{{ route('wishlist.index') }}" class="btn btn-secondary btn-icon" title="Wishlist Akun Favorit" style="position: relative; border-radius: 50%; width: 42px; height: 42px;">
+                            <i data-lucide="heart" style="width: 19px; height: 19px; color: #f43f5e; {{ Auth::user()->wishlists()->count() > 0 ? 'fill: #f43f5e;' : '' }}"></i>
                             <span id="nav-wishlist-badge" class="wishlist-badge" style="{{ Auth::user()->wishlists()->count() > 0 ? 'display: flex;' : 'display: none;' }}">
                                 {{ Auth::user()->wishlists()->count() }}
                             </span>
                         </a>
 
-                        @if(Auth::user()->isAdmin())
-                            <a href="{{ route('admin.dashboard') }}" class="btn btn-primary btn-sm" title="Buka Panel Kelola Toko">
-                                <i data-lucide="layout-dashboard" style="width: 16px; height: 16px;"></i>
+                        @if(Auth::user()->isOwner())
+                            <a href="{{ route('admin.dashboard') }}" class="btn btn-sm" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 119, 6, 0.3) 100%); border: 1px solid rgba(245, 158, 11, 0.6); color: #fbbf24; font-weight: 700; box-shadow: 0 0 15px rgba(245, 158, 11, 0.25); border-radius: var(--radius-full); padding: 7px 16px;">
+                                <i data-lucide="crown" style="width: 15px; height: 15px; color: #fbbf24;"></i>
+                                <span>Owner Panel</span>
+                            </a>
+                        @elseif(Auth::user()->isAdmin())
+                            <a href="{{ route('admin.dashboard') }}" class="btn btn-sm" style="background: linear-gradient(135deg, rgba(0, 242, 254, 0.15) 0%, rgba(79, 172, 254, 0.25) 100%); border: 1px solid rgba(0, 242, 254, 0.4); color: #00f2fe; font-weight: 700; box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); border-radius: var(--radius-full); padding: 7px 16px;">
+                                <i data-lucide="shield" style="width: 15px; height: 15px;"></i>
                                 <span>Admin Panel</span>
                             </a>
                         @endif
 
-                        <a href="{{ route('profile') }}" class="btn btn-secondary btn-sm" title="Kelola Profil, Email & Kata Sandi">
-                            <i data-lucide="user" style="width: 16px; height: 16px;"></i>
-                            <span>Profil</span>
+                        <a href="{{ route('profile') }}" class="btn btn-secondary btn-sm" style="border-radius: var(--radius-full); padding: 7px 14px; gap: 8px;">
+                            <div style="width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #00f2fe, #9333ea); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: #000;">
+                                {{ substr(Auth::user()->name, 0, 1) }}
+                            </div>
+                            <span style="max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ Auth::user()->name }}</span>
                         </a>
 
                         <!-- Logout -->
                         <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                             @csrf
-                            <button type="submit" class="btn btn-secondary btn-icon" title="Keluar" onclick="return confirm('Apakah Anda yakin ingin keluar?')">
-                                <i data-lucide="log-out" style="width: 18px; height: 18px;"></i>
+                            <button type="submit" class="btn btn-secondary btn-icon" style="border-radius: 50%; width: 38px; height: 38px; color: var(--danger);" title="Keluar Akun" onclick="return confirm('Apakah Anda yakin ingin keluar?')">
+                                <i data-lucide="log-out" style="width: 16px; height: 16px;"></i>
                             </button>
                         </form>
                     @else
-                        <a href="{{ route('wishlist.index') }}" class="btn btn-secondary btn-icon" title="Wishlist Akun" style="position: relative;">
-                            <i data-lucide="heart" style="width: 18px; height: 18px; color: #f43f5e;"></i>
+                        <a href="{{ route('wishlist.index') }}" class="btn btn-secondary btn-icon" title="Wishlist Akun" style="position: relative; border-radius: 50%; width: 42px; height: 42px;">
+                            <i data-lucide="heart" style="width: 19px; height: 19px; color: #f43f5e;"></i>
                         </a>
-                        <a href="{{ route('login') }}" class="btn btn-secondary btn-sm">
+                        <a href="{{ route('login') }}" class="btn btn-secondary btn-sm" style="border-radius: var(--radius-full); padding: 8px 18px;">
                             <i data-lucide="log-in" style="width: 16px; height: 16px;"></i>
                             <span>Masuk</span>
                         </a>
-                        <a href="{{ route('register') }}" class="btn btn-primary btn-sm">
+                        <a href="{{ route('register') }}" class="btn btn-primary btn-sm" style="border-radius: var(--radius-full); padding: 8px 20px;">
                             <span>Daftar Akun</span>
                         </a>
                     @endauth
