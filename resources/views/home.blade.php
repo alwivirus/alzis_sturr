@@ -9,31 +9,31 @@
     <div class="hero-glow-1"></div>
     <div class="hero-glow-2"></div>
     <div class="container">
-        <div class="hero-content" style="max-width: 860px; margin: 0 auto; text-align: center;">
-            <div class="hero-tag" style="margin-bottom: 24px; padding: 6px 18px; font-size: 0.82rem; letter-spacing: 1px;">
+        <div class="hero-content">
+            <div class="hero-tag">
                 <i data-lucide="shield-check" style="width: 16px; height: 16px;"></i>
                 <span>#1 TRUSTED GAME ACCOUNT MARKETPLACE</span>
             </div>
 
-            <h1 class="hero-title" style="font-size: 3.4rem; line-height: 1.15; margin-bottom: 24px; letter-spacing: 0.5px;">
+            <h1 class="hero-title">
                 PUSAT JUAL BELI & JAPOST <br>
                 <span class="text-gradient-cyan">AKUN GAME SULTAN</span> TERPERCAYA
             </h1>
 
-            <p class="hero-subtitle" style="font-size: 1.1rem; color: #94a3b8; line-height: 1.6; margin-bottom: 36px; max-width: 720px; margin-left: auto; margin-right: auto;">
+            <p class="hero-subtitle">
                 Temukan stok akun Mobile Legends, Free Fire, Genshin Impact, PUBGM, Valorant, & Honor of Kings dengan garansi 100% Anti Hackback. Transaksi kilat & aman langsung bersama <strong style="color: #fff;">Admin ALzis STURR</strong>.
             </p>
 
             <!-- Premium Hero Search Bar -->
             <div style="max-width: 680px; margin: 0 auto 28px; background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(0, 242, 254, 0.35); padding: 8px 10px; border-radius: var(--radius-full); box-shadow: 0 12px 35px rgba(0, 242, 254, 0.18); backdrop-filter: blur(16px);">
                 <form action="{{ route('catalog') }}" method="GET" style="display: flex; align-items: center; gap: 8px; width: 100%;">
-                    <div style="display: flex; align-items: center; gap: 12px; flex: 1; padding-left: 18px;">
-                        <i data-lucide="search" style="width: 20px; height: 20px; color: var(--primary); flex-shrink: 0;"></i>
-                        <input type="text" name="q" style="background: transparent; border: none; outline: none; color: #ffffff; font-size: 0.95rem; width: 100%;" placeholder="Cari nama akun, rank, hero, skin (misal: Chou KOF, Glacier)...">
+                    <div style="display: flex; align-items: center; gap: 10px; flex: 1; padding-left: 14px; min-width: 0;">
+                        <i data-lucide="search" style="width: 18px; height: 18px; color: var(--primary); flex-shrink: 0;"></i>
+                        <input type="text" name="q" style="background: transparent; border: none; outline: none; color: #ffffff; font-size: 0.9rem; width: 100%; min-width: 0;" placeholder="Cari akun, rank, hero, skin...">
                     </div>
-                    <button type="submit" class="btn btn-primary" style="border-radius: var(--radius-full); padding: 12px 28px; font-weight: 700; white-space: nowrap; flex-shrink: 0; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 18px rgba(0, 242, 254, 0.4);">
-                        <span>Cari Akun</span>
-                        <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+                    <button type="submit" class="btn btn-primary" style="border-radius: var(--radius-full); padding: 10px 22px; font-weight: 700; white-space: nowrap; flex-shrink: 0; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 18px rgba(0, 242, 254, 0.4);">
+                        <span>Cari</span>
+                        <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
                     </button>
                 </form>
             </div>

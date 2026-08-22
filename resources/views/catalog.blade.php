@@ -137,10 +137,10 @@
     @endif
 
     <!-- Main Catalog Grid Layout with Sidebar -->
-    <div style="display: grid; grid-template-columns: 290px 1fr; gap: 36px; align-items: start;">
+    <div class="catalog-layout">
 
         <!-- Sidebar Filter Card -->
-        <aside style="background: var(--bg-card); backdrop-filter: blur(16px); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; position: sticky; top: 90px; box-shadow: var(--shadow-card);">
+        <aside class="catalog-sidebar">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color);">
                 <h3 class="font-gaming" style="font-size: 1.2rem; color: #fff; display: flex; align-items: center; gap: 8px;">
                     <i data-lucide="sliders-horizontal" style="width: 18px; height: 18px; color: var(--primary);"></i>
