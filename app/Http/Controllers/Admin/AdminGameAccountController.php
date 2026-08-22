@@ -103,6 +103,10 @@ class AdminGameAccountController extends Controller
             return back()->withErrors(['game_category_id' => 'Pilih kategori game yang tersedia atau tulis nama game baru.'])->withInput();
         }
 
+        // Ensure directories exist
+        @mkdir(storage_path('app/public/accounts/thumbnails'), 0775, true);
+        @mkdir(storage_path('app/public/accounts/gallery'), 0775, true);
+
         $thumbnailPath = null;
         if ($request->hasFile('thumbnail_file')) {
             $thumbnailPath = $request->file('thumbnail_file')->store('accounts/thumbnails', 'public');
@@ -170,21 +174,21 @@ class AdminGameAccountController extends Controller
             'code' => 'required|string|max:50|unique:game_accounts,code,' . $account->id,
             'title' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'discount_price' => 'nullable|numeric|min:0|lt:price',
+            'discount_price' => 'nullable|numeric|min:0',
             'login_bind' => 'required|string|max:255',
             'server' => 'required|string|max:255',
             'status' => 'required|in:available,sold,booked',
-            'thumbnail_file' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
+            'thumbnail_file' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
             'thumbnail_url' => 'nullable|url',
-            'screenshots.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
+            'screenshots.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
             'short_description' => 'nullable|string',
             'full_specs' => 'nullable|string',
             'hero_count' => 'nullable|integer|min:0',
             'skin_count' => 'nullable|integer|min:0',
             'rank_tier' => 'nullable|string|max:100',
             'winrate' => 'nullable|string|max:50',
-            'is_verified' => 'boolean',
-            'is_featured' => 'boolean',
+            'is_verified' => 'nullable|boolean',
+            'is_featured' => 'nullable|boolean',
         ]);
 
         $categoryId = $request->input('game_category_id');
@@ -211,6 +215,10 @@ class AdminGameAccountController extends Controller
         if (empty($categoryId)) {
             $categoryId = $account->game_category_id;
         }
+
+        // Ensure directories exist
+        @mkdir(storage_path('app/public/accounts/thumbnails'), 0775, true);
+        @mkdir(storage_path('app/public/accounts/gallery'), 0775, true);
 
         $thumbnailPath = $account->thumbnail;
         if ($request->hasFile('thumbnail_file')) {
