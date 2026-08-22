@@ -32,10 +32,27 @@ class AuthController extends Controller
         $remember = $request->boolean('remember');
 
         if (Auth::attempt($credentials, $remember)) {
+            $user = Auth::user();
+
+            if ($user->isBanned()) {
+                Auth::logout();
+                $request->session()->invalidate();
+                $reason = $user->ban_reason ?: 'Melanggar ketentuan dan aturan toko.';
+                return back()->withErrors([
+                    'email' => "Akun Anda telah dinonaktifkan / diblokir oleh Owner ALzis STURR. Alasan: {$reason}",
+                ])->onlyInput('email');
+            }
+
             $request->session()->regenerate();
 
-            if (Auth::user()->isAdmin()) {
-                return redirect()->intended(route('admin.dashboard'))->with('success', 'Selamat datang kembali, Admin ALzis STURR!');
+            \App\Models\ActivityLog::record(
+                'LOGIN',
+                "Pengguna '{$user->name}' ({$user->email}) berhasil login ke sistem sebagai " . strtoupper($user->role) . "."
+            );
+
+            if ($user->isAdmin()) {
+                $roleTitle = $user->isOwner() ? 'Owner Utama ' : 'Admin ';
+                return redirect()->intended(route('admin.dashboard'))->with('success', "Selamat datang kembali, {$roleTitle}{$user->name}!");
             }
 
             return redirect()->intended(route('home'))->with('success', 'Berhasil login! Selamat datang di ALzis STURR.');

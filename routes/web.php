@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminActivityLogController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminGameAccountController;
 use App\Http\Controllers\Admin\AdminSettingController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -34,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/profil/password', [AuthController::class, 'updatePassword'])->name('profile.password');
 });
 
-// --- ADMIN MANAGEMENT ROUTES ---
+// --- ADMIN & OWNER MANAGEMENT ROUTES ---
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [AdminDashboardController::class, 'index']);
@@ -53,6 +55,17 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // Site Settings
     Route::get('settings', [AdminSettingController::class, 'index'])->name('settings.index');
     Route::post('settings', [AdminSettingController::class, 'update'])->name('settings.update');
+
+    // User & Role Management (Pelanggan, Reseller, Admin, Owner)
+    Route::get('users', [AdminUserController::class, 'index'])->name('users.index');
+    Route::post('users/{id}/role', [AdminUserController::class, 'updateRole'])->name('users.role');
+    Route::post('users/{id}/ban', [AdminUserController::class, 'toggleBan'])->name('users.ban');
+    Route::post('users/{id}/password', [AdminUserController::class, 'updatePassword'])->name('users.password');
+    Route::delete('users/{id}', [AdminUserController::class, 'destroy'])->name('users.destroy');
+
+    // Security & Activity Audit Logs
+    Route::get('logs', [AdminActivityLogController::class, 'index'])->name('logs.index');
+    Route::post('logs/clear', [AdminActivityLogController::class, 'clear'])->name('logs.clear');
 });
 
 // --- HOSTING STORAGE DELIVERY FALLBACK ---

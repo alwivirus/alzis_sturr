@@ -41,6 +41,11 @@ class AdminSettingController extends Controller
             SiteSetting::set($key, $value);
         }
 
+        \App\Models\ActivityLog::record(
+            'UPDATE_SETTINGS',
+            "Memperbarui data konfigurasi toko, link Discord (" . $validated['discord_invite_url'] . "), dan sosial media."
+        );
+
         return back()->with('success', 'Pengaturan website & kontak berhasil disimpan!');
     }
 }

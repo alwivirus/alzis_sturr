@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AccountImage;
+use App\Models\ActivityLog;
 use App\Models\GameAccount;
 use App\Models\GameCategory;
 use Illuminate\Http\Request;
@@ -143,6 +144,12 @@ class AdminGameAccountController extends Controller
             }
         }
 
+        ActivityLog::record(
+            'CREATE_ACCOUNT',
+            "Menambahkan postingan akun game baru [{$account->code}] - '{$account->title}' seharga " . $account->formatted_effective_price . ".",
+            ['account_id' => $account->id, 'code' => $account->code]
+        );
+
         return redirect()->route('admin.accounts.index')->with('success', "Akun game [{$account->code}] berhasil ditambahkan ke katalog!");
     }
 
@@ -251,6 +258,12 @@ class AdminGameAccountController extends Controller
             }
         }
 
+        ActivityLog::record(
+            'UPDATE_ACCOUNT',
+            "Memperbarui data dan spesifikasi akun game [{$account->code}] - '{$account->title}'.",
+            ['account_id' => $account->id, 'code' => $account->code]
+        );
+
         return redirect()->route('admin.accounts.index')->with('success', "Akun [{$account->code}] berhasil diperbarui!");
     }
 
@@ -258,6 +271,7 @@ class AdminGameAccountController extends Controller
     {
         $account = ($id instanceof GameAccount) ? $id : GameAccount::findOrFail($id);
         $code = $account->code;
+        $title = $account->title;
 
         // Delete wishlists to prevent foreign key errors
         $account->wishlists()->delete();
@@ -277,6 +291,12 @@ class AdminGameAccountController extends Controller
 
         $account->delete();
 
+        ActivityLog::record(
+            'DELETE_ACCOUNT',
+            "Menghapus permanen akun game [{$code}] - '{$title}' dari database.",
+            ['deleted_code' => $code]
+        );
+
         return redirect()->route('admin.accounts.index')->with('success', "Akun [{$code}] berhasil dihapus dari katalog.");
     }
 
@@ -287,16 +307,29 @@ class AdminGameAccountController extends Controller
         $account->save();
 
         $statusLabel = ($account->status === 'available') ? 'Tersedia (Ready)' : 'Terjual (Sold Out)';
+
+        ActivityLog::record(
+            'TOGGLE_STATUS',
+            "Mengubah status stok akun [{$account->code}] menjadi: {$statusLabel}.",
+            ['account_id' => $account->id, 'new_status' => $account->status]
+        );
+
         return back()->with('success', "Status akun [{$account->code}] diubah menjadi: {$statusLabel}.");
     }
 
     public function deleteImage($id)
     {
         $image = AccountImage::findOrFail($id);
+        $accCode = $image->gameAccount?->code ?? 'N/A';
         if (!str_starts_with($image->image_path, 'http') && Storage::disk('public')->exists($image->image_path)) {
             Storage::disk('public')->delete($image->image_path);
         }
         $image->delete();
+
+        ActivityLog::record(
+            'DELETE_IMAGE',
+            "Menghapus salah satu screenshot galeri pada akun [{$accCode}]."
+        );
 
         return back()->with('success', 'Foto screenshot berhasil dihapus.');
     }

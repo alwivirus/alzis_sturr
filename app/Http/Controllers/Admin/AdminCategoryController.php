@@ -27,13 +27,18 @@ class AdminCategoryController extends Controller
             'name.unique' => 'Kategori game ini sudah ada.',
         ]);
 
-        GameCategory::create([
+        $cat = GameCategory::create([
             'name' => $validated['name'],
             'slug' => Str::slug($validated['name']),
             'description' => $validated['description'] ?? null,
             'order' => $validated['order'] ?? 0,
             'is_active' => $request->boolean('is_active', true),
         ]);
+
+        \App\Models\ActivityLog::record(
+            'MANAGE_CATEGORY',
+            "Menambahkan kategori game baru: '{$cat->name}'."
+        );
 
         return back()->with('success', 'Kategori game berhasil ditambahkan!');
     }
@@ -57,6 +62,11 @@ class AdminCategoryController extends Controller
             'is_active' => $request->boolean('is_active', true),
         ]);
 
+        \App\Models\ActivityLog::record(
+            'MANAGE_CATEGORY',
+            "Memperbarui nama/pengaturan kategori game: '{$category->name}'."
+        );
+
         return back()->with('success', "Kategori [{$category->name}] berhasil diperbarui!");
     }
 
@@ -68,7 +78,13 @@ class AdminCategoryController extends Controller
             return back()->with('error', "Tidak dapat menghapus kategori [{$category->name}] karena masih memiliki {$category->game_accounts_count} akun game.");
         }
 
+        $catName = $category->name;
         $category->delete();
+
+        \App\Models\ActivityLog::record(
+            'MANAGE_CATEGORY',
+            "Menghapus kategori game: '{$catName}'."
+        );
 
         return back()->with('success', 'Kategori game berhasil dihapus.');
     }
