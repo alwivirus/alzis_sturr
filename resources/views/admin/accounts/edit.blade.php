@@ -23,15 +23,22 @@
             1. INFORMASI UTAMA & GAME
         </h3>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
             <div class="form-group">
-                <label class="form-label">Kategori Game <span style="color: var(--danger);">*</span></label>
-                <select name="game_category_id" class="input-control" required>
+                <label class="form-label">Kategori Game</label>
+                <select name="game_category_id" class="input-control">
+                    <option value="">-- Pilih Game yang Ada --</option>
                     @foreach($categories as $cat)
                         <option value="{{ $cat->id }}" {{ old('game_category_id', $account->game_category_id) == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                     @endforeach
                 </select>
                 @error('game_category_id') <div class="form-error">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Atau Ubah ke Game Baru</label>
+                <input type="text" name="new_game_name" value="{{ old('new_game_name') }}" class="input-control" placeholder="Tulis nama game baru...">
+                <span class="form-helper" style="font-size: 0.725rem; color: #38bdf8;">Isi jika ingin memindahkan akun ini ke game baru.</span>
             </div>
 
             <div class="form-group">

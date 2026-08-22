@@ -100,21 +100,21 @@ class AuthController extends Controller
     {
         $clientId = config('services.google.client_id');
         if (empty($clientId)) {
-            return redirect()->route('login')->with('warning', 'Login Google sedang dalam mode konfigurasi. Silakan login menggunakan email & kata sandi atau daftar akun baru.');
+            return redirect()->route('login')->with('warning', 'Fitur Login Google membutuhkan GOOGLE_CLIENT_ID & GOOGLE_CLIENT_SECRET di file .env. Silakan login menggunakan email & kata sandi atau daftar akun baru.');
         }
 
         try {
-            return Socialite::driver('google')->redirect();
-        } catch (Exception $e) {
+            return Socialite::driver('google')->stateless()->redirect();
+        } catch (\Exception $e) {
             return redirect()->route('login')->with('error', 'Gagal menghubungkan ke Google: ' . $e->getMessage());
         }
     }
 
     // Google OAuth Callback
-    public function handleGoogleCallback()
+    public function handleGoogleCallback(Request $request)
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+            $googleUser = Socialite::driver('google')->stateless()->user();
 
             $user = User::where('google_id', $googleUser->getId())
                 ->orWhere('email', $googleUser->getEmail())
@@ -137,9 +137,14 @@ class AuthController extends Controller
             }
 
             Auth::login($user, true);
+            $request->session()->regenerate();
+
+            if ($user->isAdmin()) {
+                return redirect()->route('admin.dashboard')->with('success', 'Login Google berhasil! Selamat datang Admin, ' . $user->name . '.');
+            }
 
             return redirect()->route('home')->with('success', 'Login Google berhasil! Selamat datang, ' . $user->name . '.');
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return redirect()->route('login')->with('error', 'Login Google gagal: ' . $e->getMessage());
         }
     }

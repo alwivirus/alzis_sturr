@@ -47,7 +47,8 @@ class AdminGameAccountController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'game_category_id' => 'required|exists:game_categories,id',
+            'game_category_id' => 'nullable|exists:game_categories,id',
+            'new_game_name' => 'nullable|string|max:100',
             'code' => 'required|string|max:50|unique:game_accounts,code',
             'title' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
@@ -67,7 +68,6 @@ class AdminGameAccountController extends Controller
             'is_verified' => 'boolean',
             'is_featured' => 'boolean',
         ], [
-            'game_category_id.required' => 'Kategori game wajib dipilih.',
             'code.required' => 'Kode akun (SKU) wajib diisi.',
             'code.unique' => 'Kode akun ini sudah digunakan, gunakan kode unik.',
             'title.required' => 'Judul postingan akun wajib diisi.',
@@ -77,6 +77,31 @@ class AdminGameAccountController extends Controller
             'server.required' => 'Server / Region wajib diisi.',
         ]);
 
+        $categoryId = $request->input('game_category_id');
+
+        // Handle Custom / New Game Input
+        if ($request->filled('new_game_name')) {
+            $newGameName = trim($request->input('new_game_name'));
+            $catSlug = Str::slug($newGameName);
+            if (empty($catSlug)) {
+                $catSlug = 'game-' . Str::random(5);
+            }
+            $category = GameCategory::firstOrCreate(
+                ['slug' => $catSlug],
+                [
+                    'name' => $newGameName,
+                    'icon' => 'gamepad-2',
+                    'is_active' => true,
+                    'order' => (GameCategory::max('order') ?? 0) + 1,
+                ]
+            );
+            $categoryId = $category->id;
+        }
+
+        if (empty($categoryId)) {
+            return back()->withErrors(['game_category_id' => 'Pilih kategori game yang tersedia atau tulis nama game baru.'])->withInput();
+        }
+
         $thumbnailPath = null;
         if ($request->hasFile('thumbnail_file')) {
             $thumbnailPath = $request->file('thumbnail_file')->store('accounts/thumbnails', 'public');
@@ -85,7 +110,7 @@ class AdminGameAccountController extends Controller
         }
 
         $account = GameAccount::create([
-            'game_category_id' => $validated['game_category_id'],
+            'game_category_id' => $categoryId,
             'code' => strtoupper($validated['code']),
             'title' => $validated['title'],
             'slug' => Str::slug($validated['title'] . '-' . $validated['code']),
@@ -133,7 +158,8 @@ class AdminGameAccountController extends Controller
         $account = ($id instanceof GameAccount) ? $id : GameAccount::findOrFail($id);
 
         $validated = $request->validate([
-            'game_category_id' => 'required|exists:game_categories,id',
+            'game_category_id' => 'nullable|exists:game_categories,id',
+            'new_game_name' => 'nullable|string|max:100',
             'code' => 'required|string|max:50|unique:game_accounts,code,' . $account->id,
             'title' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
@@ -154,6 +180,31 @@ class AdminGameAccountController extends Controller
             'is_featured' => 'boolean',
         ]);
 
+        $categoryId = $request->input('game_category_id');
+
+        // Handle Custom / New Game Input
+        if ($request->filled('new_game_name')) {
+            $newGameName = trim($request->input('new_game_name'));
+            $catSlug = Str::slug($newGameName);
+            if (empty($catSlug)) {
+                $catSlug = 'game-' . Str::random(5);
+            }
+            $category = GameCategory::firstOrCreate(
+                ['slug' => $catSlug],
+                [
+                    'name' => $newGameName,
+                    'icon' => 'gamepad-2',
+                    'is_active' => true,
+                    'order' => (GameCategory::max('order') ?? 0) + 1,
+                ]
+            );
+            $categoryId = $category->id;
+        }
+
+        if (empty($categoryId)) {
+            $categoryId = $account->game_category_id;
+        }
+
         $thumbnailPath = $account->thumbnail;
         if ($request->hasFile('thumbnail_file')) {
             // Delete old file if local
@@ -166,7 +217,7 @@ class AdminGameAccountController extends Controller
         }
 
         $account->update([
-            'game_category_id' => $validated['game_category_id'],
+            'game_category_id' => $categoryId,
             'code' => strtoupper($validated['code']),
             'title' => $validated['title'],
             'slug' => Str::slug($validated['title'] . '-' . $validated['code']),
