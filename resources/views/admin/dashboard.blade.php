@@ -141,7 +141,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($recentAccounts as $acc)
+                        @forelse($latestAccounts as $acc)
                             <tr>
                                 <td>
                                     <div style="font-weight: 700; color: #fff;">{{ $acc->title }}</div>
@@ -186,7 +186,7 @@
             </div>
 
             <div style="padding: 12px 16px; display: flex; flex-direction: column; gap: 10px;">
-                @forelse($recentLogs as $log)
+                @forelse($recentActivityLogs as $log)
                     <div style="padding: 10px; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border);">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
                             <span style="font-size: 0.75rem; font-weight: 700; color: var(--primary);">{{ $log->action }}</span>
