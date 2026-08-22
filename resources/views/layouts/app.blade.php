@@ -44,12 +44,17 @@
     <header class="navbar">
         <div class="container">
             <div class="nav-wrapper">
-                <!-- Brand Official Logo -->
-                <a href="{{ route('home') }}" class="brand-logo" style="display: flex; align-items: center; gap: 10px;">
-                    <img src="{{ asset('images/logo.png') }}" alt="ALzis Store Logo" style="height: 44px; width: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.4));">
-                    <span style="font-size: 1.3rem; font-weight: 800; font-family: var(--font-heading); color: #fff;">
-                        ALZIS <span style="color: var(--primary);">STORE</span>
-                    </span>
+                <!-- Brand Official Logo Emblem -->
+                <a href="{{ route('home') }}" class="brand-logo" style="display: flex; align-items: center; gap: 12px;">
+                    <img src="{{ asset('images/logo.png') }}?v={{ time() }}" alt="ALZIS STORE Emblem" style="height: 38px; width: auto; object-fit: contain; filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.6));">
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 1.25rem; font-weight: 800; font-family: var(--font-heading); color: #fff; line-height: 1.1; letter-spacing: 0.5px;">
+                            ALZIS <span style="color: var(--primary);">STORE</span>
+                        </span>
+                        <span style="font-size: 0.65rem; color: var(--text-dim); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">
+                            GAMING STORE
+                        </span>
+                    </div>
                 </a>
 
                 <!-- Desktop Nav Menu -->
@@ -163,13 +168,13 @@
             <div class="footer-grid">
                 <div>
                     <!-- Footer Brand Logo -->
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
-                        <img src="{{ asset('images/logo.png') }}" alt="ALzis Store Logo" style="height: 48px; width: auto; object-fit: contain;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                        <img src="{{ asset('images/logo.png') }}?v={{ time() }}" alt="ALZIS STORE Emblem" style="height: 44px; width: auto; object-fit: contain; filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.5));">
                         <div>
-                            <div style="font-size: 1.25rem; font-weight: 800; font-family: var(--font-heading); color: #fff;">
+                            <div style="font-size: 1.25rem; font-weight: 800; font-family: var(--font-heading); color: #fff; line-height: 1.1;">
                                 ALZIS <span style="color: var(--primary);">STORE</span>
                             </div>
-                            <div style="font-size: 0.72rem; color: var(--text-dim); letter-spacing: 1px;">GAMING MARKETPLACE</div>
+                            <div style="font-size: 0.68rem; color: var(--text-dim); letter-spacing: 1.5px; text-transform: uppercase;">GAMING MARKETPLACE</div>
                         </div>
                     </div>
                     <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; margin-bottom: 18px;">
