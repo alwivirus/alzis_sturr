@@ -238,6 +238,51 @@
         </div>
     </footer>
 
+    <!-- Mobile App Bottom Navigation Bar (Ultra App Experience for Mobile) -->
+    <nav class="mobile-bottom-nav">
+        <a href="{{ route('home') }}" class="mobile-nav-tab {{ request()->routeIs('home') ? 'active' : '' }}">
+            <i data-lucide="home"></i>
+            <span>Beranda</span>
+        </a>
+        <a href="{{ route('catalog') }}" class="mobile-nav-tab {{ request()->routeIs('catalog') ? 'active' : '' }}">
+            <i data-lucide="gamepad-2"></i>
+            <span>Katalog</span>
+        </a>
+        <a href="{{ route('wishlist.index') }}" class="mobile-nav-tab {{ request()->routeIs('wishlist.*') ? 'active' : '' }}">
+            <div style="position: relative; display: inline-flex;">
+                <i data-lucide="heart" style="{{ Auth::check() && Auth::user()->wishlists()->count() > 0 ? 'fill: #f43f5e; color: #f43f5e;' : '' }}"></i>
+                @auth
+                    @if(Auth::user()->wishlists()->count() > 0)
+                        <span class="mobile-badge">{{ Auth::user()->wishlists()->count() }}</span>
+                    @endif
+                @endauth
+            </div>
+            <span>Favorit</span>
+        </a>
+        <a href="{{ route('contact') }}" class="mobile-nav-tab {{ request()->routeIs('contact') ? 'active' : '' }}">
+            <i data-lucide="message-square"></i>
+            <span>Bantuan</span>
+        </a>
+        @auth
+            @if(Auth::user()->isAdmin())
+                <a href="{{ route('admin.dashboard') }}" class="mobile-nav-tab {{ request()->routeIs('admin.*') ? 'active' : '' }}">
+                    <i data-lucide="shield" style="color: var(--accent-gold);"></i>
+                    <span style="color: var(--accent-gold);">Owner</span>
+                </a>
+            @else
+                <a href="{{ route('profile') }}" class="mobile-nav-tab {{ request()->routeIs('profile') ? 'active' : '' }}">
+                    <i data-lucide="user"></i>
+                    <span>Akun</span>
+                </a>
+            @endif
+        @else
+            <a href="{{ route('login') }}" class="mobile-nav-tab {{ request()->routeIs('login') ? 'active' : '' }}">
+                <i data-lucide="log-in"></i>
+                <span>Masuk</span>
+            </a>
+        @endauth
+    </nav>
+
     <!-- Toast Container -->
     <div id="toast-container" class="toast-container"></div>
 
