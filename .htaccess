@@ -5,6 +5,11 @@
 
     RewriteEngine On
 
+    # If asset exists in public folder, serve it directly
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(css|js|images|storage)/(.*)$ public/$1/$2 [L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
