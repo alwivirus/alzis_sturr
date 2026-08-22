@@ -6,8 +6,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Admin Panel') - ALzis STURR Hub</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v={{ time() }}">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -19,14 +22,18 @@
     <div class="admin-layout">
         <!-- Sidebar -->
         <aside class="admin-sidebar">
-            <!-- Brand & Role Card -->
+            <!-- Brand & Official Logo -->
             <div style="padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 14px;">
-                <a href="{{ route('home') }}" class="brand-logo" style="font-size: 1.25rem;">
-                    <span class="brand-dot"></span>
-                    <span>ALzis STURR</span>
-                    <span class="brand-badge" style="background: {{ Auth::user()->isOwner() ? 'var(--gold)' : 'var(--primary)' }};">
-                        {{ Auth::user()->isOwner() ? 'OWNER' : 'ADMIN' }}
-                    </span>
+                <a href="{{ route('home') }}" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+                    <img src="{{ asset('images/logo.png') }}" alt="ALzis Store Logo" style="height: 44px; width: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.4));">
+                    <div>
+                        <div style="font-size: 1.15rem; font-weight: 800; font-family: var(--font-heading); color: #fff; line-height: 1.1;">
+                            ALZIS <span style="color: var(--primary);">STORE</span>
+                        </div>
+                        <span class="brand-badge" style="background: {{ Auth::user()->isOwner() ? 'var(--gold)' : 'var(--primary)' }}; font-size: 0.65rem; padding: 1px 6px; margin-top: 3px; display: inline-block;">
+                            {{ Auth::user()->isOwner() ? '👑 OWNER UTAMA' : 'ADMIN' }}
+                        </span>
+                    </div>
                 </a>
                 
                 <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; margin-top: 14px; display: flex; align-items: center; gap: 10px;">
@@ -38,7 +45,7 @@
                             {{ Auth::user()->name }}
                         </div>
                         <div style="font-size: 0.7rem; color: {{ Auth::user()->isOwner() ? 'var(--gold)' : 'var(--primary)' }}; font-weight: 700;">
-                            {{ Auth::user()->isOwner() ? 'Owner Utama' : 'Admin Resmi' }}
+                            {{ Auth::user()->isOwner() ? 'Owner Toko' : 'Admin Toko' }}
                         </div>
                     </div>
                 </div>
@@ -94,7 +101,7 @@
 
             <!-- Bottom Actions -->
             <div style="padding-top: 12px; border-top: 1px solid var(--border); margin-top: auto;">
-                <a href="{{ route('home') }}" target="_blank" class="admin-nav-item">
+                <a href="{{ route('home') }}" target="_blank" class="admin-nav-item" style="color: #7dd3fc;">
                     <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
                     <span>Buka Toko Publik</span>
                 </a>
