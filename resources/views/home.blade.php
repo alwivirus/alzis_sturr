@@ -4,35 +4,61 @@
 
 @section('content')
 
-<!-- Hero Banner Section (Eldorado/Steam Marketplace Style) -->
+<!-- Hero Banner Section with Auto-Sliding Game Wallpaper Background -->
 <section class="hero-section">
     <div class="container">
         <div class="hero-banner-card">
-            <div class="hero-tag">
-                <i data-lucide="shield-check" style="width: 14px; height: 14px;"></i>
-                <span>Garansi 100% Anti Hackback</span>
+            
+            <!-- Sliding Background Images -->
+            <div class="hero-slider-container" id="heroSliderContainer">
+                <div class="hero-slide active" style="background-image: url('{{ asset('images/slides/slide-mlbb.jpg') }}');" data-game="Mobile Legends"></div>
+                <div class="hero-slide" style="background-image: url('{{ asset('images/slides/slide-ff.jpg') }}');" data-game="Free Fire"></div>
+                <div class="hero-slide" style="background-image: url('{{ asset('images/slides/slide-pubg.jpg') }}');" data-game="PUBG Mobile"></div>
+                <div class="hero-slide" style="background-image: url('{{ asset('images/slides/slide-valorant.jpg') }}');" data-game="Valorant"></div>
+                <div class="hero-slide" style="background-image: url('{{ asset('images/slides/slide-genshin.jpg') }}');" data-game="Genshin Impact"></div>
             </div>
 
-            <h1 class="hero-title">
-                Beli Akun Game Sultan <br>
-                Aman, Terpercaya & Siap Main.
-            </h1>
+            <!-- Dark Gradient Overlay for Maximum Text Contrast -->
+            <div class="hero-slider-overlay"></div>
 
-            <p class="hero-subtitle">
-                Pusat jual beli akun Mobile Legends, Free Fire, Genshin Impact, PUBGM, & Valorant langsung bersama Admin ALzis STURR. Transaksi kilat & serah terima data tuntas 5-10 menit.
-            </p>
+            <!-- Fixed Foreground Content -->
+            <div class="hero-content-layer">
+                <div class="hero-tag">
+                    <i data-lucide="shield-check" style="width: 14px; height: 14px;"></i>
+                    <span>Garansi 100% Anti Hackback</span>
+                </div>
 
-            <!-- Search Bar -->
-            <div class="hero-search-wrapper">
-                <i data-lucide="search" style="width: 18px; height: 18px; color: var(--text-dim); margin-left: 6px;"></i>
-                <form action="{{ route('catalog') }}" method="GET" style="display: flex; flex: 1; align-items: center; gap: 8px;">
-                    <input type="text" name="q" placeholder="Cari nama akun, skin, hero, rank...">
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        <span>Cari</span>
-                        <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
-                    </button>
-                </form>
+                <h1 class="hero-title">
+                    Beli Akun Game Sultan <br>
+                    Aman, Terpercaya & Siap Main.
+                </h1>
+
+                <p class="hero-subtitle">
+                    Pusat jual beli akun Mobile Legends, Free Fire, Genshin Impact, PUBGM, & Valorant langsung bersama Admin ALzis STURR. Transaksi kilat & serah terima data tuntas 5-10 menit.
+                </p>
+
+                <!-- Search Bar -->
+                <div class="hero-search-wrapper">
+                    <i data-lucide="search" style="width: 18px; height: 18px; color: var(--text-dim); margin-left: 6px;"></i>
+                    <form action="{{ route('catalog') }}" method="GET" style="display: flex; flex: 1; align-items: center; gap: 8px;">
+                        <input type="text" name="q" placeholder="Cari nama akun, skin, hero, rank...">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <span>Cari</span>
+                            <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
+
+            <!-- Slider Indicator Bars -->
+            <div class="hero-slider-indicators">
+                <div class="slider-dot active" onclick="jumpToSlide(0)"></div>
+                <div class="slider-dot" onclick="jumpToSlide(1)"></div>
+                <div class="slider-dot" onclick="jumpToSlide(2)"></div>
+                <div class="slider-dot" onclick="jumpToSlide(3)"></div>
+                <div class="slider-dot" onclick="jumpToSlide(4)"></div>
+            </div>
+
         </div>
     </div>
 </section>
@@ -230,7 +256,7 @@
             </div>
 
             <div style="display: flex; gap: 14px; align-items: flex-start;">
-                <div style="width: 42px; height: 42px; border-radius: var(--radius-sm); background: var(--accent-blue-light); color: var(--accent-blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <div style="width: 42px; height: 42px; border-radius: var(--radius-sm); background: var(--accent-purple-light); color: var(--accent-purple); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <i data-lucide="zap" style="width: 22px; height: 22px;"></i>
                 </div>
                 <div>
@@ -251,5 +277,41 @@
         </div>
     </div>
 </section>
+
+@push('scripts')
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.slider-dot');
+    let slideTimer;
+
+    function showSlide(index) {
+        if (slides.length === 0) return;
+        slides.forEach((s, i) => {
+            s.classList.toggle('active', i === index);
+        });
+        dots.forEach((d, i) => {
+            d.classList.toggle('active', i === index);
+        });
+        currentSlide = index;
+    }
+
+    function nextSlide() {
+        let next = (currentSlide + 1) % slides.length;
+        showSlide(next);
+    }
+
+    function jumpToSlide(index) {
+        clearInterval(slideTimer);
+        showSlide(index);
+        slideTimer = setInterval(nextSlide, 4000);
+    }
+
+    // Start auto slide
+    if (slides.length > 1) {
+        slideTimer = setInterval(nextSlide, 4000);
+    }
+</script>
+@endpush
 
 @endsection
