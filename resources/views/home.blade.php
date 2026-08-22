@@ -11,11 +11,10 @@
             
             <!-- Sliding Background Images -->
             <div class="hero-slider-container" id="heroSliderContainer">
-                <div class="hero-slide active" style="background-image: url('{{ asset('images/slides/slide-mlbb.jpg') }}');" data-game="Mobile Legends"></div>
-                <div class="hero-slide" style="background-image: url('{{ asset('images/slides/slide-ff.jpg') }}');" data-game="Free Fire"></div>
-                <div class="hero-slide" style="background-image: url('{{ asset('images/slides/slide-pubg.jpg') }}');" data-game="PUBG Mobile"></div>
-                <div class="hero-slide" style="background-image: url('{{ asset('images/slides/slide-valorant.jpg') }}');" data-game="Valorant"></div>
-                <div class="hero-slide" style="background-image: url('{{ asset('images/slides/slide-genshin.jpg') }}');" data-game="Genshin Impact"></div>
+                <div class="hero-slide active" style="background-image: url('{{ asset('images/slides/slide-valorant.jpg') }}?v={{ time() }}');" data-game="Valorant"></div>
+                <div class="hero-slide" style="background-image: url('{{ asset('images/slides/slide-mlbb.jpg') }}?v={{ time() }}');" data-game="Mobile Legends"></div>
+                <div class="hero-slide" style="background-image: url('{{ asset('images/slides/slide-ff.jpg') }}?v={{ time() }}');" data-game="Free Fire"></div>
+                <div class="hero-slide" style="background-image: url('{{ asset('images/slides/slide-pubg.jpg') }}?v={{ time() }}');" data-game="PUBG Mobile"></div>
             </div>
 
             <!-- Dark Gradient Overlay for Maximum Text Contrast -->
@@ -52,11 +51,10 @@
 
             <!-- Slider Indicator Bars -->
             <div class="hero-slider-indicators">
-                <div class="slider-dot active" onclick="jumpToSlide(0)"></div>
-                <div class="slider-dot" onclick="jumpToSlide(1)"></div>
-                <div class="slider-dot" onclick="jumpToSlide(2)"></div>
-                <div class="slider-dot" onclick="jumpToSlide(3)"></div>
-                <div class="slider-dot" onclick="jumpToSlide(4)"></div>
+                <div class="slider-dot active" onclick="jumpToSlide(0)" title="Valorant"></div>
+                <div class="slider-dot" onclick="jumpToSlide(1)" title="Mobile Legends"></div>
+                <div class="slider-dot" onclick="jumpToSlide(2)" title="Free Fire"></div>
+                <div class="slider-dot" onclick="jumpToSlide(3)" title="PUBG Mobile"></div>
             </div>
 
         </div>
