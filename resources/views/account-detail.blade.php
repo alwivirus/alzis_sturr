@@ -134,7 +134,7 @@
                         </p>
                         
                         <div class="cta-buttons" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\SiteSetting::get('whatsapp_number', '6281234567890')) }}?text=Halo%20Admin%20ALzis%20STURR,%20saya%20tertarik%20membeli%20akun%20{{ urlencode($account->title) }}%20[Kode:%20{{ $account->code }}]%20seharga%20{{ urlencode($account->formatted_effective_price) }}" target="_blank" class="btn btn-primary" style="background: #25D366; border-color: #25D366; color: #fff; font-weight: 700; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35); border-radius: 14px; padding: 12px;">
+                            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\SiteSetting::get('whatsapp_number', '6282324634848')) }}?text=Halo%20Admin%20ALzis%20STURR,%20saya%20tertarik%20membeli%20akun%20{{ urlencode($account->title) }}%20[Kode:%20{{ $account->code }}]%20seharga%20{{ urlencode($account->formatted_effective_price) }}" target="_blank" class="btn btn-primary" style="background: #25D366; border-color: #25D366; color: #fff; font-weight: 700; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35); border-radius: 14px; padding: 12px;">
                                 <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i>
                                 <span>Beli via WhatsApp</span>
                             </a>

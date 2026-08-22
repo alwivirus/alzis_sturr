@@ -24,13 +24,21 @@
             </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 20px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div class="form-group">
+                <label class="form-label">Nomor WhatsApp Resmi Transaksi</label>
+                <input type="text" name="whatsapp_number" value="{{ old('whatsapp_number', $settings['whatsapp_number'] ?? '6282324634848') }}" class="input-control" placeholder="6282324634848">
+                <span class="form-helper">Nomor WA yang otomatis dituju saat pembeli klik tombol 'Beli via WhatsApp'.</span>
+            </div>
+
             <div class="form-group">
                 <label class="form-label">Link Invite Discord Server Resmi <span style="color: var(--danger);">*</span></label>
                 <input type="url" name="discord_invite_url" value="{{ old('discord_invite_url', $settings['discord_invite_url'] ?? 'https://discord.gg/alzis-sturr') }}" class="input-control" placeholder="https://discord.gg/alzis-sturr" required>
                 <span class="form-helper">Link server / ticket discord untuk transaksi & bantuan.</span>
             </div>
+        </div>
 
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
                 <label class="form-label">Username Instagram Resmi <span style="color: var(--danger);">*</span></label>
                 <input type="text" name="instagram_username" value="{{ old('instagram_username', $settings['instagram_username']) }}" class="input-control" placeholder="alzis_sturr" required>
