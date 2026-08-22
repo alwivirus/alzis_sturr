@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
 @section('title', 'Kelola Stok Akun - ALzis STURR Admin')
-@section('page_title', 'KELOLA SEMUA STOK AKUN GAME')
+@section('page_title', 'Kelola Stok Akun Game')
 
 @section('header_actions')
 <a href="{{ route('admin.accounts.create') }}" class="btn btn-primary btn-sm">
-    <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
+    <i data-lucide="plus" style="width: 15px; height: 15px;"></i>
     <span>+ Tambah Akun Baru</span>
 </a>
 @endsection
@@ -13,9 +13,9 @@
 @section('content')
 
 <!-- Search & Filter Bar -->
-<div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 18px; margin-bottom: 24px;">
-    <form action="{{ route('admin.accounts.index') }}" method="GET" style="display: grid; grid-template-columns: 2fr 1.5fr 1fr auto; gap: 12px; align-items: center;">
-        <input type="text" name="q" value="{{ request('q') }}" class="input-control" placeholder="Cari kode akun (#AZS-01) atau judul...">
+<div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 20px; margin-bottom: 20px;">
+    <form action="{{ route('admin.accounts.index') }}" method="GET" style="display: grid; grid-template-columns: 2fr 1.5fr 1fr auto; gap: 10px; align-items: center;">
+        <input type="text" name="q" value="{{ request('q') }}" class="input-control" placeholder="Cari kode (#AZS-01), nama akun, atau hero...">
         
         <select name="category" class="input-control">
             <option value="">Semua Kategori Game</option>
@@ -26,12 +26,12 @@
 
         <select name="status" class="input-control">
             <option value="">Semua Status</option>
-            <option value="available" {{ request('status') == 'available' ? 'selected' : '' }}>🟢 Ready (Tersedia)</option>
-            <option value="sold" {{ request('status') == 'sold' ? 'selected' : '' }}>🔴 Terjual (Sold)</option>
+            <option value="available" {{ request('status') == 'available' ? 'selected' : '' }}>Ready (Tersedia)</option>
+            <option value="sold" {{ request('status') == 'sold' ? 'selected' : '' }}>Terjual (Sold)</option>
         </select>
 
-        <button type="submit" class="btn btn-secondary">
-            <i data-lucide="filter" style="width: 16px; height: 16px;"></i>
+        <button type="submit" class="btn btn-secondary btn-sm">
+            <i data-lucide="filter" style="width: 15px; height: 15px;"></i>
             <span>Filter</span>
         </button>
     </form>
@@ -45,7 +45,7 @@
                 <tr>
                     <th>Foto & Kode</th>
                     <th>Judul & Spesifikasi</th>
-                    <th>Kategori / Server</th>
+                    <th>Game / Server</th>
                     <th>Status Bind</th>
                     <th>Harga Net</th>
                     <th>Status Stok</th>
@@ -56,39 +56,39 @@
                 @forelse($accounts as $acc)
                     <tr>
                         <td>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <img src="{{ $acc->thumbnail_url }}" alt="{{ $acc->title }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: var(--radius-sm);">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <img src="{{ $acc->thumbnail_url }}" alt="{{ $acc->title }}" style="width: 48px; height: 48px; object-fit: cover; border-radius: var(--radius-sm); background: #000;">
                                 <div>
-                                    <span class="badge-code" style="position: static; padding: 2px 8px; font-size: 0.8rem;">#{{ $acc->code }}</span>
+                                    <span class="tag-badge" style="font-family: monospace; font-weight: 700;">#{{ $acc->code }}</span>
                                     @if($acc->is_featured)
-                                        <div style="font-size: 0.65rem; color: var(--accent-gold); font-weight: 700; margin-top: 2px;">★ FEATURED</div>
+                                        <div style="font-size: 0.68rem; color: var(--gold); font-weight: 700; margin-top: 2px;">★ SULTAN</div>
                                     @endif
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <div style="font-weight: 600; color: #fff; max-width: 250px; line-height: 1.3;">
-                                <a href="{{ route('account.show', $acc->slug) }}" target="_blank" style="color: #fff; hover:color: var(--primary);">
+                            <div style="font-weight: 700; color: #fff; max-width: 260px; line-height: 1.3;">
+                                <a href="{{ route('account.show', $acc->slug) }}" target="_blank" style="color: #fff;">
                                     {{ $acc->title }}
                                 </a>
                             </div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
-                                {{ $acc->rank_tier ? 'Rank: ' . $acc->rank_tier : '' }} {{ $acc->skin_count ? '• ' . $acc->skin_count . ' Skin' : '' }}
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 3px;">
+                                {{ $acc->rank_tier ? 'Rank: ' . $acc->rank_tier : '' }} {{ $acc->total_skins ? '• ' . $acc->total_skins . ' Skin' : '' }}
                             </div>
                         </td>
                         <td>
                             <div style="font-weight: 600; color: var(--primary);">{{ $acc->category->name }}</div>
-                            <div style="font-size: 0.75rem; color: #7dd3fc;">Server: {{ $acc->server }}</div>
+                            <div style="font-size: 0.75rem; color: var(--text-dim);">{{ $acc->server }}</div>
                         </td>
                         <td>
-                            <div style="font-size: 0.8rem; color: #d8b4fe; max-width: 180px;">{{ $acc->login_bind }}</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted); max-width: 160px;">{{ $acc->login_bind }}</div>
                         </td>
                         <td>
-                            <div style="font-family: var(--font-gaming); font-size: 1.1rem; font-weight: 700; color: #38bdf8;">
+                            <div style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 800; color: #fff;">
                                 {{ $acc->formatted_effective_price }}
                             </div>
                             @if($acc->discount_price)
-                                <div style="font-size: 0.7rem; color: var(--text-sub); text-decoration: line-through;">
+                                <div style="font-size: 0.7rem; color: var(--text-dim); text-decoration: line-through;">
                                     {{ $acc->formatted_price }}
                                 </div>
                             @endif
@@ -96,24 +96,21 @@
                         <td>
                             <form action="{{ route('admin.accounts.toggle-status', $acc->id) }}" method="POST" style="display: inline;">
                                 @csrf
-                                <button type="submit" class="btn btn-sm {{ $acc->status === 'available' ? 'btn-whatsapp' : 'btn-secondary' }}" style="font-size: 0.75rem; padding: 4px 10px;" title="Klik untuk switch status">
+                                <button type="submit" class="btn btn-sm" style="font-size: 0.75rem; padding: 3px 8px; {{ $acc->status === 'available' ? 'background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border);' : 'background: rgba(244,63,94,0.12); color: var(--danger); border: 1px solid rgba(244,63,94,0.3);' }}" title="Klik untuk switch status">
                                     {{ $acc->status === 'available' ? '🟢 Ready' : '🔴 Sold' }}
                                 </button>
                             </form>
                         </td>
                         <td style="text-align: right;">
                             <div style="display: inline-flex; gap: 6px;">
-                                <a href="{{ route('account.show', $acc->slug) }}" target="_blank" class="btn btn-secondary btn-icon" style="width: 32px; height: 32px;" title="Lihat Toko">
-                                    <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                                <a href="{{ route('admin.accounts.edit', $acc->id) }}" class="btn btn-secondary btn-sm" style="padding: 4px 8px;" title="Edit Akun">
+                                    <i data-lucide="edit-3" style="width: 14px; height: 14px;"></i>
                                 </a>
-                                <a href="{{ route('admin.accounts.edit', $acc->id) }}" class="btn btn-secondary btn-icon" style="width: 32px; height: 32px;" title="Edit Akun">
-                                    <i data-lucide="edit" style="width: 14px; height: 14px;"></i>
-                                </a>
-                                <form action="{{ route('admin.accounts.destroy', $acc->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus akun [{{ $acc->code }}]? Data yang dihapus tidak dapat dikembalikan.')">
+                                <form action="{{ route('admin.accounts.destroy', $acc->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus akun ini?');" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-secondary btn-icon" style="width: 32px; height: 32px; color: var(--danger);" title="Hapus Akun">
-                                        <i data-lucide="trash" style="width: 14px; height: 14px;"></i>
+                                    <button type="submit" class="btn btn-secondary btn-sm" style="padding: 4px 8px; color: var(--danger);" title="Hapus Akun">
+                                        <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
                                     </button>
                                 </form>
                             </div>
@@ -121,7 +118,9 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" style="text-align: center; color: var(--text-sub); padding: 40px;">Tidak ada akun game ditemukan.</td>
+                        <td colspan="7" style="text-align: center; color: var(--text-dim); padding: 40px;">
+                            Tidak ada akun game yang ditemukan.
+                        </td>
                     </tr>
                 @endforelse
             </tbody>
@@ -129,9 +128,11 @@
     </div>
 
     <!-- Pagination -->
-    <div style="padding: 20px; display: flex; justify-content: center;">
+    @if($accounts->hasPages())
+    <div style="padding: 16px 20px; border-top: 1px solid var(--border); display: flex; justify-content: center;">
         {{ $accounts->links() }}
     </div>
+    @endif
 </div>
 
 @endsection

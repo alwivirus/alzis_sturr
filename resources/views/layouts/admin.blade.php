@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin Panel') - ALzis STURR Admin Hub</title>
+    <title>@yield('title', 'Admin Panel') - ALzis STURR Hub</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ asset('css/alzis.css') }}">
@@ -14,108 +14,108 @@
 
     @stack('styles')
 </head>
-<body style="background: #090d16;">
+<body style="background: var(--bg-body); color: var(--text-main);">
 
     <div class="admin-layout">
         <!-- Sidebar -->
-        <aside class="admin-sidebar" style="display: flex; flex-direction: column; height: 100vh; position: sticky; top: 0; overflow-y: auto;">
+        <aside class="admin-sidebar">
             <!-- Brand & Role Card -->
-            <div style="padding: 0 8px 20px; border-bottom: 1px solid var(--border-color); margin-bottom: 16px;">
-                <a href="{{ route('home') }}" class="brand-logo" style="font-size: 1.35rem; text-decoration: none;">
-                    <span class="text-gradient-cyan">ALZIS</span>
-                    <span class="logo-badge" style="font-size: 0.7rem; background: {{ Auth::user()->isOwner() ? 'linear-gradient(135deg, #f59e0b, #d97706)' : 'var(--primary-gradient)' }}; color: #090d16; font-weight: 800;">
+            <div style="padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 14px;">
+                <a href="{{ route('home') }}" class="brand-logo" style="font-size: 1.25rem;">
+                    <span class="brand-dot"></span>
+                    <span>ALzis STURR</span>
+                    <span class="brand-badge" style="background: {{ Auth::user()->isOwner() ? 'var(--gold)' : 'var(--primary)' }};">
                         {{ Auth::user()->isOwner() ? 'OWNER' : 'ADMIN' }}
                     </span>
                 </a>
                 
-                <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 10px 12px; margin-top: 14px; display: flex; align-items: center; gap: 10px;">
-                    <div style="width: 34px; height: 34px; border-radius: 50%; background: {{ Auth::user()->isOwner() ? 'linear-gradient(135deg, #f59e0b, #b45309)' : 'rgba(0, 242, 254, 0.15)' }}; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 0.85rem; flex-shrink: 0; border: 1px solid {{ Auth::user()->isOwner() ? '#fbbf24' : 'var(--border-glow)' }};">
+                <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; margin-top: 14px; display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 32px; height: 32px; border-radius: 50%; background: {{ Auth::user()->isOwner() ? 'rgba(245, 158, 11, 0.2)' : 'var(--primary-light)' }}; display: flex; align-items: center; justify-content: center; color: {{ Auth::user()->isOwner() ? 'var(--gold)' : 'var(--primary)' }}; font-weight: 800; font-size: 0.85rem; flex-shrink: 0; border: 1px solid {{ Auth::user()->isOwner() ? 'var(--gold-border)' : 'var(--primary-border)' }};">
                         {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                     </div>
                     <div style="overflow: hidden; flex: 1;">
-                        <div style="font-size: 0.85rem; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <div style="font-size: 0.82rem; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                             {{ Auth::user()->name }}
                         </div>
-                        <div style="margin-top: 2px;">
-                            {!! Auth::user()->role_badge !!}
+                        <div style="font-size: 0.7rem; color: {{ Auth::user()->isOwner() ? 'var(--gold)' : 'var(--primary)' }}; font-weight: 700;">
+                            {{ Auth::user()->isOwner() ? 'Owner Utama' : 'Admin Resmi' }}
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Navigation Sections -->
-            <nav style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
-                <!-- Section 1: Toko & Stok -->
-                <div style="font-size: 0.68rem; font-weight: 800; text-transform: uppercase; color: var(--text-sub); letter-spacing: 1px; padding: 8px 12px 4px;">
+            <!-- Navigation Links -->
+            <nav style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                <div style="font-size: 0.68rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.5px; padding: 6px 12px 2px;">
                     MANAJEMEN TOKO
                 </div>
 
                 <a href="{{ route('admin.dashboard') }}" class="admin-nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                    <i data-lucide="layout-dashboard" style="width: 17px; height: 17px;"></i>
+                    <i data-lucide="layout-dashboard" style="width: 16px; height: 16px;"></i>
                     <span>Dashboard Utama</span>
                 </a>
 
                 <a href="{{ route('admin.accounts.index') }}" class="admin-nav-item {{ request()->routeIs('admin.accounts.*') ? 'active' : '' }}">
-                    <i data-lucide="gamepad-2" style="width: 17px; height: 17px;"></i>
-                    <span>Kelola Stok Akun Game</span>
+                    <i data-lucide="gamepad-2" style="width: 16px; height: 16px;"></i>
+                    <span>Kelola Stok Akun</span>
                 </a>
 
                 <a href="{{ route('admin.categories.index') }}" class="admin-nav-item {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
-                    <i data-lucide="folder-kanban" style="width: 17px; height: 17px;"></i>
+                    <i data-lucide="folder" style="width: 16px; height: 16px;"></i>
                     <span>Kategori Game</span>
                 </a>
 
                 <a href="{{ route('admin.settings.index') }}" class="admin-nav-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
-                    <i data-lucide="settings-2" style="width: 17px; height: 17px;"></i>
-                    <span>Pengaturan Toko & Kontak</span>
+                    <i data-lucide="settings" style="width: 16px; height: 16px;"></i>
+                    <span>Pengaturan Toko & WA</span>
                 </a>
 
-                <!-- Section 2: Owner Special Control -->
-                <div style="font-size: 0.68rem; font-weight: 800; text-transform: uppercase; color: #f59e0b; letter-spacing: 1px; padding: 14px 12px 4px; display: flex; align-items: center; gap: 6px;">
+                <!-- Section 2: Owner Control -->
+                <div style="font-size: 0.68rem; font-weight: 700; text-transform: uppercase; color: var(--gold); letter-spacing: 0.5px; padding: 12px 12px 2px; display: flex; align-items: center; gap: 4px;">
                     <i data-lucide="crown" style="width: 12px; height: 12px;"></i>
                     <span>KONTROL OWNER</span>
                 </div>
 
                 <a href="{{ route('admin.users.index') }}" class="admin-nav-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
-                    <i data-lucide="users" style="width: 17px; height: 17px; color: #38bdf8;"></i>
+                    <i data-lucide="users" style="width: 16px; height: 16px;"></i>
                     <span>Kelola Pengguna & Role</span>
                 </a>
 
                 <a href="{{ route('admin.logs.index') }}" class="admin-nav-item {{ request()->routeIs('admin.logs.*') ? 'active' : '' }}">
-                    <i data-lucide="shield-alert" style="width: 17px; height: 17px; color: #f59e0b;"></i>
+                    <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
                     <span>Log Audit Aktivitas</span>
                 </a>
 
                 <a href="{{ route('profile') }}" class="admin-nav-item {{ request()->routeIs('profile') ? 'active' : '' }}">
-                    <i data-lucide="user-cog" style="width: 17px; height: 17px;"></i>
-                    <span>Profil & Password Saya</span>
+                    <i data-lucide="user" style="width: 16px; height: 16px;"></i>
+                    <span>Profil & Password</span>
                 </a>
             </nav>
 
             <!-- Bottom Actions -->
-            <div style="padding-top: 14px; border-top: 1px solid var(--border-color); margin-top: auto;">
-                <a href="{{ route('home') }}" target="_blank" class="admin-nav-item" style="color: #93c5fd;">
-                    <i data-lucide="external-link" style="width: 17px; height: 17px;"></i>
+            <div style="padding-top: 12px; border-top: 1px solid var(--border); margin-top: auto;">
+                <a href="{{ route('home') }}" target="_blank" class="admin-nav-item">
+                    <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
                     <span>Buka Toko Publik</span>
                 </a>
 
-                <form action="{{ route('logout') }}" method="POST" style="margin-top: 4px;">
+                <form action="{{ route('logout') }}" method="POST" style="margin-top: 2px;">
                     @csrf
                     <button type="submit" class="admin-nav-item" style="width: 100%; border: none; background: transparent; cursor: pointer; color: var(--danger);">
-                        <i data-lucide="log-out" style="width: 17px; height: 17px;"></i>
+                        <i data-lucide="log-out" style="width: 16px; height: 16px;"></i>
                         <span>Keluar Panel Admin</span>
                     </button>
                 </form>
             </div>
         </aside>
 
-        <!-- Main Content Area -->
+        <!-- Main Content Workspace -->
         <main class="admin-content">
-            <!-- Header for Mobile / Breadcrumb -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border-color);">
+            <!-- Header Breadcrumb & Actions -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 14px;">
                 <div>
-                    <span style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">ALzis STURR Management Portal</span>
-                    <h2 class="font-gaming" style="font-size: 1.8rem; color: #fff; margin-top: 2px;">@yield('page_title', 'Admin Dashboard')</h2>
+                    <span style="font-size: 0.78rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700;">ALzis STURR Command Portal</span>
+                    <h2 class="font-heading" style="font-size: 1.6rem; color: #fff; margin-top: 2px; font-weight: 800;">@yield('page_title', 'Admin Dashboard')</h2>
                 </div>
                 <div>
                     @yield('header_actions')
@@ -125,22 +125,22 @@
             <!-- Flash Messages -->
             @if(session('success'))
                 <div class="alert alert-success">
-                    <i data-lucide="check-circle-2" style="width: 20px; height: 20px;"></i>
+                    <i data-lucide="check-circle-2" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
                     <span>{{ session('success') }}</span>
                 </div>
             @endif
 
             @if(session('error'))
                 <div class="alert alert-danger">
-                    <i data-lucide="alert-circle" style="width: 20px; height: 20px;"></i>
+                    <i data-lucide="alert-circle" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
                     <span>{{ session('error') }}</span>
                 </div>
             @endif
 
             @if($errors->any())
                 <div class="alert alert-danger">
-                    <i data-lucide="alert-circle" style="width: 20px; height: 20px;"></i>
-                    <ul style="margin-left: 20px;">
+                    <i data-lucide="alert-circle" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
+                    <ul style="margin-left: 16px;">
                         @foreach($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
