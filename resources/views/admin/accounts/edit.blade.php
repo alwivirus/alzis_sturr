@@ -178,13 +178,9 @@
                     @foreach($account->images as $img)
                         <div style="position: relative; width: 110px; height: 80px; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border-color); background: #0f172a;">
                             <img src="{{ $img->image_url }}" alt="Screenshot" style="width: 100%; height: 100%; object-fit: cover;">
-                            <form action="{{ route('admin.accounts.delete-image', $img->id) }}" method="POST" onsubmit="return confirm('Hapus foto screenshot ini?')" style="position: absolute; top: 4px; right: 4px; z-index: 5;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" style="width: 24px; height: 24px; border-radius: 50%; background: rgba(239, 68, 68, 0.9); border: none; color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; font-size: 14px;" title="Hapus foto ini">
-                                    ×
-                                </button>
-                            </form>
+                            <button type="button" onclick="deleteScreenshot({{ $img->id }})" style="position: absolute; top: 4px; right: 4px; z-index: 5; width: 24px; height: 24px; border-radius: 50%; background: rgba(239, 68, 68, 0.9); border: none; color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; font-size: 14px;" title="Hapus foto ini">
+                                ×
+                            </button>
                         </div>
                     @endforeach
                 </div>
@@ -216,6 +212,12 @@
         </div>
     </form>
 
+    <!-- Hidden Form for Deleting Screenshots -->
+    <form id="deleteScreenshotForm" method="POST" action="" style="display: none;">
+        @csrf
+        @method('DELETE')
+    </form>
+
     <!-- Separate Delete Form for Safety -->
     <div style="margin-top: 24px; padding-top: 20px; border-top: 1px dashed rgba(239, 68, 68, 0.3); display: flex; justify-content: space-between; align-items: center;">
         <div>
@@ -232,5 +234,17 @@
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    function deleteScreenshot(imageId) {
+        if (confirm('Hapus foto screenshot ini dari galeri?')) {
+            var form = document.getElementById('deleteScreenshotForm');
+            form.action = '/admin/accounts/images/' + imageId;
+            form.submit();
+        }
+    }
+</script>
+@endpush
 
 @endsection
