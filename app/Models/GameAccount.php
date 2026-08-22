@@ -108,15 +108,15 @@ class GameAccount extends Model
 
     public function getThumbnailUrlAttribute()
     {
-        if ($this->thumbnail && file_exists(public_path($this->thumbnail))) {
-            return asset($this->thumbnail);
+        if (empty($this->thumbnail)) {
+            return asset('images/default-account.jpg');
         }
-        if ($this->thumbnail && str_starts_with($this->thumbnail, 'http')) {
+        if (str_starts_with($this->thumbnail, 'http://') || str_starts_with($this->thumbnail, 'https://')) {
             return $this->thumbnail;
         }
-        if ($this->thumbnail && file_exists(storage_path('app/public/' . $this->thumbnail))) {
-            return asset('storage/' . $this->thumbnail);
+        if (file_exists(public_path($this->thumbnail))) {
+            return asset($this->thumbnail);
         }
-        return asset('images/default-account.jpg');
+        return asset('storage/' . ltrim($this->thumbnail, '/'));
     }
 }

@@ -23,15 +23,15 @@ class AccountImage extends Model
 
     public function getImageUrlAttribute()
     {
-        if ($this->image_path && file_exists(public_path($this->image_path))) {
-            return asset($this->image_path);
+        if (empty($this->image_path)) {
+            return asset('images/default-account.jpg');
         }
-        if ($this->image_path && str_starts_with($this->image_path, 'http')) {
+        if (str_starts_with($this->image_path, 'http://') || str_starts_with($this->image_path, 'https://')) {
             return $this->image_path;
         }
-        if ($this->image_path && file_exists(storage_path('app/public/' . $this->image_path))) {
-            return asset('storage/' . $this->image_path);
+        if (file_exists(public_path($this->image_path))) {
+            return asset($this->image_path);
         }
-        return asset($this->image_path);
+        return asset('storage/' . ltrim($this->image_path, '/'));
     }
 }
