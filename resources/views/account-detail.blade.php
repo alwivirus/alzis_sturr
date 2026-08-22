@@ -108,8 +108,9 @@
                         </div>
 
                         <!-- Wishlist Toggle -->
-                        <button class="btn btn-secondary btn-icon btn-toggle-wishlist" data-id="{{ $account->id }}" title="Simpan ke Wishlist">
-                            <i data-lucide="heart" style="width: 20px; height: 20px; {{ $account->isWishlistedBy(Auth::user()) ? 'color: #f43f5e;' : '' }}"></i>
+                        @php $isW = Auth::check() && $account->isWishlistedBy(Auth::user()); @endphp
+                        <button class="btn btn-secondary btn-icon btn-toggle-wishlist" data-id="{{ $account->id }}" title="Simpan ke Wishlist" style="{{ $isW ? 'color: #f43f5e; border-color: #f43f5e;' : '' }}">
+                            <i data-lucide="heart" style="width: 20px; height: 20px; color: {{ $isW ? '#f43f5e' : 'inherit' }}; {{ $isW ? 'fill: #f43f5e;' : '' }}"></i>
                         </button>
                     </div>
                 </div>

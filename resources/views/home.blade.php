@@ -175,8 +175,9 @@
                             </div>
 
                             <div class="account-actions">
-                                <button class="btn btn-secondary btn-icon btn-toggle-wishlist" data-id="{{ $acc->id }}" title="Simpan ke Wishlist">
-                                    <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+                                @php $isW = Auth::check() && $acc->isWishlistedBy(Auth::user()); @endphp
+                                <button class="btn btn-secondary btn-icon btn-toggle-wishlist" data-id="{{ $acc->id }}" title="Simpan ke Wishlist" style="{{ $isW ? 'color: #f43f5e; border-color: #f43f5e;' : '' }}">
+                                    <i data-lucide="heart" style="width: 16px; height: 16px; color: {{ $isW ? '#f43f5e' : 'inherit' }}; {{ $isW ? 'fill: #f43f5e;' : '' }}"></i>
                                 </button>
                                 <a href="{{ route('account.show', $acc->slug) }}" class="btn btn-primary btn-sm">
                                     <span>Detail</span>

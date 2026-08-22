@@ -28,10 +28,10 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::post('/wishlist/{id}', [HomeController::class, 'toggleWishlist'])->name('wishlist.toggle');
 
 // --- AUTHENTICATED USER ROUTES ---
 Route::middleware('auth')->group(function () {
-    Route::post('/wishlist/{id}', [HomeController::class, 'toggleWishlist'])->name('wishlist.toggle');
     Route::get('/wishlist', [HomeController::class, 'myWishlist'])->name('wishlist.index');
     Route::get('/profil', [AuthController::class, 'profile'])->name('profile');
     Route::put('/profil', [AuthController::class, 'updateProfile'])->name('profile.update');

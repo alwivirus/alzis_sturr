@@ -180,36 +180,49 @@ class HomeController extends Controller
     public function toggleWishlist(Request $request, $id)
     {
         if (!Auth::check()) {
-            if ($request->wantsJson()) {
-                return response()->json(['status' => 'unauthenticated', 'message' => 'Silakan login terlebih dahulu untuk menyimpan wishlist.'], 401);
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json([
+                    'status' => 'unauthenticated',
+                    'message' => 'Silakan masuk / daftar akun terlebih dahulu untuk menyimpan akun ke Wishlist.',
+                    'redirect' => route('login'),
+                ], 401);
             }
-            return redirect()->route('login')->with('warning', 'Silakan login untuk menyimpan akun ke Wishlist.');
+            return redirect()->route('login')->with('warning', 'Silakan login terlebih dahulu untuk menyimpan akun ke Wishlist.');
         }
 
         $userId = Auth::id();
-        $account = GameAccount::findOrFail($id);
+        $account = GameAccount::find($id);
+
+        if (!$account) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Akun game tidak ditemukan atau telah dihapus.',
+            ], 404);
+        }
 
         $wishlist = Wishlist::where('user_id', $userId)->where('game_account_id', $account->id)->first();
 
         if ($wishlist) {
             $wishlist->delete();
             $isWishlisted = false;
-            $msg = 'Akun dihapus dari daftar Wishlist.';
+            $msg = "Akun [{$account->code}] dihapus dari Wishlist Anda.";
         } else {
             Wishlist::create([
                 'user_id' => $userId,
                 'game_account_id' => $account->id,
             ]);
             $isWishlisted = true;
-            $msg = 'Akun berhasil disimpan ke Wishlist!';
+            $msg = "Akun [{$account->code}] berhasil ditambahkan ke Wishlist!";
         }
 
-        if ($request->wantsJson()) {
+        $totalWishlists = Wishlist::where('user_id', $userId)->count();
+
+        if ($request->wantsJson() || $request->ajax()) {
             return response()->json([
                 'status' => 'success',
                 'is_wishlisted' => $isWishlisted,
                 'message' => $msg,
-                'total_wishlists' => Auth::user()->wishlists()->count(),
+                'total_wishlists' => $totalWishlists,
             ]);
         }
 
@@ -219,12 +232,19 @@ class HomeController extends Controller
     public function myWishlist()
     {
         $user = Auth::user();
-        $wishlists = Wishlist::with(['gameAccount.category'])
+
+        // Clean up any orphan wishlist entries where the account was deleted
+        Wishlist::whereDoesntHave('gameAccount')->delete();
+
+        $wishlists = Wishlist::has('gameAccount')
+            ->with(['gameAccount.category'])
             ->where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->paginate(12);
 
-        return view('user.wishlist', compact('wishlists'));
+        $totalCount = $wishlists->total();
+
+        return view('user.wishlist', compact('wishlists', 'totalCount'));
     }
 
     public function howToBuy()

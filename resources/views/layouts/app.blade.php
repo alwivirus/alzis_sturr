@@ -90,9 +90,12 @@
                 <!-- Nav Actions -->
                 <div class="nav-actions">
                     @auth
-                        <!-- Wishlist Button -->
-                        <a href="{{ route('wishlist.index') }}" class="btn btn-secondary btn-icon" title="Wishlist Akun">
-                            <i data-lucide="heart" style="width: 18px; height: 18px; color: #f43f5e;"></i>
+                        <!-- Wishlist Button with Live Badge -->
+                        <a href="{{ route('wishlist.index') }}" class="btn btn-secondary btn-icon" title="Wishlist Akun Favorit" style="position: relative;">
+                            <i data-lucide="heart" style="width: 18px; height: 18px; color: #f43f5e; {{ Auth::user()->wishlists()->count() > 0 ? 'fill: #f43f5e;' : '' }}"></i>
+                            <span id="nav-wishlist-badge" class="wishlist-badge" style="{{ Auth::user()->wishlists()->count() > 0 ? 'display: flex;' : 'display: none;' }}">
+                                {{ Auth::user()->wishlists()->count() }}
+                            </span>
                         </a>
 
                         @if(Auth::user()->isAdmin())
@@ -115,6 +118,9 @@
                             </button>
                         </form>
                     @else
+                        <a href="{{ route('wishlist.index') }}" class="btn btn-secondary btn-icon" title="Wishlist Akun" style="position: relative;">
+                            <i data-lucide="heart" style="width: 18px; height: 18px; color: #f43f5e;"></i>
+                        </a>
                         <a href="{{ route('login') }}" class="btn btn-secondary btn-sm">
                             <i data-lucide="log-in" style="width: 16px; height: 16px;"></i>
                             <span>Masuk</span>
@@ -232,9 +238,34 @@
         </div>
     </footer>
 
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
     <!-- Initialize Lucide Icons -->
     <script>
         lucide.createIcons();
+
+        // Cyber Toast Notification helper
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = `toast-alert toast-${type}`;
+            const iconSvg = type === 'success' 
+                ? `<svg style="width: 18px; height: 18px; color: #00f2fe; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>`
+                : `<svg style="width: 18px; height: 18px; color: #f43f5e; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
+            
+            toast.innerHTML = `${iconSvg}<span>${message}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => toast.classList.add('show'), 50);
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
 
         // AJAX Wishlist toggle handler
         document.addEventListener('DOMContentLoaded', function () {
@@ -242,36 +273,90 @@
                 button.addEventListener('click', function (e) {
                     e.preventDefault();
                     const accountId = this.getAttribute('data-id');
-                    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    const isRemoveCard = this.getAttribute('data-remove-card') === 'true';
+                    const tokenMeta = document.querySelector('meta[name="csrf-token"]');
+                    const token = tokenMeta ? tokenMeta.getAttribute('content') : '';
+
+                    this.style.transform = 'scale(0.85)';
+                    setTimeout(() => { this.style.transform = 'scale(1)'; }, 150);
 
                     fetch(`/wishlist/${accountId}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': token,
-                            'Accept': 'application/json'
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
                         }
                     })
                     .then(response => {
                         if (response.status === 401) {
-                            window.location.href = "{{ route('login') }}";
-                            return;
+                            showToast('Silakan login terlebih dahulu untuk menyimpan akun ke Wishlist.', 'error');
+                            setTimeout(() => {
+                                window.location.href = "{{ route('login') }}";
+                            }, 1200);
+                            return null;
                         }
                         return response.json();
                     })
                     .then(data => {
-                        if (data && data.status === 'success') {
-                            const icon = this.querySelector('i');
+                        if (!data) return;
+
+                        if (data.status === 'success') {
+                            showToast(data.message, 'success');
+
+                            // Update Navbar Wishlist Badge
+                            const badge = document.getElementById('nav-wishlist-badge');
+                            if (badge) {
+                                badge.textContent = data.total_wishlists;
+                                badge.style.display = data.total_wishlists > 0 ? 'flex' : 'none';
+                            }
+
+                            // Update this button's look
+                            const icon = this.querySelector('i') || this.querySelector('svg');
                             if (data.is_wishlisted) {
                                 this.style.color = '#f43f5e';
                                 this.style.borderColor = '#f43f5e';
+                                if (icon) {
+                                    icon.style.color = '#f43f5e';
+                                    icon.setAttribute('fill', '#f43f5e');
+                                }
                             } else {
                                 this.style.color = 'inherit';
                                 this.style.borderColor = 'var(--border-color)';
+                                if (icon) {
+                                    icon.style.color = 'inherit';
+                                    icon.setAttribute('fill', 'none');
+                                }
+
+                                // If on Wishlist Page, remove card smoothly
+                                if (isRemoveCard) {
+                                    const card = document.getElementById(`wishlist-card-${accountId}`);
+                                    if (card) {
+                                        card.style.opacity = '0';
+                                        card.style.transform = 'scale(0.9) translateY(20px)';
+                                        setTimeout(() => {
+                                            card.remove();
+                                            const remaining = document.querySelectorAll('#wishlist-grid .account-card');
+                                            const totalHeader = document.getElementById('wishlist-total-header');
+                                            if (totalHeader) {
+                                                totalHeader.textContent = `${remaining.length} Akun`;
+                                            }
+                                            if (remaining.length === 0) {
+                                                window.location.reload();
+                                            }
+                                        }, 300);
+                                    }
+                                }
                             }
+                        } else {
+                            showToast(data.message || 'Terjadi kesalahan sistem.', 'error');
                         }
                     })
-                    .catch(err => console.error('Wishlist error:', err));
+                    .catch(err => {
+                        console.error('Wishlist error:', err);
+                        showToast('Gagal memproses wishlist, periksa koneksi internet Anda.', 'error');
+                    });
                 });
             });
         });
