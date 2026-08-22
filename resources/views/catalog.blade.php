@@ -4,42 +4,62 @@
 @section('meta_description', 'Katalog lengkap stok akun Mobile Legends, Free Fire, Genshin Impact, PUBGM, Valorant, & HOK bergaransi 100% Anti Hackback.')
 
 @section('content')
-<div class="container" style="padding: 30px 20px 80px;">
+<div class="container" style="padding: 40px 20px 90px;">
 
-    <!-- Top Banner & Header Breadcrumb -->
-    <div style="margin-bottom: 24px;">
-        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-            <a href="{{ route('home') }}" style="color: var(--text-muted); transition: color 0.2s;">Beranda</a> 
-            <span style="color: var(--border-color);">/</span> 
-            <span style="color: var(--primary); font-weight: 600;">Katalog Stok</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;">
+    <!-- Top Banner Card -->
+    <div style="background: linear-gradient(135deg, rgba(14, 22, 38, 0.9) 0%, rgba(9, 13, 22, 0.95) 100%); border: 1px solid rgba(0, 242, 254, 0.18); border-radius: 20px; padding: 28px 32px; margin-bottom: 28px; position: relative; overflow: hidden; box-shadow: 0 12px 36px -10px rgba(0,0,0,0.7);">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #00f2fe, #a855f7, transparent);"></div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
             <div>
-                <h1 class="font-gaming" style="font-size: 2.3rem; color: #fff; line-height: 1.1;">
+                <!-- Breadcrumbs -->
+                <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <a href="{{ route('home') }}" style="color: #94a3b8; transition: color 0.2s;">Beranda</a> 
+                    <span style="color: rgba(255,255,255,0.2);">/</span> 
+                    <span style="color: #00f2fe; font-weight: 700;">Katalog Stok</span>
+                </div>
+
+                <h1 class="font-gaming" style="font-size: 2.4rem; color: #fff; line-height: 1.1; margin: 0;">
                     KATALOG STOK <span class="text-gradient-cyan">AKUN GAME JAPOST</span>
                 </h1>
-                <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 4px;">
-                    Ditemukan <strong style="color: var(--primary);">{{ $accounts->total() }}</strong> akun game siap di-takeover bergaransi anti hackback.
+                <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 6px;">
+                    Ditemukan <strong style="color: #00f2fe;">{{ $accounts->total() }}</strong> akun game siap di-takeover bergaransi 100% anti hackback.
                 </p>
             </div>
 
-            <!-- Quick Category Pill Scrollbar -->
-            <div class="category-pills" style="margin-bottom: 0; padding-bottom: 0;">
-                <a href="{{ route('catalog', array_merge(request()->except('category', 'page'), ['category' => 'all'])) }}" 
-                   class="category-pill {{ !request('category') || request('category') === 'all' ? 'active' : '' }}">
-                    🎮 Semua Game
-                </a>
-                @foreach($categories as $cat)
-                    <a href="{{ route('catalog', array_merge(request()->except('category', 'page'), ['category' => $cat->slug])) }}" 
-                       class="category-pill {{ request('category') === $cat->slug ? 'active' : '' }}">
-                        {{ $cat->name }}
-                    </a>
-                @endforeach
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <div style="padding: 8px 16px; border-radius: 12px; background: rgba(0, 242, 254, 0.08); border: 1px solid rgba(0, 242, 254, 0.25); color: #00f2fe; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="shield-check" style="width: 18px; height: 18px;"></i>
+                    <span>Garansi Anti Hackback</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Active Filter Badges Display (If Any Filter Active) -->
+    <!-- Category Filter Bar (Separate Row with Ample Margin) -->
+    <div style="margin-bottom: 36px;">
+        <div style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+            <i data-lucide="gamepad-2" style="width: 15px; height: 15px; color: #00f2fe;"></i>
+            <span>Pilih Kategori Game:</span>
+        </div>
+
+        <div class="category-pills" style="margin-bottom: 0;">
+            <a href="{{ route('catalog', array_merge(request()->except('category', 'page'), ['category' => 'all'])) }}" 
+               class="category-pill {{ !request('category') || request('category') === 'all' ? 'active' : '' }}">
+                <span>🎮</span>
+                <span>Semua Game</span>
+            </a>
+            @foreach($categories as $cat)
+                <a href="{{ route('catalog', array_merge(request()->except('category', 'page'), ['category' => $cat->slug])) }}" 
+                   class="category-pill {{ request('category') === $cat->slug ? 'active' : '' }}">
+                    <span>⚡</span>
+                    <span>{{ $cat->name }}</span>
+                </a>
+            @endforeach
+        </div>
+    </div>
+
+    <!-- Active Filter Badges (If Any Filter Active) -->
     @php
         $activeFiltersCount = 0;
         if(request('q')) $activeFiltersCount++;
@@ -53,7 +73,7 @@
     @endphp
 
     @if($activeFiltersCount > 0)
-    <div class="filter-chips-wrapper">
+    <div class="filter-chips-wrapper" style="margin-bottom: 36px;">
         <span class="filter-chip-label">
             <i data-lucide="filter" style="width: 14px; height: 14px; color: var(--primary);"></i>
             Filter Aktif:
@@ -117,7 +137,7 @@
     @endif
 
     <!-- Main Catalog Grid Layout with Sidebar -->
-    <div style="display: grid; grid-template-columns: 290px 1fr; gap: 30px; align-items: start;">
+    <div style="display: grid; grid-template-columns: 290px 1fr; gap: 36px; align-items: start;">
 
         <!-- Sidebar Filter Card -->
         <aside style="background: var(--bg-card); backdrop-filter: blur(16px); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; position: sticky; top: 90px; box-shadow: var(--shadow-card);">
