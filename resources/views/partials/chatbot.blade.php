@@ -389,7 +389,7 @@
             appendBotMessage(`
                 🛡️ <strong>Jaminan Garansi 100% Anti Hackback!</strong><br>
                 Semua transaksi akun game di ALZIS STORE dipandu langsung oleh Rekber / Midman Admin Utama Toko resmi. Data akun bersih (all unbind) dan bergaransi penuh seumur hidup.<br><br>
-                <a href="{{ route('terms') }}" style="color: var(--primary); text-decoration: underline; font-weight: 700;">Pelajari Ketentuan Garansi &rarr;</a>
+                <a href="{{ route('how.to.buy') }}" style="color: var(--primary); text-decoration: underline; font-weight: 700;">Pelajari Ketentuan Garansi &rarr;</a>
             `);
             return;
         }
@@ -424,7 +424,7 @@
             Untuk membantu Anda lebih cepat, silakan pilih topik yang Anda butuhkan di bawah ini:<br><br>
             <div style="display: flex; flex-direction: column; gap: 6px;">
                 <a href="{{ route('catalog') }}" style="color: var(--primary); font-weight: 700; text-decoration: none;">• 🎮 Jelajahi Semua Katalog Akun</a>
-                <a href="{{ route('terms') }}" style="color: var(--primary); font-weight: 700; text-decoration: none;">• 🛡️ Syarat Garansi & Anti-HB</a>
+                <a href="{{ route('how.to.buy') }}" style="color: var(--primary); font-weight: 700; text-decoration: none;">• 🛡️ Syarat Garansi & Anti-HB</a>
                 <a href="{{ route('contact') }}" style="color: var(--primary); font-weight: 700; text-decoration: none;">• 💬 Kontak WhatsApp Customer Service</a>
             </div>
         `);
