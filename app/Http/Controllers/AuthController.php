@@ -178,4 +178,25 @@ class AuthController extends Controller
 
         return back()->with('success', 'Kata sandi Anda berhasil diubah.');
     }
+
+    public function updateTheme(Request $request)
+    {
+        $validated = $request->validate([
+            'theme' => 'required|string|in:default,pink-sakura,purple-neon,emerald-mint,sunset-crimson',
+        ]);
+
+        if (Auth::check()) {
+            $user = Auth::user();
+            if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'theme_preference')) {
+                $user->theme_preference = $validated['theme'];
+                $user->save();
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'theme' => $validated['theme'],
+            'message' => 'Tema tampilan berhasil diperbarui!'
+        ]);
+    }
 }

@@ -14,8 +14,20 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
 
+    <!-- Instant Theme Loader (Zero Flicker) -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('alzis_theme') || @json(Auth::check() ? (Auth::user()->theme_preference ?? 'default') : 'default');
+                if (savedTheme && savedTheme !== 'default') {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                }
+            } catch(e) {}
+        })();
+    </script>
+
     <!-- Stylesheets & Direct Self-Contained Admin Theme -->
-    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=9.0">
+    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=9.2">
     <style>
         :root {
             --bg-body: #060913;
@@ -281,7 +293,42 @@
                     <span style="font-size: 0.78rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700;">ALzis STURR Command Portal</span>
                     <h2 class="font-heading" style="font-size: 1.6rem; color: #fff; margin-top: 2px; font-weight: 800;">@yield('page_title', 'Admin Dashboard')</h2>
                 </div>
-                <div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <!-- Theme Picker Button -->
+                    <div style="position: relative;">
+                        <button type="button" class="btn btn-secondary btn-sm" id="btn-theme-picker" onclick="toggleThemeDropdown(event)" style="border-radius: 8px; padding: 6px 12px; font-size: 0.78rem; display: inline-flex; align-items: center; gap: 6px;">
+                            <i data-lucide="palette" style="width: 14px; height: 14px; color: var(--primary);"></i>
+                            <span>Tema</span>
+                        </button>
+                        
+                        <!-- Theme Dropdown Menu -->
+                        <div id="theme-dropdown-menu" style="display: none; position: absolute; top: calc(100% + 8px); right: 0; width: 220px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 8px; box-shadow: var(--shadow-md); z-index: 1100;">
+                            <div style="font-size: 0.7rem; font-weight: 800; color: var(--text-dim); text-transform: uppercase; padding: 4px 8px 6px; border-bottom: 1px solid var(--border); margin-bottom: 6px;">
+                                🎨 Pilih Tema Panel
+                            </div>
+                            <button type="button" onclick="setAppTheme('pink-sakura')" class="theme-option-btn" data-theme-val="pink-sakura" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #ff7eb3, #ff4b8b); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(255, 105, 180, 0.6);"></span>
+                                <span>🌸 Pink Sakura (Cewek)</span>
+                            </button>
+                            <button type="button" onclick="setAppTheme('default')" class="theme-option-btn" data-theme-val="default" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #00f2fe, #2563eb); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(0, 242, 254, 0.6);"></span>
+                                <span>⚡ Cyber Cyan (Default)</span>
+                            </button>
+                            <button type="button" onclick="setAppTheme('purple-neon')" class="theme-option-btn" data-theme-val="purple-neon" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #c084fc, #7c3aed); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(168, 85, 247, 0.6);"></span>
+                                <span>🔮 Midnight Purple</span>
+                            </button>
+                            <button type="button" onclick="setAppTheme('emerald-mint')" class="theme-option-btn" data-theme-val="emerald-mint" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #34d399, #059669); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);"></span>
+                                <span>🌿 Emerald Mint</span>
+                            </button>
+                            <button type="button" onclick="setAppTheme('sunset-crimson')" class="theme-option-btn" data-theme-val="sunset-crimson" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #fb7185, #f59e0b); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(244, 63, 94, 0.6);"></span>
+                                <span>🔥 Sunset Crimson</span>
+                            </button>
+                        </div>
+                    </div>
+
                     @yield('header_actions')
                 </div>
             </div>
@@ -323,6 +370,74 @@
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             }
+        });
+
+        // Global Theme Switcher Handlers
+        function toggleThemeDropdown(e) {
+            if (e) e.stopPropagation();
+            const menu = document.getElementById('theme-dropdown-menu');
+            if (menu) {
+                menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            const menu = document.getElementById('theme-dropdown-menu');
+            const btn = document.getElementById('btn-theme-picker');
+            if (menu && menu.style.display === 'block') {
+                if (!menu.contains(e.target) && (!btn || !btn.contains(e.target))) {
+                    menu.style.display = 'none';
+                }
+            }
+        });
+
+        function setAppTheme(themeName) {
+            if (themeName === 'default') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('alzis_theme', 'default');
+            } else {
+                document.documentElement.setAttribute('data-theme', themeName);
+                localStorage.setItem('alzis_theme', themeName);
+            }
+
+            const menu = document.getElementById('theme-dropdown-menu');
+            if (menu) menu.style.display = 'none';
+
+            // Mark active button
+            document.querySelectorAll('.theme-option-btn').forEach(el => {
+                const val = el.getAttribute('data-theme-val');
+                if (val === themeName) {
+                    el.style.background = 'rgba(255, 255, 255, 0.1)';
+                    el.style.borderColor = 'var(--primary)';
+                } else {
+                    el.style.background = 'transparent';
+                    el.style.borderColor = 'transparent';
+                }
+            });
+
+            // Save to DB
+            const tokenMeta = document.querySelector('meta[name="csrf-token"]');
+            const token = tokenMeta ? tokenMeta.getAttribute('content') : '';
+            fetch('{{ route('profile.theme') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': token,
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ theme: themeName })
+            }).catch(() => {});
+        }
+
+        // Highlight active theme on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const current = localStorage.getItem('alzis_theme') || @json(Auth::check() ? (Auth::user()->theme_preference ?? 'default') : 'default');
+            document.querySelectorAll('.theme-option-btn').forEach(el => {
+                const val = el.getAttribute('data-theme-val');
+                if (val === current) {
+                    el.style.background = 'rgba(255, 255, 255, 0.1)';
+                }
+            });
         });
     </script>
     @stack('scripts')

@@ -113,6 +113,80 @@
         </div>
     </div>
 
+    <!-- Theme Selection Card -->
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 22px; margin-bottom: 22px; box-shadow: 0 4px 20px rgba(0,0,0,0.35);">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 6px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(255, 105, 180, 0.15); color: #ff69b4; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <svg style="width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg>
+                </div>
+                <div>
+                    <h3 class="font-heading" style="font-size: 1.1rem; color: #fff; font-weight: 800; margin: 0;">
+                        Kustomisasi Tema Warna Website
+                    </h3>
+                    <p style="color: var(--text-muted); font-size: 0.78rem; margin: 2px 0 0;">
+                        Pilih warna tema favorit Anda. Tersedia pilihan tema warna gelap gaming (cowok) maupun warna pink pastel lucu (cewek).
+                    </p>
+                </div>
+            </div>
+            <span style="font-size: 0.72rem; color: #34d399; font-weight: 700; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); padding: 3px 8px; border-radius: 6px;">
+                ✓ Tersimpan Otomatis
+            </span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 16px;">
+            <!-- Pink Sakura -->
+            <button type="button" onclick="setAppTheme('pink-sakura')" class="theme-card-picker" data-theme-val="pink-sakura" style="background: rgba(255, 105, 180, 0.05); border: 1px solid rgba(255, 105, 180, 0.3); border-radius: 10px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.2s;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #ff7eb3, #ff4b8b); box-shadow: 0 0 10px rgba(255, 105, 180, 0.6); display: inline-block;"></span>
+                    <span style="font-size: 0.68rem; font-weight: 800; color: #ff69b4; background: rgba(255, 105, 180, 0.15); padding: 1px 6px; border-radius: 4px;">Cewek</span>
+                </div>
+                <div style="font-size: 0.84rem; font-weight: 800; color: #fff;">🌸 Pink Sakura</div>
+                <div style="font-size: 0.7rem; color: var(--text-dim); margin-top: 2px;">Manis, imut & pastel rose</div>
+            </button>
+
+            <!-- Cyber Cyan -->
+            <button type="button" onclick="setAppTheme('default')" class="theme-card-picker" data-theme-val="default" style="background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.3); border-radius: 10px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.2s;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #00f2fe, #2563eb); box-shadow: 0 0 10px rgba(0, 242, 254, 0.6); display: inline-block;"></span>
+                    <span style="font-size: 0.68rem; font-weight: 800; color: #00f2fe; background: rgba(0, 242, 254, 0.15); padding: 1px 6px; border-radius: 4px;">Default</span>
+                </div>
+                <div style="font-size: 0.84rem; font-weight: 800; color: #fff;">⚡ Cyber Cyan</div>
+                <div style="font-size: 0.7rem; color: var(--text-dim); margin-top: 2px;">Esports dark navy & neon</div>
+            </button>
+
+            <!-- Midnight Purple -->
+            <button type="button" onclick="setAppTheme('purple-neon')" class="theme-card-picker" data-theme-val="purple-neon" style="background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 10px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.2s;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #c084fc, #7c3aed); box-shadow: 0 0 10px rgba(168, 85, 247, 0.6); display: inline-block;"></span>
+                    <span style="font-size: 0.68rem; font-weight: 800; color: #c084fc; background: rgba(168, 85, 247, 0.15); padding: 1px 6px; border-radius: 4px;">Royal</span>
+                </div>
+                <div style="font-size: 0.84rem; font-weight: 800; color: #fff;">🔮 Royal Violet</div>
+                <div style="font-size: 0.7rem; color: var(--text-dim); margin-top: 2px;">Misterius & ungu neon</div>
+            </button>
+
+            <!-- Emerald Mint -->
+            <button type="button" onclick="setAppTheme('emerald-mint')" class="theme-card-picker" data-theme-val="emerald-mint" style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.2s;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #34d399, #059669); box-shadow: 0 0 10px rgba(16, 185, 129, 0.6); display: inline-block;"></span>
+                    <span style="font-size: 0.68rem; font-weight: 800; color: #34d399; background: rgba(16, 185, 129, 0.15); padding: 1px 6px; border-radius: 4px;">Fresh</span>
+                </div>
+                <div style="font-size: 0.84rem; font-weight: 800; color: #fff;">🌿 Emerald Mint</div>
+                <div style="font-size: 0.7rem; color: var(--text-dim); margin-top: 2px;">Hijau mint segar</div>
+            </button>
+
+            <!-- Sunset Crimson -->
+            <button type="button" onclick="setAppTheme('sunset-crimson')" class="theme-card-picker" data-theme-val="sunset-crimson" style="background: rgba(244, 63, 94, 0.05); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: 10px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.2s;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #fb7185, #f59e0b); box-shadow: 0 0 10px rgba(244, 63, 94, 0.6); display: inline-block;"></span>
+                    <span style="font-size: 0.68rem; font-weight: 800; color: #fb7185; background: rgba(244, 63, 94, 0.15); padding: 1px 6px; border-radius: 4px;">Fire</span>
+                </div>
+                <div style="font-size: 0.84rem; font-weight: 800; color: #fff;">🔥 Sunset Crimson</div>
+                <div style="font-size: 0.7rem; color: var(--text-dim); margin-top: 2px;">Merah api & energik</div>
+            </button>
+        </div>
+    </div>
+
     <!-- Forms Grid: Profile & Security -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;" class="profile-forms-layout">
         

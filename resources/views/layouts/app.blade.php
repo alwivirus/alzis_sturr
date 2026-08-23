@@ -18,6 +18,18 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
 
+    <!-- Instant Theme Loader (Zero Flicker) -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('alzis_theme') || @json(Auth::check() ? (Auth::user()->theme_preference ?? 'default') : 'default');
+                if (savedTheme && savedTheme !== 'default') {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                }
+            } catch(e) {}
+        })();
+    </script>
+
     <!-- Critical Above-The-Fold CSS (Instant FCP Paint & Mobile Viewport Lock) -->
     <style>
         :root{--bg-main:#060913;--bg-surface:#0b1120;--bg-card:#0e1628;--primary:#00f2fe;--accent-purple:#8b5cf6;--gold:#fbbf24;--danger:#f43f5e;--success:#10b981;--text-main:#f1f5f9;--text-muted:#94a3b8;--border:rgba(255,255,255,0.08);--font-sans:'Plus Jakarta Sans',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;--font-heading:'Outfit',system-ui,sans-serif;}
@@ -180,6 +192,40 @@
 
                 <!-- Nav Actions -->
                 <div class="nav-actions" style="display: flex; align-items: center; gap: 5px; flex-shrink: 0;">
+                    <!-- Theme Picker Button -->
+                    <div style="position: relative;">
+                        <button type="button" class="btn btn-secondary btn-icon" id="btn-theme-picker" onclick="toggleThemeDropdown(event)" title="Pilih Tema Warna" style="width: 32px; height: 32px; flex-shrink: 0; padding: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px;">
+                            <svg style="width: 15px; height: 15px; color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg>
+                        </button>
+                        
+                        <!-- Theme Dropdown Menu -->
+                        <div id="theme-dropdown-menu" style="display: none; position: absolute; top: calc(100% + 8px); right: 0; width: 220px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 8px; box-shadow: var(--shadow-md); z-index: 1100;">
+                            <div style="font-size: 0.7rem; font-weight: 800; color: var(--text-dim); text-transform: uppercase; padding: 4px 8px 6px; border-bottom: 1px solid var(--border); margin-bottom: 6px;">
+                                🎨 Pilih Tema Website
+                            </div>
+                            <button type="button" onclick="setAppTheme('pink-sakura')" class="theme-option-btn" data-theme-val="pink-sakura" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #ff7eb3, #ff4b8b); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(255, 105, 180, 0.6);"></span>
+                                <span>🌸 Pink Sakura (Cewek)</span>
+                            </button>
+                            <button type="button" onclick="setAppTheme('default')" class="theme-option-btn" data-theme-val="default" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #00f2fe, #2563eb); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(0, 242, 254, 0.6);"></span>
+                                <span>⚡ Cyber Cyan (Default)</span>
+                            </button>
+                            <button type="button" onclick="setAppTheme('purple-neon')" class="theme-option-btn" data-theme-val="purple-neon" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #c084fc, #7c3aed); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(168, 85, 247, 0.6);"></span>
+                                <span>🔮 Midnight Purple</span>
+                            </button>
+                            <button type="button" onclick="setAppTheme('emerald-mint')" class="theme-option-btn" data-theme-val="emerald-mint" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #34d399, #059669); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);"></span>
+                                <span>🌿 Emerald Mint</span>
+                            </button>
+                            <button type="button" onclick="setAppTheme('sunset-crimson')" class="theme-option-btn" data-theme-val="sunset-crimson" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #fb7185, #f59e0b); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(244, 63, 94, 0.6);"></span>
+                                <span>🔥 Sunset Crimson</span>
+                            </button>
+                        </div>
+                    </div>
+
                     @auth
                         <!-- Wishlist Button -->
                         <a href="{{ route('wishlist.index') }}" class="btn btn-secondary btn-icon" title="Wishlist Favorit" style="position: relative; width: 32px; height: 32px; flex-shrink: 0; padding: 0; display: inline-flex; align-items: center; justify-content: center;">
@@ -466,6 +512,79 @@
                         console.error('Wishlist error:', err);
                     });
                 });
+            });
+        });
+
+        // Global Theme Switcher Handlers
+        function toggleThemeDropdown(e) {
+            if (e) e.stopPropagation();
+            const menu = document.getElementById('theme-dropdown-menu');
+            if (menu) {
+                menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            const menu = document.getElementById('theme-dropdown-menu');
+            const btn = document.getElementById('btn-theme-picker');
+            if (menu && menu.style.display === 'block') {
+                if (!menu.contains(e.target) && (!btn || !btn.contains(e.target))) {
+                    menu.style.display = 'none';
+                }
+            }
+        });
+
+        function setAppTheme(themeName) {
+            if (themeName === 'default') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('alzis_theme', 'default');
+            } else {
+                document.documentElement.setAttribute('data-theme', themeName);
+                localStorage.setItem('alzis_theme', themeName);
+            }
+
+            const menu = document.getElementById('theme-dropdown-menu');
+            if (menu) menu.style.display = 'none';
+
+            // Mark active button
+            document.querySelectorAll('.theme-option-btn, .theme-card-picker').forEach(el => {
+                const val = el.getAttribute('data-theme-val');
+                if (val === themeName) {
+                    el.style.background = 'rgba(255, 255, 255, 0.1)';
+                    el.style.borderColor = 'var(--primary)';
+                } else {
+                    el.style.background = 'transparent';
+                    el.style.borderColor = 'var(--border)';
+                }
+            });
+
+            // Save to DB if logged in
+            @auth
+            const tokenMeta = document.querySelector('meta[name="csrf-token"]');
+            const token = tokenMeta ? tokenMeta.getAttribute('content') : '';
+            fetch('{{ route('profile.theme') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': token,
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ theme: themeName })
+            }).catch(() => {});
+            @endauth
+
+            showToast(`Tema berhasil diubah! ✨`, 'success');
+        }
+
+        // Highlight currently active theme
+        document.addEventListener('DOMContentLoaded', function() {
+            const current = localStorage.getItem('alzis_theme') || @json(Auth::check() ? (Auth::user()->theme_preference ?? 'default') : 'default');
+            document.querySelectorAll('.theme-option-btn, .theme-card-picker').forEach(el => {
+                const val = el.getAttribute('data-theme-val');
+                if (val === current) {
+                    el.style.background = 'rgba(255, 255, 255, 0.1)';
+                    el.style.borderColor = 'var(--primary)';
+                }
             });
         });
     </script>

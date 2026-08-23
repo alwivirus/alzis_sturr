@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profil', [AuthController::class, 'profile'])->name('profile');
     Route::put('/profil', [AuthController::class, 'updateProfile'])->name('profile.update');
     Route::put('/profil/password', [AuthController::class, 'updatePassword'])->name('profile.password');
+    Route::post('/profil/theme', [AuthController::class, 'updateTheme'])->name('profile.theme');
 });
 
 // --- DEDICATED PARTNER PORTAL ROUTES ---
