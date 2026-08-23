@@ -517,6 +517,9 @@
 
     <div id="toast-container" class="toast-container"></div>
 
+    <!-- Interactive AI Assistant Chatbot Widget -->
+    @include('partials.chatbot')
+
     <!-- Scripts -->
     <script>
         function showToast(message, type = 'success') {
