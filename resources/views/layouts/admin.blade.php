@@ -47,41 +47,100 @@
             --font-heading: 'Outfit', sans-serif;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --text-dim: #64748b;
+        /* 🌸 Theme: Pink Sakura (Tema Cewek Lucu & Manis) */
+        [data-theme="pink-sakura"] {
+            --bg-body: #130815 !important;
+            --bg-surface: #1e0d23 !important;
+            --bg-surface-elevated: #25102c !important;
+            --bg-card: #25102c !important;
+            --bg-card-hover: #32163b !important;
+            --bg-glass: rgba(19, 8, 21, 0.95) !important;
+            --bg-glass-card: rgba(37, 16, 44, 0.88) !important;
+            --primary: #ff69b4 !important;
+            --primary-hover: #ff85c0 !important;
+            --primary-gradient: linear-gradient(135deg, #ff7eb3 0%, #ff4b8b 50%, #f43f5e 100%) !important;
+            --primary-light: rgba(255, 105, 180, 0.18) !important;
+            --primary-border: rgba(255, 105, 180, 0.4) !important;
+            --border: rgba(255, 105, 180, 0.18) !important;
+            --border-light: rgba(255, 105, 180, 0.28) !important;
+            --accent-purple: #f472b6 !important;
+        }
+
+        /* 🔮 Theme: Royal Violet (Midnight Purple) */
+        [data-theme="purple-neon"] {
+            --bg-body: #0b0616 !important;
+            --bg-surface: #130b24 !important;
+            --bg-surface-elevated: #190e30 !important;
+            --bg-card: #190e30 !important;
+            --bg-card-hover: #241444 !important;
+            --primary: #a855f7 !important;
+            --primary-hover: #c084fc !important;
+            --primary-gradient: linear-gradient(135deg, #c084fc 0%, #7c3aed 100%) !important;
+            --primary-light: rgba(168, 85, 247, 0.18) !important;
+            --primary-border: rgba(168, 85, 247, 0.4) !important;
+            --border: rgba(168, 85, 247, 0.18) !important;
+        }
+
+        /* 🌿 Theme: Emerald Mint (Fresh Green) */
+        [data-theme="emerald-mint"] {
+            --bg-body: #06100d !important;
+            --bg-surface: #0b1a15 !important;
+            --bg-surface-elevated: #0e221c !important;
+            --bg-card: #0e221c !important;
+            --bg-card-hover: #143027 !important;
+            --primary: #10b981 !important;
+            --primary-hover: #34d399 !important;
+            --primary-gradient: linear-gradient(135deg, #34d399 0%, #059669 100%) !important;
+            --primary-light: rgba(168, 85, 247, 0.18) !important;
+            --primary-border: rgba(168, 85, 247, 0.4) !important;
+            --border: rgba(16, 185, 129, 0.18) !important;
+        }
+
+        /* 🔥 Theme: Sunset Crimson (Fire Red) */
+        [data-theme="sunset-crimson"] {
+            --bg-body: #120608 !important;
+            --bg-surface: #1c0a0e !important;
+            --bg-surface-elevated: #260d13 !important;
+            --bg-card: #260d13 !important;
+            --bg-card-hover: #34121a !important;
+            --primary: #f43f5e !important;
+            --primary-hover: #fb7185 !important;
+            --primary-gradient: linear-gradient(135deg, #fb7185 0%, #e11d48 50%, #f59e0b 100%) !important;
+            --border: rgba(244, 63, 94, 0.18) !important;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: var(--font-main); background: var(--bg-body); color: var(--text-main); line-height: 1.5; }
+        body { font-family: var(--font-main); background: var(--bg-body); color: var(--text-main); line-height: 1.5; min-height: 100vh; transition: background-color 0.3s ease, color 0.3s ease; }
         
         .admin-layout { display: flex; min-height: 100vh; background: var(--bg-body); }
-        .admin-sidebar { width: 270px; background: #090e1c; border-right: 1px solid var(--border); padding: 20px 16px; display: flex; flex-direction: column; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; z-index: 100; }
+        .admin-sidebar { width: 270px; background: var(--bg-surface); border-right: 1px solid var(--border); padding: 20px 16px; display: flex; flex-direction: column; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; z-index: 100; }
         .admin-content { flex: 1; min-width: 0; padding: 28px 32px; background: var(--bg-body); }
         
         .admin-nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; color: var(--text-muted); font-size: 0.86rem; font-weight: 600; text-decoration: none; transition: all 0.2s ease; margin-bottom: 2px; }
-        .admin-nav-item:hover { color: #fff; background: rgba(0, 242, 254, 0.08); }
-        .admin-nav-item.active { color: var(--primary); background: rgba(0, 242, 254, 0.12); border-left: 3px solid var(--primary); font-weight: 700; }
+        .admin-nav-item:hover { color: #fff; background: var(--primary-light); }
+        .admin-nav-item.active { color: var(--primary); background: var(--primary-light); border-left: 3px solid var(--primary); font-weight: 700; }
 
         /* Stat Cards */
         .stat-card {
-            background: linear-gradient(145deg, #0e1628 0%, #111a30 100%) !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            background: linear-gradient(145deg, var(--bg-card) 0%, var(--bg-surface-elevated) 100%) !important;
+            border: 1px solid var(--border) !important;
             border-radius: 14px !important;
             padding: 18px 20px !important;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
+            box-shadow: var(--shadow-md) !important;
             transition: transform 0.2s ease, border-color 0.2s ease !important;
             position: relative;
             overflow: hidden;
         }
         .stat-card:hover {
             transform: translateY(-2px);
-            border-color: rgba(0, 242, 254, 0.3) !important;
+            border-color: var(--primary) !important;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5) !important;
         }
         .stat-title { font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         .stat-value { font-family: var(--font-heading); font-size: 1.65rem; font-weight: 900; margin-top: 4px; line-height: 1.1; }
 
         /* Data Tables */
-        .data-table-card { background: #0e1628 !important; border: 1px solid rgba(255, 255, 255, 0.08) !important; border-radius: 14px !important; overflow: hidden; box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4) !important; }
+        .data-table-card { background: var(--bg-card) !important; border: 1px solid var(--border) !important; border-radius: 14px !important; overflow: hidden; box-shadow: var(--shadow-md) !important; }
         .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .custom-table { width: 100%; border-collapse: collapse; text-align: left; }
         .custom-table th { background: rgba(11, 17, 32, 0.95) !important; padding: 14px 18px; font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.6px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); white-space: nowrap; }

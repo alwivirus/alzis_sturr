@@ -7,7 +7,7 @@
 <div class="container" style="padding: 28px 16px 80px; max-width: 880px; margin: 0 auto;">
 
     <!-- Top Profile Header Card -->
-    <div style="background: linear-gradient(145deg, #0e1628 0%, #111a30 100%); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 22px; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);">
+    <div style="background: linear-gradient(145deg, var(--bg-card) 0%, var(--bg-surface-elevated) 100%); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 22px; position: relative; overflow: hidden; box-shadow: var(--shadow-md);">
         <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--primary), var(--accent-purple), transparent);"></div>
 
         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
@@ -15,7 +15,7 @@
             <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
                 <!-- Avatar with glow circle -->
                 <div style="position: relative; flex-shrink: 0;">
-                    <img id="header-avatar-preview" src="{{ $user->avatar_url }}" alt="{{ $user->name }}" width="64" height="64" style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); box-shadow: 0 0 15px rgba(0, 242, 254, 0.35);">
+                    <img id="header-avatar-preview" src="{{ $user->avatar_url }}" alt="{{ $user->name }}" width="64" height="64" style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); box-shadow: var(--shadow-glow);">
                     <label for="avatar-input" style="position: absolute; bottom: -2px; right: -2px; width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: #050811; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.6);" title="Ganti Foto Profil">
                         <svg style="width: 12px; height: 12px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
                     </label>
@@ -31,7 +31,7 @@
                                 👑 OWNER TOKO
                             </span>
                         @elseif($user->isPartner())
-                            <span style="font-size: 0.68rem; padding: 2px 8px; background: rgba(0, 242, 254, 0.15); color: var(--primary); border: 1px solid rgba(0, 242, 254, 0.4); border-radius: var(--radius-full); font-weight: 800; display: inline-flex; align-items: center; gap: 4px;">
+                            <span style="font-size: 0.68rem; padding: 2px 8px; background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border); border-radius: var(--radius-full); font-weight: 800; display: inline-flex; align-items: center; gap: 4px;">
                                 🤝 MITRA PARTNER
                             </span>
                         @else
@@ -69,10 +69,10 @@
             </div>
         </div>
 
-        <!-- Metric Badges 4-Grid Horizontal (Compact & Never Giant) -->
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.06);" class="profile-chips-grid">
-            <div style="background: rgba(11, 17, 32, 0.7); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.06); display: flex; align-items: center; gap: 8px;">
-                <div style="width: 26px; height: 26px; border-radius: 6px; background: rgba(0, 242, 254, 0.12); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <!-- Metric Badges 4-Grid Horizontal (Compact & Dynamic Theme) -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border);" class="profile-chips-grid">
+            <div style="background: var(--bg-surface); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: center; gap: 8px;">
+                <div style="width: 26px; height: 26px; border-radius: 6px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <svg style="width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
                 </div>
                 <div style="min-width: 0; overflow: hidden;">
@@ -81,7 +81,7 @@
                 </div>
             </div>
 
-            <div style="background: rgba(11, 17, 32, 0.7); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.06); display: flex; align-items: center; gap: 8px;">
+            <div style="background: var(--bg-surface); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: center; gap: 8px;">
                 <div style="width: 26px; height: 26px; border-radius: 6px; background: rgba(244, 63, 94, 0.12); color: var(--danger); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <svg style="width: 13px; height: 13px; fill: currentColor;" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                 </div>
@@ -91,7 +91,7 @@
                 </div>
             </div>
 
-            <div style="background: rgba(11, 17, 32, 0.7); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.06); display: flex; align-items: center; gap: 8px;">
+            <div style="background: var(--bg-surface); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: center; gap: 8px;">
                 <div style="width: 26px; height: 26px; border-radius: 6px; background: rgba(139, 92, 246, 0.12); color: var(--accent-purple); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <svg style="width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 </div>
@@ -101,7 +101,7 @@
                 </div>
             </div>
 
-            <div style="background: rgba(11, 17, 32, 0.7); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.06); display: flex; align-items: center; gap: 8px;">
+            <div style="background: var(--bg-surface); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: center; gap: 8px;">
                 <div style="width: 26px; height: 26px; border-radius: 6px; background: rgba(251, 191, 36, 0.12); color: var(--gold); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <svg style="width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                 </div>
@@ -191,9 +191,9 @@
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;" class="profile-forms-layout">
         
         <!-- Form 1: Edit Profile & Avatar Upload -->
-        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.35);">
+        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px 20px; box-shadow: var(--shadow-md);">
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
-                <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(0, 242, 254, 0.12); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <div style="width: 32px; height: 32px; border-radius: 8px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <svg style="width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 </div>
                 <h3 class="font-heading" style="font-size: 1.1rem; color: #fff; font-weight: 800; margin: 0;">
@@ -251,7 +251,7 @@
         </div>
 
         <!-- Form 2: Password Security -->
-        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.35);">
+        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px 20px; box-shadow: var(--shadow-md);">
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
                 <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(139, 92, 246, 0.12); color: var(--accent-purple); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <svg style="width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -285,7 +285,7 @@
                     <input type="password" id="password_confirmation" name="password_confirmation" class="input-control" required placeholder="Ulangi password baru" style="height: 38px; font-size: 0.84rem;">
                 </div>
 
-                <button type="submit" class="btn btn-secondary" style="width: 100%; border-radius: 8px; padding: 10px; border-color: rgba(139, 92, 246, 0.4); color: #fff; font-size: 0.84rem;">
+                <button type="submit" class="btn btn-secondary" style="width: 100%; border-radius: 8px; padding: 10px; border-color: var(--border); color: #fff; font-size: 0.84rem;">
                     <svg style="width: 15px; height: 15px; color: var(--accent-purple);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
                     <span>Perbarui Kata Sandi</span>
                 </button>
