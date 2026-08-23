@@ -116,6 +116,12 @@
                 </div>
                 @error('server') <div style="color: var(--danger); font-size: 0.75rem; margin-top: 4px;">{{ $message }}</div> @enderror
             </div>
+
+            <div>
+                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Nomor WhatsApp Anda (Kontak Penjual)</label>
+                <input type="text" name="partner_phone" value="{{ old('partner_phone', Auth::user()->phone) }}" class="input-control" placeholder="Contoh: 081234567890" style="height: 42px;">
+                <span style="font-size: 0.72rem; color: #38bdf8; margin-top: 4px; display: block;">Pembeli dapat bertanya langsung ke WA Anda, namun pembayaran & serah terima akun <strong>wajib via Rekber Admin Utama</strong> (Anti-Rip).</span>
+            </div>
         </div>
 
         <!-- 4. Specs & Attributes -->

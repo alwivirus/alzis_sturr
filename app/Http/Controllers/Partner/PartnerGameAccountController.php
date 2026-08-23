@@ -75,6 +75,7 @@ class PartnerGameAccountController extends Controller
             'skin_count' => 'nullable|integer|min:0',
             'rank_tier' => 'nullable|string|max:100',
             'winrate' => 'nullable|string|max:50',
+            'partner_phone' => 'nullable|string|max:20',
             'is_verified' => 'boolean',
             'is_featured' => 'boolean',
         ], [
@@ -121,6 +122,10 @@ class PartnerGameAccountController extends Controller
         }
 
         $partner = Auth::user();
+        if ($request->filled('partner_phone')) {
+            $partner->phone = trim($request->input('partner_phone'));
+            $partner->save();
+        }
 
         $accountData = [
             'game_category_id' => $categoryId,
@@ -221,9 +226,16 @@ class PartnerGameAccountController extends Controller
             'skin_count' => 'nullable|integer|min:0',
             'rank_tier' => 'nullable|string|max:100',
             'winrate' => 'nullable|string|max:50',
+            'partner_phone' => 'nullable|string|max:20',
             'is_verified' => 'nullable|boolean',
             'is_featured' => 'nullable|boolean',
         ]);
+
+        if ($request->filled('partner_phone')) {
+            $partner = Auth::user();
+            $partner->phone = trim($request->input('partner_phone'));
+            $partner->save();
+        }
 
         $categoryId = $request->input('game_category_id');
 

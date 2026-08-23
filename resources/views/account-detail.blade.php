@@ -114,18 +114,57 @@
                     </button>
                 </div>
 
-                <!-- Action Buttons -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px;">
-                    @php
-                        $waText = "Halo Admin ALZIS STORE, saya tertarik membeli akun *" . $account->title . "* [Kode: " . $account->code . "] seharga *" . $account->formatted_effective_price . "*. Apakah stok ini masih tersedia?";
-                    @endphp
-                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\SiteSetting::get('whatsapp_number', '6282324634848')) }}?text={{ rawurlencode($waText) }}" target="_blank" class="btn btn-whatsapp" style="padding: 9px 12px; font-size: 0.8rem; border-radius: 8px;">
-                        <svg style="width: 15px; height: 15px; fill: currentColor;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                        <span>Beli WhatsApp</span>
+                @php
+                    $isPartner = $account->isPartnerAccount();
+                    $partner = $account->user;
+                    $ownerWa = \App\Models\SiteSetting::get('whatsapp_number', '6282324634848');
+                    $partnerPhone = ($isPartner && $partner && $partner->phone) ? preg_replace('/[^0-9]/', '', $partner->phone) : null;
+
+                    if ($isPartner) {
+                        $adminWaText = "Halo Admin Rekber ALZIS STORE, saya ingin membeli akun partner *" . $account->title . "* [Kode: " . $account->code . "] seharga *" . $account->formatted_effective_price . "* dari Mitra *" . ($partner ? $partner->name : 'Partner') . "*. Mohon dibantu proses transaksi aman/rekber resminya.";
+                        $partnerWaText = "Halo " . ($partner ? $partner->name : 'Mitra') . ", saya ingin bertanya seputar akun *" . $account->title . "* [Kode: " . $account->code . "] di ALZIS STORE. (Transaksi tetap via Rekber Admin Utama).";
+                    } else {
+                        $adminWaText = "Halo Admin ALZIS STORE, saya tertarik membeli akun *" . $account->title . "* [Kode: " . $account->code . "] seharga *" . $account->formatted_effective_price . "*. Apakah stok ini masih tersedia?";
+                    }
+                @endphp
+
+                @if($isPartner)
+                <!-- Anti-Rip & Midman Protection Notice -->
+                <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.08) 100%); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 8px; padding: 10px 12px; margin-bottom: 12px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 3px; flex-wrap: wrap;">
+                        <div style="font-size: 0.74rem; font-weight: 800; color: #fbbf24; display: flex; align-items: center; gap: 5px;">
+                            <svg style="width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span>REKBER RESMI ADMIN UTAMA (ANTI-RIP)</span>
+                        </div>
+                        <span style="font-size: 0.68rem; background: rgba(0, 242, 254, 0.15); color: #00f2fe; border: 1px solid rgba(0,242,254,0.3); padding: 1px 6px; border-radius: 4px; font-weight: 700;">
+                            🤝 Mitra: {{ $partner ? $partner->name : 'Partner' }}
+                        </span>
+                    </div>
+                    <p style="font-size: 0.74rem; color: #cbd5e1; margin: 0; line-height: 1.4;">
+                        Untuk keamanan 100%, serah terima akun & pembayaran <strong>wajib diproses via Admin Utama ALZIS STORE</strong> sebagai Rekber/Midman resmi.
+                    </p>
+                </div>
+                @endif
+
+                <!-- Action Buttons Grid -->
+                <div style="display: grid; grid-template-columns: {{ ($isPartner && $partnerPhone) ? '1.4fr 1fr 1fr' : '1fr 1fr' }}; gap: 8px; margin-bottom: 14px;">
+                    <!-- Primary Admin/Rekber WhatsApp Button -->
+                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $ownerWa) }}?text={{ rawurlencode($adminWaText) }}" target="_blank" class="btn btn-whatsapp" style="padding: 9px 10px; font-size: 0.78rem; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 5px;" title="{{ $isPartner ? 'Beli via Rekber Admin Utama' : 'Beli via WhatsApp' }}">
+                        <svg style="width: 14px; height: 14px; fill: currentColor; flex-shrink: 0;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        <span>{{ $isPartner ? 'Beli via Rekber' : 'Beli WhatsApp' }}</span>
                     </a>
-                    <a href="{{ \App\Models\SiteSetting::get('discord_invite_url', 'https://discord.gg/zEGEGs6hat') }}" target="_blank" class="btn btn-discord" style="padding: 9px 12px; font-size: 0.8rem; border-radius: 8px;">
-                        <svg style="width: 15px; height: 15px; fill: currentColor;" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-                        <span>Ticket Discord</span>
+
+                    <!-- Optional Partner WhatsApp Contact -->
+                    @if($isPartner && $partnerPhone)
+                    <a href="https://wa.me/{{ $partnerPhone }}?text={{ rawurlencode($partnerWaText) }}" target="_blank" class="btn btn-secondary" style="padding: 9px 8px; font-size: 0.76rem; border-radius: 8px; border-color: rgba(0, 242, 254, 0.4); color: #38bdf8; display: inline-flex; align-items: center; justify-content: center; gap: 4px;" title="Tanya langsung ke Partner pemilik akun">
+                        <svg style="width: 13px; height: 13px; fill: currentColor; flex-shrink: 0;" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                        <span>Chat Mitra</span>
+                    </a>
+                    @endif
+
+                    <a href="{{ \App\Models\SiteSetting::get('discord_invite_url', 'https://discord.gg/zEGEGs6hat') }}" target="_blank" class="btn btn-discord" style="padding: 9px 10px; font-size: 0.78rem; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 4px;">
+                        <svg style="width: 14px; height: 14px; fill: currentColor; flex-shrink: 0;" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                        <span>Discord</span>
                     </a>
                 </div>
 

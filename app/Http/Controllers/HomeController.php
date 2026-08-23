@@ -153,7 +153,7 @@ class HomeController extends Controller
 
     public function show($slug)
     {
-        $account = GameAccount::with(['category', 'images'])
+        $account = GameAccount::with(['category', 'images', 'user'])
             ->where('slug', $slug)
             ->firstOrFail();
 
