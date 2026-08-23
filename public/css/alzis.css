@@ -77,34 +77,34 @@
    MULTI-THEME PALETTES (User Customizable)
    ========================================================================== */
 
-/* 1. Theme: Pink Sakura Lucu & Manis (Tema Cewek / Girl Pastel & Rose) */
+/* 1. Theme: Pink Sakura Pastel */
 [data-theme="pink-sakura"] {
-  --bg-body: #110915;
-  --bg-surface: #1a0f21;
-  --bg-surface-elevated: #23152d;
-  --bg-card: #1f1227;
-  --bg-card-hover: #291834;
-  --bg-glass: rgba(17, 9, 21, 0.92);
-  --bg-glass-card: rgba(31, 18, 39, 0.82);
-  --bg-input: #150c1b;
+  --bg-body: #160c16;
+  --bg-surface: #1e101f;
+  --bg-surface-elevated: #261427;
+  --bg-card: #241325;
+  --bg-card-hover: #301a32;
+  --bg-glass: rgba(22, 12, 22, 0.95);
+  --bg-glass-card: rgba(36, 19, 37, 0.9);
+  --bg-input: #1b0e1c;
 
-  --border: rgba(255, 133, 192, 0.16);
-  --border-light: rgba(255, 133, 192, 0.26);
-  --border-focus: #ff69b4;
-  --border-hover: rgba(255, 105, 180, 0.45);
+  --border: rgba(255, 120, 175, 0.22);
+  --border-light: rgba(255, 140, 185, 0.32);
+  --border-focus: #ff659f;
+  --border-hover: rgba(255, 101, 159, 0.5);
 
-  --primary: #ff69b4;
-  --primary-hover: #ff85c0;
-  --primary-gradient: linear-gradient(135deg, #ff7eb3 0%, #ff4b8b 50%, #f43f5e 100%);
-  --primary-light: rgba(255, 105, 180, 0.15);
-  --primary-border: rgba(255, 105, 180, 0.35);
-  --primary-glow: rgba(255, 105, 180, 0.35);
+  --primary: #ff659f;
+  --primary-hover: #ff8cb9;
+  --primary-gradient: linear-gradient(135deg, #ff659f 0%, #ff8eb4 50%, #ffa8c8 100%);
+  --primary-light: rgba(255, 101, 159, 0.18);
+  --primary-border: rgba(255, 101, 159, 0.42);
+  --primary-glow: rgba(255, 101, 159, 0.35);
 
   --accent-purple: #f472b6;
   --accent-purple-gradient: linear-gradient(135deg, #fbcfe8 0%, #f472b6 100%);
   --accent-purple-light: rgba(244, 114, 182, 0.15);
 
-  --shadow-glow: 0 0 25px rgba(255, 105, 180, 0.28);
+  --shadow-glow: 0 0 25px rgba(255, 101, 159, 0.35);
 }
 
 /* 2. Theme: Midnight Royal Violet (Esports Purple) */
@@ -223,11 +223,11 @@ body {
 }
 
 [data-theme="pink-sakura"] body {
-  background-color: #130815 !important;
+  background-color: #160c16 !important;
   background-image: 
-    radial-gradient(circle at 15% 10%, rgba(255, 105, 180, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 85% 25%, rgba(244, 114, 182, 0.1) 0%, transparent 45%),
-    radial-gradient(circle at 50% 80%, rgba(251, 113, 133, 0.08) 0%, transparent 50%) !important;
+    radial-gradient(circle at 15% 10%, rgba(255, 101, 159, 0.16) 0%, transparent 45%),
+    radial-gradient(circle at 85% 25%, rgba(255, 142, 180, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(254, 207, 239, 0.08) 0%, transparent 50%) !important;
 }
 
 [data-theme="purple-neon"] body {

@@ -58,23 +58,25 @@
             --font-heading: 'Outfit', system-ui, sans-serif;
         }
 
-        /* 🌸 Theme: Pink Sakura (Tema Cewek Lucu & Manis) */
+        /* 🌸 Theme: Pink Sakura Pastel */
         [data-theme="pink-sakura"] {
-            --bg-body: #130815 !important;
-            --bg-main: #130815 !important;
-            --bg-surface: #1e0d23 !important;
-            --bg-card: #25102c !important;
-            --bg-card-hover: #32163b !important;
-            --bg-glass: rgba(19, 8, 21, 0.95) !important;
-            --bg-glass-card: rgba(37, 16, 44, 0.88) !important;
-            --primary: #ff69b4 !important;
-            --primary-hover: #ff85c0 !important;
-            --primary-gradient: linear-gradient(135deg, #ff7eb3 0%, #ff4b8b 50%, #f43f5e 100%) !important;
-            --primary-light: rgba(255, 105, 180, 0.18) !important;
-            --primary-border: rgba(255, 105, 180, 0.4) !important;
-            --border: rgba(255, 105, 180, 0.18) !important;
-            --border-light: rgba(255, 105, 180, 0.28) !important;
+            --bg-body: #160c16 !important;
+            --bg-main: #160c16 !important;
+            --bg-surface: #1e101f !important;
+            --bg-surface-elevated: #261427 !important;
+            --bg-card: #241325 !important;
+            --bg-card-hover: #301a32 !important;
+            --bg-glass: rgba(22, 12, 22, 0.95) !important;
+            --bg-glass-card: rgba(36, 19, 37, 0.9) !important;
+            --primary: #ff659f !important;
+            --primary-hover: #ff8cb9 !important;
+            --primary-gradient: linear-gradient(135deg, #ff659f 0%, #ff8eb4 50%, #ffa8c8 100%) !important;
+            --primary-light: rgba(255, 101, 159, 0.18) !important;
+            --primary-border: rgba(255, 101, 159, 0.42) !important;
+            --border: rgba(255, 120, 175, 0.22) !important;
+            --border-light: rgba(255, 140, 185, 0.32) !important;
             --accent-purple: #f472b6 !important;
+            --shadow-glow: 0 0 25px rgba(255, 101, 159, 0.35) !important;
         }
 
         /* 🔮 Theme: Royal Violet (Midnight Purple) */
@@ -302,8 +304,8 @@
                                 🎨 Pilih Tema Website
                             </div>
                             <button type="button" onclick="setAppTheme('pink-sakura')" class="theme-option-btn" data-theme-val="pink-sakura" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
-                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #ff7eb3, #ff4b8b); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(255, 105, 180, 0.6);"></span>
-                                <span>🌸 Pink Sakura (Cewek)</span>
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #ff659f, #ff8eb4); display: inline-block; flex-shrink: 0; box-shadow: 0 0 8px rgba(255, 101, 159, 0.7);"></span>
+                                <span>🌸 Pink Sakura</span>
                             </button>
                             <button type="button" onclick="setAppTheme('default')" class="theme-option-btn" data-theme-val="default" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
                                 <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #00f2fe, #2563eb); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(0, 242, 254, 0.6);"></span>

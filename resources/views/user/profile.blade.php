@@ -136,13 +136,13 @@
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 16px;">
             <!-- Pink Sakura -->
-            <button type="button" onclick="setAppTheme('pink-sakura')" class="theme-card-picker" data-theme-val="pink-sakura" style="background: rgba(255, 105, 180, 0.05); border: 1px solid rgba(255, 105, 180, 0.3); border-radius: 10px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.2s;">
+            <button type="button" onclick="setAppTheme('pink-sakura')" class="theme-card-picker" data-theme-val="pink-sakura" style="background: rgba(255, 101, 159, 0.08); border: 1px solid rgba(255, 101, 159, 0.35); border-radius: 10px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.2s;">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                    <span style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #ff7eb3, #ff4b8b); box-shadow: 0 0 10px rgba(255, 105, 180, 0.6); display: inline-block;"></span>
-                    <span style="font-size: 0.68rem; font-weight: 800; color: #ff69b4; background: rgba(255, 105, 180, 0.15); padding: 1px 6px; border-radius: 4px;">Cewek</span>
+                    <span style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #ff659f, #ff8eb4); box-shadow: 0 0 10px rgba(255, 101, 159, 0.7); display: inline-block;"></span>
+                    <span style="font-size: 0.68rem; font-weight: 800; color: #ff659f; background: rgba(255, 101, 159, 0.15); padding: 1px 6px; border-radius: 4px;">Pastel</span>
                 </div>
                 <div style="font-size: 0.84rem; font-weight: 800; color: #fff;">🌸 Pink Sakura</div>
-                <div style="font-size: 0.7rem; color: var(--text-dim); margin-top: 2px;">Manis, imut & pastel rose</div>
+                <div style="font-size: 0.7rem; color: var(--text-dim); margin-top: 2px;">Pastel rose & soft sakura</div>
             </button>
 
             <!-- Cyber Cyan -->
