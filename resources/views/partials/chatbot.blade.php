@@ -335,97 +335,162 @@
     }
 
     function processBotResponse(query, isToxic) {
-        // Toxic / Dirty Word Response
+        // 1. Toxic / Dirty Word Detection
         if (isToxic) {
             appendBotMessage(`
                 ⚠️ <strong>Peringatan Sopan Santun:</strong><br>
                 Pesan Anda mengandung kata yang tidak pantas dan otomatis tersensor. Mohon gunakan bahasa yang ramah ya kak 🙏<br><br>
-                Ada yang bisa kami bantu seputar akun game atau cara pembelian di ALZIS STORE?
+                Ada yang bisa kami bantu seputar akun game atau panduan pembelian di ALZIS STORE?
             `);
             return;
         }
 
-        // Stock / Account Search Query
-        if (query.includes('stok') || query.includes('ready') || query.includes('akun') || query.includes('katalog') || 
-            query.includes('ff') || query.includes('free fire') || query.includes('ml') || query.includes('mobile legends') || 
-            query.includes('genshin') || query.includes('pubg') || query.includes('valorant') || query.includes('beli') || 
-            query.includes('harga') || query.includes('sultan')) {
+        // 2. Cara Beli / Alur Pembayaran / How to Buy (Must be checked before single word 'beli')
+        if (query.includes('cara beli') || query.includes('cara order') || query.includes('cara pesan') || 
+            query.includes('langkah') || query.includes('gimana cara') || query.includes('bagaimana cara') || 
+            query.includes('alur') || query.includes('prosedur') || query.includes('cara transaksi') ||
+            query.includes('cara bayar')) {
             
-            let gameName = 'Game Pilihan Anda';
-            let targetUrl = '{{ route('catalog') }}';
-            
-            if (query.includes('free fire') || query.includes('ff')) {
-                gameName = 'Free Fire';
-                targetUrl = '{{ route('catalog') }}?q=Free+Fire';
-            } else if (query.includes('mobile legends') || query.includes('ml')) {
-                gameName = 'Mobile Legends';
-                targetUrl = '{{ route('catalog') }}?q=Mobile+Legends';
-            } else if (query.includes('genshin')) {
-                gameName = 'Genshin Impact';
-                targetUrl = '{{ route('catalog') }}?q=Genshin';
-            } else if (query.includes('pubg')) {
-                gameName = 'PUBG Mobile';
-                targetUrl = '{{ route('catalog') }}?q=PUBG';
-            } else if (query.includes('valorant')) {
-                gameName = 'Valorant';
-                targetUrl = '{{ route('catalog') }}?q=Valorant';
-            }
-
             appendBotMessage(`
-                🎮 <strong>Stok Akun Siap Transaksi!</strong><br>
-                Kami menyediakan puluhan stok akun sultan bergaransi 100% Anti-HB siap kirim data instan.<br><br>
-                <div style="margin-top: 6px;">
-                    <a href="${targetUrl}" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; font-size: 0.78rem; text-decoration: none; border-radius: 6px;">
-                        <span>🚀 Lihat Katalog ${gameName}</span>
-                    </a>
-                </div>
-            `);
-            return;
-        }
-
-        // Warranty / Rekber / Anti-Hackback Query
-        if (query.includes('garansi') || query.includes('aman') || query.includes('hackback') || query.includes('hb') || 
-            query.includes('rekber') || query.includes('midman') || query.includes('penipuan') || query.includes('rip')) {
-            appendBotMessage(`
-                🛡️ <strong>Jaminan Garansi 100% Anti Hackback!</strong><br>
-                Semua transaksi akun game di ALZIS STORE dipandu langsung oleh Rekber / Midman Admin Utama Toko resmi. Data akun bersih (all unbind) dan bergaransi penuh seumur hidup.<br><br>
-                <a href="{{ route('how.to.buy') }}" style="color: var(--primary); text-decoration: underline; font-weight: 700;">Pelajari Ketentuan Garansi &rarr;</a>
-            `);
-            return;
-        }
-
-        // WhatsApp Admin / CS Query
-        if (query.includes('admin') || query.includes('owner') || query.includes('wa') || query.includes('whatsapp') || 
-            query.includes('cs') || query.includes('kontak') || query.includes('bantuan') || query.includes('nomor')) {
-            appendBotMessage(`
-                💬 <strong>Hubungi Admin Utama:</strong><br>
-                Butuh panduan langsung atau negosiasi? Anda bisa chat Admin Utama kami via WhatsApp resmi:<br><br>
-                <a href="{{ route('contact') }}" target="_blank" class="btn btn-whatsapp btn-sm" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; font-size: 0.78rem; border-radius: 6px; text-decoration: none;">
-                    <span>📲 Hubungi WhatsApp Admin</span>
+                ⚡ <strong>Panduan 3 Langkah Mudah Pembelian:</strong><br>
+                1. <strong>Pilih Akun</strong> yang Anda inginkan di halaman <a href="{{ route('catalog') }}" style="color: var(--primary); font-weight: 700;">Katalog Akun</a>.<br>
+                2. <strong>Klik Tombol Beli via Rekber</strong> pada detail akun untuk terhubung ke WhatsApp Admin Toko.<br>
+                3. <strong>Admin Memandu Transaksi:</strong> Lakukan pembayaran aman, admin mengamankan & menyerahkan data akun (5 menit selesai)! 🚀<br><br>
+                <a href="{{ route('how.to.buy') }}" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 4px; padding: 5px 10px; font-size: 0.76rem; border-radius: 6px;">
+                    <span>📖 Baca Panduan Lengkap</span>
                 </a>
             `);
             return;
         }
 
-        // How to buy / Order Flow Query
-        if (query.includes('cara') || query.includes('order') || query.includes('proses') || query.includes('pembayaran') || query.includes('bayar')) {
+        // 3. Garansi, Keamanan & Rekber / Midman Anti-Rip
+        if (query.includes('garansi') || query.includes('anti hb') || query.includes('hackback') || 
+            query.includes('rekber') || query.includes('midman') || query.includes('anti rip') || 
+            query.includes('aman ga') || query.includes('apakah aman') || query.includes('penipuan') || query.includes('rip')) {
+            
             appendBotMessage(`
-                ⚡ <strong>Cara Pembelian Mudah & Cepat:</strong><br>
-                1. Pilih akun yang Anda sukai di menu <strong>Katalog</strong>.<br>
-                2. Klik tombol <strong>Beli via Rekber Admin</strong>.<br>
-                3. Kirim format ke WhatsApp Admin untuk proses serah terima data 5 menit selesai! 🚀
+                🛡️ <strong>Jaminan Keamanan & Garansi Anti-HB:</strong><br>
+                • <strong>Garansi 100% Anti-Hackback:</strong> Semua akun dicek kebersihannya (All Unbind/Data Polos) sebelum dijual.<br>
+                • <strong>Rekber Resmi Admin Utama:</strong> Transaksi dana & serah terima data wajib melalui Admin Utama Toko sehingga 0% risiko penipuan.<br>
+                • <strong>Klaim Mudah:</strong> Jika ada kendala akun, admin siap membantu hingga tuntas.<br><br>
+                <a href="{{ route('how.to.buy') }}" style="color: var(--primary); font-weight: 700; text-decoration: underline;">Detail Ketentuan Garansi Toko &rarr;</a>
             `);
             return;
         }
 
-        // Greeting / Default Fallback
+        // 4. Metode Pembayaran (Payment Methods)
+        if (query.includes('metode') || query.includes('bayar') || query.includes('qris') || query.includes('dana') || 
+            query.includes('gopay') || query.includes('ovo') || query.includes('shopeepay') || query.includes('transfer') || 
+            query.includes('bank') || query.includes('bca') || query.includes('bri') || query.includes('mandiri')) {
+            
+            appendBotMessage(`
+                💳 <strong>Metode Pembayaran Resmi ALZIS STORE:</strong><br>
+                Kami menerima berbagai metode pembayaran instan & otomatis:<br>
+                • 📱 <strong>QRIS All Payment:</strong> DANA, OVO, GoPay, ShopeePay, LinkAja.<br>
+                • 🏦 <strong>Transfer Bank:</strong> BCA, BRI, Mandiri, BNI, Seabank, Jago.<br>
+                • ⚡ <strong>Proses:</strong> Konfirmasi pembayaran otomatis via WhatsApp Admin.
+            `);
+            return;
+        }
+
+        // 5. Hubungi Admin / CS / WhatsApp
+        if (query.includes('admin') || query.includes('owner') || query.includes('wa') || query.includes('whatsapp') || 
+            query.includes('cs') || query.includes('kontak') || query.includes('hubungi') || query.includes('nomor')) {
+            
+            appendBotMessage(`
+                💬 <strong>Customer Service & Admin Resmi:</strong><br>
+                Admin kami siap melayani tanya jawab, negosiasi, dan rekber transaksi akun game Anda.<br><br>
+                <a href="{{ route('contact') }}" target="_blank" class="btn btn-whatsapp btn-sm" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; font-size: 0.8rem; border-radius: 6px; text-decoration: none; color: #fff;">
+                    <span>📲 Chat WhatsApp Admin Toko</span>
+                </a>
+            `);
+            return;
+        }
+
+        // 6. Mitra Partner / Mau Jual Akun
+        if (query.includes('partner') || query.includes('mitra') || query.includes('jual akun') || 
+            query.includes('titip jual') || query.includes('daftar partner') || query.includes('post akun')) {
+            
+            appendBotMessage(`
+                🤝 <strong>Program Mitra Partner ALZIS STORE:</strong><br>
+                Mau posting & jual stok akun game Anda sendiri di website kami?<br>
+                • Daftarkan akun Anda dan hubungi Owner untuk aktivasi role <strong>Mitra Partner</strong>.<br>
+                • Partner memiliki <strong>Panel Khusus</strong> untuk post akun, pasang foto & deskripsi, serta nomor kontak penjual!<br><br>
+                <a href="{{ route('contact') }}" style="color: var(--primary); font-weight: 700;">Hubungi Owner untuk Daftar Partner &rarr;</a>
+            `);
+            return;
+        }
+
+        // 7. Cek Stok & Katalog Game Spesifik (Only when actually searching for stock)
+        if (query.includes('stok') || query.includes('katalog') || query.includes('ready') || 
+            query.includes('ff') || query.includes('free fire') || query.includes('ml') || 
+            query.includes('mobile legends') || query.includes('genshin') || query.includes('pubg') || 
+            query.includes('valorant') || query.includes('hok') || query.includes('honor of kings') ||
+            query.includes('roblox') || query.includes('sultan') || query.includes('spek')) {
+            
+            let gameTitle = 'Semua Game';
+            let targetUrl = '{{ route('catalog') }}';
+            
+            if (query.includes('free fire') || query.includes('ff')) {
+                gameTitle = 'Free Fire';
+                targetUrl = '{{ route('catalog') }}?q=Free+Fire';
+            } else if (query.includes('mobile legends') || query.includes('ml')) {
+                gameTitle = 'Mobile Legends';
+                targetUrl = '{{ route('catalog') }}?q=Mobile+Legends';
+            } else if (query.includes('genshin')) {
+                gameTitle = 'Genshin Impact';
+                targetUrl = '{{ route('catalog') }}?q=Genshin';
+            } else if (query.includes('pubg')) {
+                gameTitle = 'PUBG Mobile';
+                targetUrl = '{{ route('catalog') }}?q=PUBG';
+            } else if (query.includes('valorant')) {
+                gameTitle = 'Valorant';
+                targetUrl = '{{ route('catalog') }}?q=Valorant';
+            } else if (query.includes('hok') || query.includes('honor of kings')) {
+                gameTitle = 'Honor of Kings';
+                targetUrl = '{{ route('catalog') }}?q=Honor+of+Kings';
+            }
+
+            appendBotMessage(`
+                🎮 <strong>Katalog Stok Akun ${gameTitle}:</strong><br>
+                Stok akun ready dan siap transaksi dipandu Admin Rekber Resmi.<br><br>
+                <a href="${targetUrl}" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; font-size: 0.78rem; text-decoration: none; border-radius: 6px;">
+                    <span>🚀 Buka Stok Akun ${gameTitle}</span>
+                </a>
+            `);
+            return;
+        }
+
+        // 8. Sapaan & Salam (Greetings)
+        if (query.includes('halo') || query.includes('hai') || query.includes('hello') || query.includes('p') || 
+            query.includes('pagi') || query.includes('siang') || query.includes('malam') || query.includes('sore') || 
+            query.includes('assalamualaikum') || query.includes('tes') || query.includes('test')) {
+            
+            appendBotMessage(`
+                Halo kak! Selamat datang di <strong>ALZIS STORE</strong> 😊🎮<br>
+                Ada yang bisa kami bantu? Anda bisa tanyakan seputar stok akun game, cara order, garansi anti-HB, atau chat admin langsung.
+            `);
+            return;
+        }
+
+        // 9. Ucapan Terima Kasih
+        if (query.includes('terima kasih') || query.includes('makasih') || query.includes('tq') || 
+            query.includes('thanks') || query.includes('mantap') || query.includes('oke') || query.includes('siap')) {
+            
+            appendBotMessage(`
+                Sama-sama kak! Senang bisa membantu Anda di ALZIS STORE ✨<br>
+                Selamat berbelanja dan semoga menemukan akun game idaman Anda! 🎮🚀
+            `);
+            return;
+        }
+
+        // 10. Fallback Menu Terstruktur
         appendBotMessage(`
-            Terima kasih atas pertanyaannya! 😊<br>
-            Untuk membantu Anda lebih cepat, silakan pilih topik yang Anda butuhkan di bawah ini:<br><br>
+            Saya mengerti pertanyaan Anda. Untuk membantu menemukan info yang tepat, silakan pilih salah satu opsi berikut:<br><br>
             <div style="display: flex; flex-direction: column; gap: 6px;">
-                <a href="{{ route('catalog') }}" style="color: var(--primary); font-weight: 700; text-decoration: none;">• 🎮 Jelajahi Semua Katalog Akun</a>
-                <a href="{{ route('how.to.buy') }}" style="color: var(--primary); font-weight: 700; text-decoration: none;">• 🛡️ Syarat Garansi & Anti-HB</a>
-                <a href="{{ route('contact') }}" style="color: var(--primary); font-weight: 700; text-decoration: none;">• 💬 Kontak WhatsApp Customer Service</a>
+                <a href="{{ route('catalog') }}" style="color: var(--primary); font-weight: 700; text-decoration: none;">• 🎮 Lihat Katalog Stok Akun Ready</a>
+                <a href="{{ route('how.to.buy') }}" style="color: var(--primary); font-weight: 700; text-decoration: none;">• ⚡ Panduan Cara Beli & Info Garansi</a>
+                <a href="{{ route('contact') }}" style="color: var(--primary); font-weight: 700; text-decoration: none;">• 📲 Chat Customer Service WhatsApp</a>
             </div>
         `);
     }
