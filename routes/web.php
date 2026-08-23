@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\AdminSettingController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Partner\PartnerDashboardController;
+use App\Http\Controllers\Partner\PartnerGameAccountController;
 use Illuminate\Support\Facades\Route;
 
 // --- PUBLIC STORE ROUTES ---
@@ -36,6 +38,17 @@ Route::middleware('auth')->group(function () {
     Route::put('/profil/password', [AuthController::class, 'updatePassword'])->name('profile.password');
 });
 
+// --- DEDICATED PARTNER PORTAL ROUTES ---
+Route::prefix('partner')->name('partner.')->middleware(['auth', 'partner'])->group(function () {
+    Route::get('/', [PartnerDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [PartnerDashboardController::class, 'index']);
+
+    // Partner Game Account Management
+    Route::resource('accounts', PartnerGameAccountController::class)->except(['show']);
+    Route::post('accounts/{id}/toggle-status', [PartnerGameAccountController::class, 'toggleStatus'])->name('accounts.toggle-status');
+    Route::delete('accounts/images/{id}', [PartnerGameAccountController::class, 'deleteImage'])->name('accounts.delete-image');
+});
+
 // --- ADMIN & OWNER MANAGEMENT ROUTES ---
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
@@ -56,7 +69,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::get('settings', [AdminSettingController::class, 'index'])->name('settings.index');
     Route::post('settings', [AdminSettingController::class, 'update'])->name('settings.update');
 
-    // User & Role Management (Pelanggan, Reseller, Admin, Owner)
+    // User & Role Management (Pelanggan, Partner, Owner)
     Route::get('users', [AdminUserController::class, 'index'])->name('users.index');
     Route::post('users/{id}/role', [AdminUserController::class, 'updateRole'])->name('users.role');
     Route::post('users/{id}/ban', [AdminUserController::class, 'toggleBan'])->name('users.ban');

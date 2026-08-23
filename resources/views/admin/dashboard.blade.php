@@ -76,7 +76,7 @@
                 </div>
             </div>
             <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.78rem; color: var(--text-muted);">
-                <strong style="color: var(--gold);">{{ $totalAdmins }} Admin</strong> • {{ $totalCustomers }} Member
+                <strong style="color: #00f2fe;">{{ $totalPartners }} Mitra Partner</strong> • {{ $totalCustomers }} Member
             </div>
         </div>
 
@@ -94,7 +94,7 @@
                 </div>
             </div>
             <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.78rem; color: var(--text-muted);">
-                {{ $totalWishlists }} Akun Disimpan Pembeli
+                {{ $totalWishlists }} Akun Disimpan • {{ $partnerAccountsCount }} Akun Mitra
             </div>
         </div>
     </div>
@@ -105,13 +105,13 @@
             <i data-lucide="plus-circle" style="width: 18px; height: 18px; color: var(--primary);"></i>
             <span>+ Tambah Akun Baru</span>
         </a>
-        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 16px;">
-            <i data-lucide="folder" style="width: 18px; height: 18px; color: var(--accent-blue);"></i>
-            <span>Kelola Kategori Game</span>
+        <a href="{{ route('admin.accounts.index', ['creator' => 'partner']) }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 16px; border-color: rgba(0, 242, 254, 0.3);">
+            <i data-lucide="users" style="width: 18px; height: 18px; color: #00f2fe;"></i>
+            <span>Pantau Akun Partner</span>
         </a>
-        <a href="{{ route('admin.settings.index') }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 16px;">
-            <i data-lucide="settings" style="width: 18px; height: 18px; color: var(--gold);"></i>
-            <span>Pengaturan Toko & WA</span>
+        <a href="{{ route('admin.users.index', ['role' => 'partner']) }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 16px;">
+            <i data-lucide="user-check" style="width: 18px; height: 18px; color: #38bdf8;"></i>
+            <span>Kelola Mitra Partner</span>
         </a>
         <a href="{{ route('admin.logs.index') }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 16px;">
             <i data-lucide="shield-check" style="width: 18px; height: 18px; color: #a855f7;"></i>
@@ -125,7 +125,7 @@
         <!-- Recent Accounts Table Card -->
         <div class="data-table-card">
             <div style="padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-                <h3 style="font-size: 1rem; font-weight: 700; color: #fff;">Stok Akun Terbaru</h3>
+                <h3 style="font-size: 1rem; font-weight: 700; color: #fff;">Stok Akun Terbaru (Owner & Partner)</h3>
                 <a href="{{ route('admin.accounts.index') }}" style="font-size: 0.8rem; color: var(--primary); font-weight: 600;">Lihat Semua &rarr;</a>
             </div>
 
@@ -134,6 +134,7 @@
                     <thead>
                         <tr>
                             <th>Kode & Akun</th>
+                            <th>Pembuat</th>
                             <th>Game</th>
                             <th>Harga</th>
                             <th>Status</th>
@@ -146,6 +147,17 @@
                                 <td>
                                     <div style="font-weight: 700; color: #fff;">{{ $acc->title }}</div>
                                     <div style="font-size: 0.75rem; color: var(--text-dim); font-family: monospace;">#{{ $acc->code }}</div>
+                                </td>
+                                <td>
+                                    @if($acc->user && $acc->user->isPartner())
+                                        <span style="font-size: 0.72rem; color: #00f2fe; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3); padding: 2px 6px; border-radius: 4px; font-weight: 700;">
+                                            🤝 {{ $acc->user->name }}
+                                        </span>
+                                    @else
+                                        <span style="font-size: 0.72rem; color: #fbbf24; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 2px 6px; border-radius: 4px; font-weight: 700;">
+                                            👑 Owner
+                                        </span>
+                                    @endif
                                 </td>
                                 <td>
                                     <span class="tag-badge">{{ $acc->category->name }}</span>
@@ -168,7 +180,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" style="text-align: center; color: var(--text-dim); padding: 30px;">
+                                <td colspan="6" style="text-align: center; color: var(--text-dim); padding: 30px;">
                                     Belum ada akun game yang ditambahkan.
                                 </td>
                             </tr>

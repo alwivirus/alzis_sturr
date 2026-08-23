@@ -23,21 +23,33 @@ class AdminDashboardController extends Controller
         // User & Role Stats
         $totalUsers = User::count();
         $totalOwners = User::whereIn('role', ['owner', 'super_admin'])->count();
-        $totalAdmins = User::where('role', 'admin')->count();
-        $totalResellers = User::where('role', 'reseller')->count();
+        $totalPartners = User::where('role', 'partner')->count();
         $totalCustomers = User::where('role', 'user')->count();
         $totalBanned = User::where('is_banned', true)->count();
 
         $totalViews = GameAccount::sum('views_count');
         $totalWishlists = Wishlist::count();
 
+        // Partner Accounts Stats
+        $partnerAccountsCount = GameAccount::whereHas('user', function($q) {
+            $q->where('role', 'partner');
+        })->count();
+
         // Financial & Stock Valuation
         $totalStockValue = GameAccount::where('status', 'available')->sum(DB::raw('COALESCE(discount_price, price)'));
         $totalSoldValue = GameAccount::where('status', 'sold')->sum(DB::raw('COALESCE(discount_price, price)'));
 
-        $latestAccounts = GameAccount::with('category')
+        $latestAccounts = GameAccount::with(['category', 'user'])
             ->orderBy('created_at', 'desc')
             ->take(6)
+            ->get();
+
+        $latestPartnerAccounts = GameAccount::with(['category', 'user'])
+            ->whereHas('user', function($q) {
+                $q->where('role', 'partner');
+            })
+            ->orderBy('created_at', 'desc')
+            ->take(5)
             ->get();
 
         $topViewed = GameAccount::with('category')
@@ -57,15 +69,16 @@ class AdminDashboardController extends Controller
             'totalCategories',
             'totalUsers',
             'totalOwners',
-            'totalAdmins',
-            'totalResellers',
+            'totalPartners',
             'totalCustomers',
             'totalBanned',
             'totalViews',
             'totalWishlists',
+            'partnerAccountsCount',
             'totalStockValue',
             'totalSoldValue',
             'latestAccounts',
+            'latestPartnerAccounts',
             'topViewed',
             'recentActivityLogs'
         ));

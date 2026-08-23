@@ -33,9 +33,10 @@
         .navbar{position:sticky;top:0;z-index:1000;background:rgba(6,9,19,0.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:8px 0;width:100%;}
         .nav-wrapper{display:flex;align-items:center;justify-content:space-between;gap:10px;height:52px;width:100%;}
         @media(min-width:992px){.nav-wrapper{height:62px;}}
-        .brand-logo{display:flex;align-items:center;text-decoration:none;gap:8px;flex-shrink:1;min-width:0;}
-        .nav-menu{display:none;align-items:center;gap:6px;list-style:none;}
-        @media(min-width:992px){.nav-menu{display:flex;}}
+        .brand-logo{display:flex !important;align-items:center !important;text-decoration:none !important;gap:8px !important;flex-shrink:0 !important;white-space:nowrap !important;min-width:max-content !important;}
+        .brand-logo *{white-space:nowrap !important;flex-shrink:0 !important;}
+        .nav-menu{display:none !important;align-items:center;gap:6px;list-style:none;}
+        @media(min-width:1024px){.nav-menu{display:flex !important;}}
         .nav-link{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;color:var(--text-muted);font-weight:600;font-size:0.88rem;text-decoration:none;}
         .nav-link.active{background:rgba(0,242,254,0.12);color:var(--primary);}
         .hero-section{padding:12px 0 18px;width:100%;}
@@ -105,7 +106,7 @@
     </style>
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=7.0">
+    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=7.1">
 
     @stack('styles')
 </head>
@@ -136,9 +137,9 @@
         <div class="container">
             <div class="nav-wrapper">
                 <!-- Brand Official Logo -->
-                <a href="{{ route('home') }}" class="brand-logo" style="display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 1; min-width: 0;">
+                <a href="{{ route('home') }}" class="brand-logo" style="display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; white-space: nowrap; min-width: max-content;">
                     <img src="{{ asset('images/logo.png') }}" width="34" height="34" decoding="async" alt="ALZIS STORE Logo" style="height: 34px; width: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.5)); flex-shrink: 0;">
-                    <div style="display: flex; flex-direction: column; min-width: 0; overflow: hidden;">
+                    <div style="display: flex; flex-direction: column; white-space: nowrap;">
                         <span style="font-size: 1.05rem; font-weight: 900; font-family: var(--font-heading); color: #fff; line-height: 1.1; letter-spacing: 0.2px; white-space: nowrap;">
                             ALZIS <span style="color: var(--primary);">STORE</span>
                         </span>
@@ -193,17 +194,17 @@
                                 <svg style="width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14v2H5v-2z"/></svg>
                                 <span>Owner</span>
                             </a>
-                        @elseif(Auth::user()->isAdmin())
-                            <a href="{{ route('admin.dashboard') }}" class="btn btn-sm" style="background: rgba(0, 242, 254, 0.15); border: 1px solid rgba(0, 242, 254, 0.4); color: var(--primary); font-weight: 800; padding: 5px 9px; font-size: 0.74rem;">
-                                <svg style="width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                                <span>Admin</span>
+                        @elseif(Auth::user()->isPartner())
+                            <a href="{{ route('partner.dashboard') }}" class="btn btn-sm" style="background: rgba(0, 242, 254, 0.15); border: 1px solid rgba(0, 242, 254, 0.4); color: var(--primary); font-weight: 800; padding: 5px 9px; font-size: 0.74rem;">
+                                <svg style="width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                <span>Panel Partner</span>
                             </a>
                         @endif
 
                         <!-- Profile Pill with Avatar -->
-                        <a href="{{ route('profile') }}" class="btn btn-secondary btn-sm" style="gap: 6px; padding: 4px 8px;">
-                            <img src="{{ Auth::user()->avatar_url }}" alt="Avatar" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; object-fit: cover; border: 1px solid var(--primary);">
-                            <span style="max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; font-size: 0.76rem;">{{ Auth::user()->name }}</span>
+                        <a href="{{ route('profile') }}" class="btn btn-secondary btn-sm" style="gap: 6px; padding: 4px 8px;" title="{{ Auth::user()->name }}">
+                            <img src="{{ Auth::user()->avatar_url }}" alt="Avatar" width="22" height="22" style="width: 22px; height: 22px; border-radius: 50%; object-fit: cover; border: 1px solid var(--primary); flex-shrink: 0;">
+                            <span class="user-name-text" style="max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; font-size: 0.76rem;">{{ Auth::user()->name }}</span>
                         </a>
 
                         <!-- Logout -->

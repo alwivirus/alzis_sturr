@@ -7,8 +7,8 @@
 @if(Auth::user()->isOwner())
 <form action="{{ route('admin.logs.clear') }}" method="POST" onsubmit="return confirm('PERINGATAN! Anda yakin ingin membersihkan log aktivitas yang lebih lama dari 30 hari?');">
     @csrf
-    <button type="submit" class="btn btn-outline" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4);">
-        <i data-lucide="trash" style="width: 15px; height: 15px;"></i>
+    <button type="submit" class="btn btn-danger-outline" style="font-size: 0.82rem;">
+        <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
         <span>Bersihkan Log Lama</span>
     </button>
 </form>
@@ -19,23 +19,44 @@
 <div style="display: flex; flex-direction: column; gap: 24px;">
 
     <!-- Summary Stats -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
-        <div class="stat-card" style="border-left: 3px solid #f59e0b;">
-            <div class="stat-title" style="color: #fbbf24;">Total Aktivitas Tercatat</div>
-            <div class="stat-value" style="color: #fbbf24;">{{ number_format($totalLogs) }}</div>
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Riwayat Audit Keamanan</div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+        <div class="stat-card" style="border-left: 3px solid #f59e0b !important;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <div class="stat-title" style="color: #fbbf24;">Total Aktivitas Tercatat</div>
+                    <div class="stat-value" style="color: #fbbf24;">{{ number_format($totalLogs) }}</div>
+                </div>
+                <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(245, 158, 11, 0.15); color: #fbbf24; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="file-text" style="width: 18px; height: 18px;"></i>
+                </div>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Riwayat Audit Keamanan</div>
         </div>
 
-        <div class="stat-card" style="border-left: 3px solid var(--primary);">
-            <div class="stat-title">Aktivitas Hari Ini</div>
-            <div class="stat-value" style="color: #fff;">{{ number_format($todayLogs) }}</div>
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Log 24 Jam Terakhir</div>
+        <div class="stat-card" style="border-left: 3px solid var(--primary) !important;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <div class="stat-title" style="color: var(--primary);">Aktivitas Hari Ini</div>
+                    <div class="stat-value" style="color: #fff;">{{ number_format($todayLogs) }}</div>
+                </div>
+                <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(0, 242, 254, 0.15); color: var(--primary); display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="clock" style="width: 18px; height: 18px;"></i>
+                </div>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Log 24 Jam Terakhir</div>
         </div>
 
-        <div class="stat-card" style="border-left: 3px solid #34d399;">
-            <div class="stat-title" style="color: #34d399;">Status Sistem Pengawasan</div>
-            <div class="stat-value" style="color: #34d399; font-size: 1.3rem;">AKTIF REAL-TIME</div>
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Semua Aksi Admin Terekam Otomatis</div>
+        <div class="stat-card" style="border-left: 3px solid #34d399 !important;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <div class="stat-title" style="color: #34d399;">Status Sistem</div>
+                    <div class="stat-value" style="color: #34d399; font-size: 1.3rem;">AKTIF REAL-TIME</div>
+                </div>
+                <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(52, 211, 153, 0.15); color: #34d399; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="shield-check" style="width: 18px; height: 18px;"></i>
+                </div>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Semua Aksi Admin Terekam Otomatis</div>
         </div>
     </div>
 
@@ -119,10 +140,8 @@
                             <div style="font-size: 0.75rem; margin-top: 2px;">
                                 @if(in_array($log->user_role, ['owner', 'super_admin']))
                                     <span style="color: #fbbf24; font-weight: 700;">👑 OWNER</span>
-                                @elseif($log->user_role === 'admin')
-                                    <span style="color: #00f2fe; font-weight: 700;">🛡️ ADMIN</span>
-                                @elseif($log->user_role === 'reseller')
-                                    <span style="color: #c084fc; font-weight: 700;">💎 RESELLER</span>
+                                @elseif($log->user_role === 'partner')
+                                    <span style="color: #00f2fe; font-weight: 700;">🤝 PARTNER</span>
                                 @else
                                     <span style="color: #34d399; font-weight: 600;">👤 USER</span>
                                 @endif

@@ -39,7 +39,7 @@ class AdminActivityLogController extends Controller
 
         // Unique action types for filter
         $actionTypes = ActivityLog::select('action')->distinct()->pluck('action');
-        $admins = User::whereIn('role', ['owner', 'admin', 'super_admin'])->get();
+        $admins = User::whereIn('role', ['owner', 'partner', 'super_admin'])->orderBy('name')->get();
 
         $totalLogs = ActivityLog::count();
         $todayLogs = ActivityLog::whereDate('created_at', today())->count();

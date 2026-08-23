@@ -50,9 +50,12 @@ class AuthController extends Controller
                 "Pengguna '{$user->name}' ({$user->email}) berhasil login ke sistem sebagai " . strtoupper($user->role) . "."
             );
 
-            if ($user->isAdmin()) {
-                $roleTitle = $user->isOwner() ? 'Owner Utama ' : 'Admin ';
-                return redirect()->intended(route('admin.dashboard'))->with('success', "Selamat datang kembali, {$roleTitle}{$user->name}!");
+            if ($user->isOwner()) {
+                return redirect()->intended(route('admin.dashboard'))->with('success', "Selamat datang kembali, Owner Utama {$user->name}!");
+            }
+
+            if ($user->isPartner()) {
+                return redirect()->intended(route('partner.dashboard'))->with('success', "Selamat datang di Panel Mitra Partner, {$user->name}!");
             }
 
             return redirect()->intended(route('home'))->with('success', 'Berhasil login! Selamat datang di ALzis STURR.');

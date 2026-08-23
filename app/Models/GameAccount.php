@@ -12,6 +12,7 @@ class GameAccount extends Model
 
     protected $fillable = [
         'game_category_id',
+        'user_id',
         'code',
         'title',
         'slug',
@@ -51,6 +52,16 @@ class GameAccount extends Model
                 $model->slug = Str::slug($model->title . '-' . ($model->code ?: Str::random(5)));
             }
         });
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function isPartnerAccount(): bool
+    {
+        return $this->user && $this->user->isPartner();
     }
 
     public function category()

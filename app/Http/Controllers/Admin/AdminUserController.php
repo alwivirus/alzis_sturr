@@ -39,13 +39,12 @@ class AdminUserController extends Controller
             }
         }
 
-        $users = $query->orderBy('created_at', 'desc')->paginate(15)->withQueryString();
+        $users = $query->withCount('gameAccounts')->orderBy('created_at', 'desc')->paginate(15)->withQueryString();
 
         // Statistics
         $totalUsers = User::count();
         $totalOwners = User::whereIn('role', ['owner', 'super_admin'])->count();
-        $totalAdmins = User::where('role', 'admin')->count();
-        $totalResellers = User::where('role', 'reseller')->count();
+        $totalPartners = User::where('role', 'partner')->count();
         $totalCustomers = User::where('role', 'user')->count();
         $totalBanned = User::where('is_banned', true)->count();
 
@@ -53,8 +52,7 @@ class AdminUserController extends Controller
             'users',
             'totalUsers',
             'totalOwners',
-            'totalAdmins',
-            'totalResellers',
+            'totalPartners',
             'totalCustomers',
             'totalBanned'
         ));
@@ -65,13 +63,13 @@ class AdminUserController extends Controller
         $targetUser = User::findOrFail($id);
         $currentUser = Auth::user();
 
-        // Only Owner can change roles to/from Owner/Admin
-        if (!$currentUser->isOwner() && ($targetUser->isOwner() || in_array($request->input('role'), ['owner', 'admin']))) {
-            return back()->with('error', 'Hanya Owner Utama yang memiliki hak akses untuk mengubah role Admin atau Owner!');
+        // Only Owner can change roles to/from Owner
+        if (!$currentUser->isOwner() && ($targetUser->isOwner() || $request->input('role') === 'owner')) {
+            return back()->with('error', 'Hanya Owner Utama yang memiliki hak akses untuk mengubah role Owner!');
         }
 
         $validated = $request->validate([
-            'role' => 'required|in:user,reseller,admin,owner',
+            'role' => 'required|in:user,partner,owner',
         ]);
 
         $oldRole = $targetUser->role;
@@ -88,7 +86,13 @@ class AdminUserController extends Controller
             ]
         );
 
-        return back()->with('success', "Role pengguna {$targetUser->name} berhasil diubah menjadi " . strtoupper($targetUser->role) . "!");
+        $roleLabel = match($targetUser->role) {
+            'owner' => 'OWNER UTAMA',
+            'partner' => 'MITRA PARTNER',
+            default => 'PELANGGAN'
+        };
+
+        return back()->with('success', "Role pengguna {$targetUser->name} berhasil diubah menjadi {$roleLabel}!");
     }
 
     public function toggleBan(Request $request, $id)

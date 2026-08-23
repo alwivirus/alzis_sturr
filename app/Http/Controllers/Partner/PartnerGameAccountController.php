@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Models\AccountImage;
@@ -8,14 +8,16 @@ use App\Models\ActivityLog;
 use App\Models\GameAccount;
 use App\Models\GameCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class AdminGameAccountController extends Controller
+class PartnerGameAccountController extends Controller
 {
     public function index(Request $request)
     {
-        $query = GameAccount::with(['category', 'images', 'user']);
+        $partnerId = Auth::id();
+        $query = GameAccount::with(['category', 'images'])->where('user_id', $partnerId);
 
         if ($request->filled('q')) {
             $search = $request->q;
@@ -33,34 +35,16 @@ class AdminGameAccountController extends Controller
             $query->where('status', $request->status);
         }
 
-        // Filter Author (Owner vs Partner)
-        if ($request->filled('creator')) {
-            if ($request->creator === 'partner') {
-                $query->whereNotNull('user_id')->whereHas('user', function($q) {
-                    $q->where('role', 'partner');
-                });
-            } elseif ($request->creator === 'owner') {
-                $query->where(function($q) {
-                    $q->whereNull('user_id')->orWhereHas('user', function($sub) {
-                        $sub->whereIn('role', ['owner', 'super_admin']);
-                    });
-                });
-            } elseif (is_numeric($request->creator)) {
-                $query->where('user_id', $request->creator);
-            }
-        }
-
         $accounts = $query->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
-        $categories = GameCategory::all();
-        $partners = \App\Models\User::where('role', 'partner')->get();
+        $categories = GameCategory::where('is_active', true)->orderBy('name')->get();
 
-        return view('admin.accounts.index', compact('accounts', 'categories', 'partners'));
+        return view('partner.accounts.index', compact('accounts', 'categories'));
     }
 
     public function create()
     {
         $categories = GameCategory::where('is_active', true)->orderBy('name')->get();
-        return view('admin.accounts.create', compact('categories'));
+        return view('partner.accounts.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -75,9 +59,9 @@ class AdminGameAccountController extends Controller
             'login_bind' => 'required|string|max:255',
             'server' => 'required|string|max:255',
             'status' => 'required|in:available,sold,booked',
-            'thumbnail_file' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
+            'thumbnail_file' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
             'thumbnail_url' => 'nullable|url',
-            'screenshots.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
+            'screenshots.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
             'short_description' => 'nullable|string',
             'full_specs' => 'nullable|string',
             'hero_count' => 'nullable|integer|min:0',
@@ -88,7 +72,7 @@ class AdminGameAccountController extends Controller
             'is_featured' => 'boolean',
         ], [
             'code.required' => 'Kode akun (SKU) wajib diisi.',
-            'code.unique' => 'Kode akun ini sudah digunakan, gunakan kode unik.',
+            'code.unique' => 'Kode akun ini sudah digunakan, silakan buat kode unik.',
             'title.required' => 'Judul postingan akun wajib diisi.',
             'price.required' => 'Harga akun wajib diisi.',
             'discount_price.lt' => 'Harga promo harus lebih kecil dari harga normal.',
@@ -98,13 +82,10 @@ class AdminGameAccountController extends Controller
 
         $categoryId = $request->input('game_category_id');
 
-        // Handle Custom / New Game Input
+        // Custom Game name input
         if ($request->filled('new_game_name')) {
             $newGameName = trim($request->input('new_game_name'));
-            $catSlug = Str::slug($newGameName);
-            if (empty($catSlug)) {
-                $catSlug = 'game-' . Str::random(5);
-            }
+            $catSlug = Str::slug($newGameName) ?: ('game-' . Str::random(5));
             $category = GameCategory::firstOrCreate(
                 ['slug' => $catSlug],
                 [
@@ -132,9 +113,11 @@ class AdminGameAccountController extends Controller
             $thumbnailPath = $request->thumbnail_url;
         }
 
+        $partner = Auth::user();
+
         $account = GameAccount::create([
             'game_category_id' => $categoryId,
-            'user_id' => \Illuminate\Support\Facades\Auth::id(),
+            'user_id' => $partner->id,
             'code' => strtoupper($validated['code']),
             'title' => $validated['title'],
             'slug' => Str::slug($validated['title'] . '-' . $validated['code']),
@@ -154,7 +137,7 @@ class AdminGameAccountController extends Controller
             'is_featured' => $request->boolean('is_featured', false),
         ]);
 
-        // Upload additional screenshots if provided
+        // Upload gallery screenshots
         if ($request->hasFile('screenshots')) {
             $order = 1;
             foreach ($request->file('screenshots') as $screenshot) {
@@ -167,25 +150,45 @@ class AdminGameAccountController extends Controller
             }
         }
 
+        // Activity log for Owner auditing
         ActivityLog::record(
             'CREATE_ACCOUNT',
-            "Menambahkan postingan akun game baru [{$account->code}] - '{$account->title}' seharga " . $account->formatted_effective_price . ".",
-            ['account_id' => $account->id, 'code' => $account->code]
+            "Partner '{$partner->name}' menambahkan postingan akun baru [{$account->code}] - '{$account->title}' seharga " . $account->formatted_effective_price . ".",
+            [
+                'account_id' => $account->id,
+                'code' => $account->code,
+                'partner_id' => $partner->id,
+                'partner_name' => $partner->name,
+                'role' => 'partner'
+            ]
         );
 
-        return redirect()->route('admin.accounts.index')->with('success', "Akun game [{$account->code}] berhasil ditambahkan ke katalog!");
+        return redirect()->route('partner.accounts.index')->with('success', "Akun game [{$account->code}] berhasil diposting ke katalog!");
     }
 
     public function edit($id)
     {
-        $account = ($id instanceof GameAccount) ? $id : GameAccount::with('images')->findOrFail($id);
+        $partnerId = Auth::id();
+        $account = GameAccount::with('images')->where('id', $id)->firstOrFail();
+
+        // Check ownership
+        if ($account->user_id !== $partnerId && !Auth::user()->isOwner()) {
+            abort(403, 'Anda tidak memiliki hak akses untuk mengedit akun ini.');
+        }
+
         $categories = GameCategory::where('is_active', true)->orderBy('name')->get();
-        return view('admin.accounts.edit', compact('account', 'categories'));
+        return view('partner.accounts.edit', compact('account', 'categories'));
     }
 
     public function update(Request $request, $id)
     {
-        $account = ($id instanceof GameAccount) ? $id : GameAccount::findOrFail($id);
+        $partnerId = Auth::id();
+        $account = GameAccount::where('id', $id)->firstOrFail();
+
+        // Check ownership
+        if ($account->user_id !== $partnerId && !Auth::user()->isOwner()) {
+            abort(403, 'Anda tidak memiliki hak akses untuk mengedit akun ini.');
+        }
 
         $validated = $request->validate([
             'game_category_id' => 'nullable|exists:game_categories,id',
@@ -212,13 +215,9 @@ class AdminGameAccountController extends Controller
 
         $categoryId = $request->input('game_category_id');
 
-        // Handle Custom / New Game Input
         if ($request->filled('new_game_name')) {
             $newGameName = trim($request->input('new_game_name'));
-            $catSlug = Str::slug($newGameName);
-            if (empty($catSlug)) {
-                $catSlug = 'game-' . Str::random(5);
-            }
+            $catSlug = Str::slug($newGameName) ?: ('game-' . Str::random(5));
             $category = GameCategory::firstOrCreate(
                 ['slug' => $catSlug],
                 [
@@ -241,7 +240,6 @@ class AdminGameAccountController extends Controller
 
         $thumbnailPath = $account->thumbnail;
         if ($request->hasFile('thumbnail_file')) {
-            // Delete old file if local
             if ($account->thumbnail && !str_starts_with($account->thumbnail, 'http') && Storage::disk('public')->exists($account->thumbnail)) {
                 Storage::disk('public')->delete($account->thumbnail);
             }
@@ -271,7 +269,6 @@ class AdminGameAccountController extends Controller
             'is_featured' => $request->boolean('is_featured', false),
         ]);
 
-        // Upload additional screenshots
         if ($request->hasFile('screenshots')) {
             $lastOrder = $account->images()->max('sort_order') ?? 0;
             foreach ($request->file('screenshots') as $screenshot) {
@@ -285,30 +282,39 @@ class AdminGameAccountController extends Controller
             }
         }
 
+        $partner = Auth::user();
         ActivityLog::record(
             'UPDATE_ACCOUNT',
-            "Memperbarui data dan spesifikasi akun game [{$account->code}] - '{$account->title}'.",
-            ['account_id' => $account->id, 'code' => $account->code]
+            "Partner '{$partner->name}' memperbarui data akun [{$account->code}] - '{$account->title}'.",
+            [
+                'account_id' => $account->id,
+                'code' => $account->code,
+                'partner_id' => $partner->id,
+            ]
         );
 
-        return redirect()->route('admin.accounts.index')->with('success', "Akun [{$account->code}] berhasil diperbarui!");
+        return redirect()->route('partner.accounts.index')->with('success', "Akun [{$account->code}] berhasil diperbarui!");
     }
 
     public function destroy($id)
     {
-        $account = ($id instanceof GameAccount) ? $id : GameAccount::findOrFail($id);
+        $partnerId = Auth::id();
+        $account = GameAccount::where('id', $id)->firstOrFail();
+
+        // Check ownership
+        if ($account->user_id !== $partnerId && !Auth::user()->isOwner()) {
+            abort(403, 'Anda tidak memiliki hak akses untuk menghapus akun ini.');
+        }
+
         $code = $account->code;
         $title = $account->title;
 
-        // Delete wishlists to prevent foreign key errors
         $account->wishlists()->delete();
 
-        // Delete thumbnail file if local
         if ($account->thumbnail && !str_starts_with($account->thumbnail, 'http') && Storage::disk('public')->exists($account->thumbnail)) {
             Storage::disk('public')->delete($account->thumbnail);
         }
 
-        // Delete all gallery screenshots
         foreach ($account->images as $img) {
             if (!str_starts_with($img->image_path, 'http') && Storage::disk('public')->exists($img->image_path)) {
                 Storage::disk('public')->delete($img->image_path);
@@ -318,27 +324,42 @@ class AdminGameAccountController extends Controller
 
         $account->delete();
 
+        $partner = Auth::user();
         ActivityLog::record(
             'DELETE_ACCOUNT',
-            "Menghapus permanen akun game [{$code}] - '{$title}' dari database.",
-            ['deleted_code' => $code]
+            "Partner '{$partner->name}' menghapus postingan akun [{$code}] - '{$title}'.",
+            [
+                'deleted_code' => $code,
+                'partner_id' => $partner->id,
+            ]
         );
 
-        return redirect()->route('admin.accounts.index')->with('success', "Akun [{$code}] berhasil dihapus dari katalog.");
+        return redirect()->route('partner.accounts.index')->with('success', "Akun [{$code}] berhasil dihapus dari postingan Anda.");
     }
 
     public function toggleStatus($id)
     {
-        $account = ($id instanceof GameAccount) ? $id : GameAccount::findOrFail($id);
+        $partnerId = Auth::id();
+        $account = GameAccount::where('id', $id)->firstOrFail();
+
+        if ($account->user_id !== $partnerId && !Auth::user()->isOwner()) {
+            abort(403, 'Anda tidak memiliki hak akses untuk mengubah status akun ini.');
+        }
+
         $account->status = ($account->status === 'available') ? 'sold' : 'available';
         $account->save();
 
         $statusLabel = ($account->status === 'available') ? 'Tersedia (Ready)' : 'Terjual (Sold Out)';
 
+        $partner = Auth::user();
         ActivityLog::record(
             'TOGGLE_STATUS',
-            "Mengubah status stok akun [{$account->code}] menjadi: {$statusLabel}.",
-            ['account_id' => $account->id, 'new_status' => $account->status]
+            "Partner '{$partner->name}' mengubah status akun [{$account->code}] menjadi: {$statusLabel}.",
+            [
+                'account_id' => $account->id,
+                'new_status' => $account->status,
+                'partner_id' => $partner->id,
+            ]
         );
 
         return back()->with('success', "Status akun [{$account->code}] diubah menjadi: {$statusLabel}.");
@@ -346,8 +367,14 @@ class AdminGameAccountController extends Controller
 
     public function deleteImage($id)
     {
-        $image = AccountImage::findOrFail($id);
-        $accCode = $image->gameAccount?->code ?? 'N/A';
+        $image = AccountImage::with('gameAccount')->findOrFail($id);
+        $account = $image->gameAccount;
+
+        if ($account->user_id !== Auth::id() && !Auth::user()->isOwner()) {
+            abort(403, 'Anda tidak memiliki hak akses untuk menghapus foto ini.');
+        }
+
+        $accCode = $account->code ?? 'N/A';
         if (!str_starts_with($image->image_path, 'http') && Storage::disk('public')->exists($image->image_path)) {
             Storage::disk('public')->delete($image->image_path);
         }
@@ -355,9 +382,9 @@ class AdminGameAccountController extends Controller
 
         ActivityLog::record(
             'DELETE_IMAGE',
-            "Menghapus salah satu screenshot galeri pada akun [{$accCode}]."
+            "Partner '" . Auth::user()->name . "' menghapus foto screenshot galeri pada akun [{$accCode}]."
         );
 
-        return back()->with('success', 'Foto screenshot berhasil dihapus.');
+        return back()->with('success', 'Foto screenshot galeri berhasil dihapus.');
     }
 }
