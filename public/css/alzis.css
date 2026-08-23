@@ -77,34 +77,34 @@
    MULTI-THEME PALETTES (User Customizable)
    ========================================================================== */
 
-/* 1. Theme: Pink Sakura Pastel */
+/* 1. Theme: Cute Pink Pastel (Watermelon #F3809D, Carnation #F5A4C8, Lavender #F6AECE) */
 [data-theme="pink-sakura"] {
-  --bg-body: #160c16;
-  --bg-surface: #1e101f;
-  --bg-surface-elevated: #261427;
-  --bg-card: #241325;
-  --bg-card-hover: #301a32;
-  --bg-glass: rgba(22, 12, 22, 0.95);
-  --bg-glass-card: rgba(36, 19, 37, 0.9);
-  --bg-input: #1b0e1c;
+  --bg-body: #160a13;
+  --bg-surface: #1f0f1b;
+  --bg-surface-elevated: #281423;
+  --bg-card: #251221;
+  --bg-card-hover: #32182c;
+  --bg-glass: rgba(22, 10, 19, 0.95);
+  --bg-glass-card: rgba(37, 18, 33, 0.9);
+  --bg-input: #1c0e18;
 
-  --border: rgba(255, 120, 175, 0.22);
-  --border-light: rgba(255, 140, 185, 0.32);
-  --border-focus: #ff659f;
-  --border-hover: rgba(255, 101, 159, 0.5);
+  --border: rgba(245, 164, 200, 0.25);
+  --border-light: rgba(246, 174, 206, 0.35);
+  --border-focus: #F3809D;
+  --border-hover: rgba(243, 128, 157, 0.55);
 
-  --primary: #ff659f;
-  --primary-hover: #ff8cb9;
-  --primary-gradient: linear-gradient(135deg, #ff659f 0%, #ff8eb4 50%, #ffa8c8 100%);
-  --primary-light: rgba(255, 101, 159, 0.18);
-  --primary-border: rgba(255, 101, 159, 0.42);
-  --primary-glow: rgba(255, 101, 159, 0.35);
+  --primary: #F3809D;
+  --primary-hover: #F5A4C8;
+  --primary-gradient: linear-gradient(135deg, #F3809D 0%, #F5A4C8 50%, #F6AECE 100%);
+  --primary-light: rgba(245, 164, 200, 0.2);
+  --primary-border: rgba(243, 128, 157, 0.45);
+  --primary-glow: rgba(243, 128, 157, 0.4);
 
-  --accent-purple: #f472b6;
-  --accent-purple-gradient: linear-gradient(135deg, #fbcfe8 0%, #f472b6 100%);
-  --accent-purple-light: rgba(244, 114, 182, 0.15);
+  --accent-purple: #F6AECE;
+  --accent-purple-gradient: linear-gradient(135deg, #F6AECE 0%, #F5A4C8 100%);
+  --accent-purple-light: rgba(246, 174, 206, 0.2);
 
-  --shadow-glow: 0 0 25px rgba(255, 101, 159, 0.35);
+  --shadow-glow: 0 0 25px rgba(243, 128, 157, 0.4);
 }
 
 /* 2. Theme: Midnight Royal Violet (Esports Purple) */
@@ -223,11 +223,11 @@ body {
 }
 
 [data-theme="pink-sakura"] body {
-  background-color: #160c16 !important;
+  background-color: #160a13 !important;
   background-image: 
-    radial-gradient(circle at 15% 10%, rgba(255, 101, 159, 0.16) 0%, transparent 45%),
-    radial-gradient(circle at 85% 25%, rgba(255, 142, 180, 0.14) 0%, transparent 45%),
-    radial-gradient(circle at 50% 80%, rgba(254, 207, 239, 0.08) 0%, transparent 50%) !important;
+    radial-gradient(circle at 15% 10%, rgba(243, 128, 157, 0.16) 0%, transparent 45%),
+    radial-gradient(circle at 85% 25%, rgba(245, 164, 200, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(246, 174, 206, 0.08) 0%, transparent 50%) !important;
 }
 
 [data-theme="purple-neon"] body {

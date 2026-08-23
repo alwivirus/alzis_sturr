@@ -48,24 +48,24 @@
             --text-dim: #64748b;
         }
 
-        /* 🌸 Theme: Pink Sakura Pastel */
+        /* 🌸 Theme: Cute Pink Pastel (Watermelon #F3809D, Carnation #F5A4C8, Lavender #F6AECE) */
         [data-theme="pink-sakura"] {
-            --bg-body: #160c16 !important;
-            --bg-surface: #1e101f !important;
-            --bg-surface-elevated: #261427 !important;
-            --bg-card: #241325 !important;
-            --bg-card-hover: #301a32 !important;
-            --bg-glass: rgba(22, 12, 22, 0.95) !important;
-            --bg-glass-card: rgba(36, 19, 37, 0.9) !important;
-            --primary: #ff659f !important;
-            --primary-hover: #ff8cb9 !important;
-            --primary-gradient: linear-gradient(135deg, #ff659f 0%, #ff8eb4 50%, #ffa8c8 100%) !important;
-            --primary-light: rgba(255, 101, 159, 0.18) !important;
-            --primary-border: rgba(255, 101, 159, 0.42) !important;
-            --border: rgba(255, 120, 175, 0.22) !important;
-            --border-light: rgba(255, 140, 185, 0.32) !important;
-            --accent-purple: #f472b6 !important;
-            --shadow-glow: 0 0 25px rgba(255, 101, 159, 0.35) !important;
+            --bg-body: #160a13 !important;
+            --bg-surface: #1f0f1b !important;
+            --bg-surface-elevated: #281423 !important;
+            --bg-card: #251221 !important;
+            --bg-card-hover: #32182c !important;
+            --bg-glass: rgba(22, 10, 19, 0.95) !important;
+            --bg-glass-card: rgba(37, 18, 33, 0.9) !important;
+            --primary: #F3809D !important;
+            --primary-hover: #F5A4C8 !important;
+            --primary-gradient: linear-gradient(135deg, #F3809D 0%, #F5A4C8 50%, #F6AECE 100%) !important;
+            --primary-light: rgba(245, 164, 200, 0.2) !important;
+            --primary-border: rgba(243, 128, 157, 0.45) !important;
+            --border: rgba(245, 164, 200, 0.25) !important;
+            --border-light: rgba(246, 174, 206, 0.35) !important;
+            --accent-purple: #F6AECE !important;
+            --shadow-glow: 0 0 25px rgba(243, 128, 157, 0.4) !important;
         }
 
         /* 🔮 Theme: Royal Violet (Midnight Purple) */
@@ -308,7 +308,7 @@
                                 🎨 Pilih Tema Panel
                             </div>
                             <button type="button" onclick="setAppTheme('pink-sakura')" class="theme-option-btn" data-theme-val="pink-sakura" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
-                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #ff659f, #ff8eb4); display: inline-block; flex-shrink: 0; box-shadow: 0 0 8px rgba(255, 101, 159, 0.7);"></span>
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #F3809D, #F5A4C8, #F6AECE); display: inline-block; flex-shrink: 0; box-shadow: 0 0 8px rgba(243, 128, 157, 0.7);"></span>
                                 <span>🌸 Pink Sakura</span>
                             </button>
                             <button type="button" onclick="setAppTheme('default')" class="theme-option-btn" data-theme-val="default" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
