@@ -28,6 +28,8 @@ class AdminDashboardController extends Controller
         $totalBanned = User::where('is_banned', true)->count();
 
         $totalViews = GameAccount::sum('views_count');
+        $totalWishlists = Wishlist::count();
+        
         // Partner Accounts Stats & Safe Column Check
         $hasUserIdCol = \Illuminate\Support\Facades\Schema::hasColumn('game_accounts', 'user_id');
 
