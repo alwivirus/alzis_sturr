@@ -33,7 +33,7 @@
 
             <div class="form-group">
                 <label class="form-label">Link Invite Discord Server Resmi <span style="color: var(--danger);">*</span></label>
-                <input type="url" name="discord_invite_url" value="{{ old('discord_invite_url', $settings['discord_invite_url'] ?? 'https://discord.gg/alzis-sturr') }}" class="input-control" placeholder="https://discord.gg/alzis-sturr" required>
+                <input type="url" name="discord_invite_url" value="{{ old('discord_invite_url', $settings['discord_invite_url'] ?? 'https://discord.gg/zEGEGs6hat') }}" class="input-control" placeholder="https://discord.gg/zEGEGs6hat" required>
                 <span class="form-helper">Link server / ticket discord untuk transaksi & bantuan.</span>
             </div>
         </div>

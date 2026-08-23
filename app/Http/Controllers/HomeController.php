@@ -13,7 +13,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $categories = GameCategory::where('is_active', true)->orderBy('order', 'asc')->get();
+        $categories = GameCategory::withCount(['gameAccounts' => function($q) {
+            $q->where('status', 'available');
+        }])->where('is_active', true)->orderBy('order', 'asc')->get();
 
         $featuredAccounts = GameAccount::with('category')
             ->where('is_featured', true)
@@ -26,12 +28,12 @@ class HomeController extends Controller
             ->take(8)
             ->get();
 
-        $totalAccounts = GameAccount::count();
         $readyAccounts = GameAccount::where('status', 'available')->count();
-        $soldAccounts = GameAccount::where('status', 'sold')->count();
+        $totalAccounts = $readyAccounts + GameAccount::where('status', 'sold')->count();
+        $soldAccounts = $totalAccounts - $readyAccounts;
 
         $bannerAnnouncement = SiteSetting::get('banner_announcement', '🔥 PROMO SPESIAL ALzis STURR! Transaksi Cepat & 100% Anti Hackback via Discord Server.');
-        $discordUrl = SiteSetting::get('discord_invite_url', 'https://discord.gg/alzis-sturr');
+        $discordUrl = SiteSetting::get('discord_invite_url', 'https://discord.gg/zEGEGs6hat');
         $igUsername = SiteSetting::get('instagram_username', 'alzis_sturr');
         $tiktokUsername = SiteSetting::get('tiktok_username', 'emu_velz');
 
@@ -158,16 +160,17 @@ class HomeController extends Controller
         // Increment view count
         $account->increment('views_count');
 
-        // Related accounts in the same category
+        // Related / Recommended accounts
         $relatedAccounts = GameAccount::with('category')
-            ->where('game_category_id', $account->game_category_id)
             ->where('id', '!=', $account->id)
+            ->where('status', 'available')
+            ->orderByRaw("CASE WHEN game_category_id = ? THEN 0 ELSE 1 END", [$account->game_category_id])
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
 
         // Get Store Contact Settings
-        $discordUrl = SiteSetting::get('discord_invite_url', 'https://discord.gg/alzis-sturr');
+        $discordUrl = SiteSetting::get('discord_invite_url', 'https://discord.gg/zEGEGs6hat');
         $igUsername = SiteSetting::get('instagram_username', 'alzis_sturr');
         $tiktokUsername = SiteSetting::get('tiktok_username', 'emu_velz');
 
@@ -249,7 +252,7 @@ class HomeController extends Controller
 
     public function howToBuy()
     {
-        $discordUrl = SiteSetting::get('discord_invite_url', 'https://discord.gg/alzis-sturr');
+        $discordUrl = SiteSetting::get('discord_invite_url', 'https://discord.gg/zEGEGs6hat');
         $igUsername = SiteSetting::get('instagram_username', 'alzis_sturr');
         $tiktokUsername = SiteSetting::get('tiktok_username', 'emu_velz');
         $rulesText = SiteSetting::get('rules_text');
@@ -260,7 +263,7 @@ class HomeController extends Controller
 
     public function contact()
     {
-        $discordUrl = SiteSetting::get('discord_invite_url', 'https://discord.gg/alzis-sturr');
+        $discordUrl = SiteSetting::get('discord_invite_url', 'https://discord.gg/zEGEGs6hat');
         $igUsername = SiteSetting::get('instagram_username', 'alzis_sturr');
         $tiktokUsername = SiteSetting::get('tiktok_username', 'emu_velz');
 

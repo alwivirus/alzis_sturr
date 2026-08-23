@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
         $settings = [
             'site_name' => 'ALzis STURR',
             'site_tagline' => 'Jual Beli & Japost Akun Game Terpercaya #1 di Indonesia',
-            'discord_invite_url' => 'https://discord.gg/alzis-sturr',
+            'discord_invite_url' => 'https://discord.gg/zEGEGs6hat',
             'instagram_username' => 'alzis_sturr',
             'tiktok_username' => 'emu_velz',
             'banner_announcement' => '🔥 PROMO SPESIAL AKHIR BULAN! Akun MLBB, FF, Genshin & HOK Diskon s/d 30%. Transaksi Cepat & 100% Anti Hackback via Discord Server!',

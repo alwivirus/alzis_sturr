@@ -6,14 +6,16 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Admin Panel') - ALzis STURR Hub</title>
 
+    <!-- Preconnect & Google Fonts Optimized -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap">
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v={{ time() }}">
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=1.1">
 
     @stack('styles')
 </head>
@@ -160,8 +162,13 @@
     </div>
 
     <!-- Initialize Lucide Icons -->
+    <script src="{{ asset('js/lucide.min.js') }}" defer></script>
     <script>
-        lucide.createIcons();
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
     </script>
     @stack('scripts')
 </body>

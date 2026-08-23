@@ -16,5 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (\Illuminate\Http\Exceptions\PostTooLargeException $e, \Illuminate\Http\Request $request) {
+            return back()->withInput()->with('error', 'Ukuran total file foto yang di-upload terlalu besar untuk server. Silakan upload foto yang sudah dikompres atau kurangi jumlah foto sekaligus.');
+        });
     })->create();

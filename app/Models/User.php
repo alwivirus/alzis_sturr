@@ -73,6 +73,17 @@ class User extends Authenticatable
         return (bool) $this->is_banned;
     }
 
+    public function getAvatarUrlAttribute(): string
+    {
+        if ($this->avatar) {
+            if (str_starts_with($this->avatar, 'http://') || str_starts_with($this->avatar, 'https://')) {
+                return $this->avatar;
+            }
+            return asset('storage/' . $this->avatar);
+        }
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&background=00f2fe&color=050811&bold=true&size=128';
+    }
+
     public function getRoleBadgeAttribute(): string
     {
         if ($this->isOwner()) {

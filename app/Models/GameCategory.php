@@ -43,6 +43,9 @@ class GameCategory extends Model
 
     public function availableAccountsCount()
     {
+        if (isset($this->attributes['game_accounts_count'])) {
+            return (int) $this->attributes['game_accounts_count'];
+        }
         return $this->gameAccounts()->where('status', 'available')->count();
     }
 }

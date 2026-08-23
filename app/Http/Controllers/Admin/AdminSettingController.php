@@ -13,7 +13,7 @@ class AdminSettingController extends Controller
         $settings = [
             'site_name' => SiteSetting::get('site_name', 'ALzis STURR'),
             'site_tagline' => SiteSetting::get('site_tagline', 'Jual Beli & Japost Akun Game Terpercaya #1 di Indonesia'),
-            'discord_invite_url' => SiteSetting::get('discord_invite_url', 'https://discord.gg/alzis-sturr'),
+            'discord_invite_url' => SiteSetting::get('discord_invite_url', 'https://discord.gg/zEGEGs6hat'),
             'whatsapp_number' => SiteSetting::get('whatsapp_number', '6282324634848'),
             'instagram_username' => SiteSetting::get('instagram_username', 'alzis_sturr'),
             'tiktok_username' => SiteSetting::get('tiktok_username', 'emu_velz'),

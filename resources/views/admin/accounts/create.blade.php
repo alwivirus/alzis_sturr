@@ -124,8 +124,8 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">Winrate / Statistik</label>
-                <input type="text" name="winrate" value="{{ old('winrate') }}" class="input-control" placeholder="Contoh: 68.5% (All Match)">
+                <label class="form-label">Level Akun</label>
+                <input type="text" name="winrate" value="{{ old('winrate') }}" class="input-control" placeholder="Contoh: Level 66 / Lv 100">
             </div>
 
             <div class="form-group">
@@ -183,14 +183,107 @@
         </div>
 
         <!-- Submit Button -->
-        <div style="padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; gap: 12px;">
-            <button type="submit" class="btn btn-primary btn-lg">
+        <div style="padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px;">
+            <button type="submit" id="submitAccountBtn" class="btn btn-primary btn-lg">
                 <i data-lucide="plus-circle" style="width: 20px; height: 20px;"></i>
-                <span>Simpan & Terbitkan Akun</span>
+                <span id="submitBtnText">Simpan & Terbitkan Akun</span>
             </button>
             <a href="{{ route('admin.accounts.index') }}" class="btn btn-secondary btn-lg">Batal</a>
+            <span id="uploadProgressText" style="display: none; color: var(--primary); font-size: 0.85rem; font-weight: 700;">
+                ⏳ Mengoptimalkan & Mengunggah Foto...
+            </span>
         </div>
     </form>
 </div>
 
+@push('scripts')
+<script>
+    // Client-side automatic image compression helper
+    async function compressImageFile(file, maxWidth = 1920, quality = 0.85) {
+        if (!file || !file.type.startsWith('image/')) return file;
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (event) => {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = () => {
+                    let width = img.width;
+                    let height = img.height;
+                    if (width > maxWidth) {
+                        height = Math.round((height * maxWidth) / width);
+                        width = maxWidth;
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    canvas.toBlob((blob) => {
+                        if (blob && blob.size < file.size) {
+                            const newFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", {
+                                type: 'image/jpeg',
+                                lastModified: Date.now()
+                            });
+                            resolve(newFile);
+                        } else {
+                            resolve(file);
+                        }
+                    }, 'image/jpeg', quality);
+                };
+                img.onerror = () => resolve(file);
+            };
+            reader.onerror = () => resolve(file);
+        });
+    }
+
+    const accountForm = document.querySelector('form[action="{{ route('admin.accounts.store') }}"]');
+    if (accountForm) {
+        let isCompressing = false;
+        accountForm.addEventListener('submit', async function(e) {
+            if (isCompressing) return;
+            
+            const thumbInput = document.querySelector('input[name="thumbnail_file"]');
+            const screenshotsInput = document.querySelector('input[name="screenshots[]"]');
+            
+            const hasThumb = thumbInput && thumbInput.files && thumbInput.files.length > 0;
+            const hasScreenshots = screenshotsInput && screenshotsInput.files && screenshotsInput.files.length > 0;
+            
+            if (hasThumb || hasScreenshots) {
+                e.preventDefault();
+                isCompressing = true;
+                
+                const submitBtn = document.getElementById('submitAccountBtn');
+                const progressText = document.getElementById('uploadProgressText');
+                if (submitBtn) submitBtn.disabled = true;
+                if (progressText) progressText.style.display = 'inline';
+
+                try {
+                    // Compress thumbnail if present
+                    if (hasThumb) {
+                        const compressedThumb = await compressImageFile(thumbInput.files[0], 1280, 0.85);
+                        const dt = new DataTransfer();
+                        dt.items.add(compressedThumb);
+                        thumbInput.files = dt.files;
+                    }
+
+                    // Compress multi screenshots
+                    if (hasScreenshots) {
+                        const dt = new DataTransfer();
+                        for (let i = 0; i < screenshotsInput.files.length; i++) {
+                            const compressed = await compressImageFile(screenshotsInput.files[i], 1920, 0.82);
+                            dt.items.add(compressed);
+                        }
+                        screenshotsInput.files = dt.files;
+                    }
+                } catch (err) {
+                    console.error("Compression error:", err);
+                }
+
+                accountForm.submit();
+            }
+        });
+    }
+</script>
+@endpush
 @endsection

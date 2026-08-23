@@ -126,16 +126,32 @@ class AuthController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
             'phone' => ['nullable', 'string', 'max:20'],
+            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:3072'],
         ], [
             'name.required' => 'Nama wajib diisi.',
             'email.required' => 'Alamat email wajib diisi.',
             'email.email' => 'Format email tidak valid.',
             'email.unique' => 'Email ini sudah terdaftar untuk akun lain.',
+            'avatar.image' => 'File foto profil harus berupa gambar.',
+            'avatar.mimes' => 'Format foto profil harus JPG, PNG, atau WEBP.',
+            'avatar.max' => 'Ukuran foto profil maksimal 3MB.',
         ]);
 
-        $user->update($validated);
+        if ($request->hasFile('avatar')) {
+            // Delete old avatar if stored locally
+            if ($user->avatar && !str_starts_with($user->avatar, 'http') && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+            }
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $avatarPath;
+        }
 
-        return back()->with('success', 'Profil dan email Anda berhasil diperbarui.');
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+        $user->phone = $validated['phone'] ?? null;
+        $user->save();
+
+        return back()->with('success', 'Profil dan foto profil Anda berhasil diperbarui.');
     }
 
     public function updatePassword(Request $request)

@@ -1,34 +1,35 @@
 @extends('layouts.app')
 
-@section('title', 'Katalog Stok Akun Game - ALzis STURR')
-@section('meta_description', 'Katalog lengkap stok akun Mobile Legends, Free Fire, Genshin Impact, PUBGM, Valorant bergaransi 100% Anti Hackback.')
+@section('title', 'Katalog Stok Akun Game - ALZIS STORE')
+@section('meta_description', 'Katalog lengkap stok akun game Mobile Legends, Free Fire, Genshin Impact, PUBGM, Valorant murah, bergaransi 100% Anti Hackback.')
 
 @section('content')
-<div class="container" style="padding: 28px 20px 70px;">
+<div class="container" style="padding: 28px 18px 70px;">
 
-    <!-- Top Header -->
+    <!-- Top Header & Breadcrumb -->
     <div style="margin-bottom: 24px;">
-        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
             <a href="{{ route('home') }}">Beranda</a> 
             <span>/</span> 
-            <span style="color: #fff; font-weight: 600;">Katalog Stok</span>
+            <span style="color: #fff; font-weight: 700;">Katalog Stok</span>
         </div>
         <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px;">
             <div>
-                <h1 class="font-heading" style="font-size: 1.8rem; color: #fff; font-weight: 800; line-height: 1.2;">
+                <h1 class="font-heading" style="font-size: 1.85rem; color: #fff; font-weight: 900; line-height: 1.2;">
                     Katalog Stok Akun Game
                 </h1>
                 <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 2px;">
-                    Menampilkan <strong style="color: var(--primary);">{{ $accounts->total() }}</strong> akun game siap di-takeover bergaransi anti hackback.
+                    Menampilkan <strong style="color: var(--primary);">{{ $accounts->total() }}</strong> akun game siap ditakeover dengan garansi resmi 100% anti hackback.
                 </p>
             </div>
         </div>
     </div>
 
     <!-- Category Pills Navigation -->
-    <div class="category-pills" style="margin-bottom: 24px;">
+    <div class="category-pills" style="margin-bottom: 22px;">
         <a href="{{ route('catalog', array_merge(request()->except('category', 'page'), ['category' => 'all'])) }}" 
            class="category-pill {{ !request('category') || request('category') === 'all' ? 'active' : '' }}">
+            <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
             <span>Semua Game</span>
         </a>
         @foreach($categories as $cat)
@@ -54,7 +55,7 @@
 
     @if($activeFiltersCount > 0)
     <div class="filter-chips-wrapper">
-        <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted);">Filter Aktif:</span>
+        <span style="font-size: 0.76rem; font-weight: 800; color: var(--text-muted);">FILTER AKTIF:</span>
 
         @if(request('q'))
             <a href="{{ route('catalog', request()->except('q', 'page')) }}" class="filter-chip">
@@ -73,7 +74,7 @@
 
         @if(request('status') && request('status') !== 'all')
             <a href="{{ route('catalog', request()->except('status', 'page')) }}" class="filter-chip">
-                <span>Status: {{ request('status') === 'available' ? 'Ready' : 'Terjual' }}</span>
+                <span>Status: {{ request('status') === 'available' ? 'Ready Stok' : 'Terjual' }}</span>
                 <span class="chip-remove">×</span>
             </a>
         @endif
@@ -99,15 +100,8 @@
             </a>
         @endif
 
-        @if(request('discount_only'))
-            <a href="{{ route('catalog', request()->except('discount_only', 'page')) }}" class="filter-chip">
-                <span>Promo</span>
-                <span class="chip-remove">×</span>
-            </a>
-        @endif
-
         <a href="{{ route('catalog') }}" class="btn-reset-filters">
-            <span>Reset Semua</span>
+            Reset Semua Filter
         </a>
     </div>
     @endif
@@ -117,17 +111,17 @@
         <!-- Filter Sidebar -->
         <aside class="catalog-sidebar">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border);">
-                <h3 style="font-size: 0.95rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 6px;">
-                    <i data-lucide="sliders-horizontal" style="width: 16px; height: 16px; color: var(--primary);"></i>
-                    <span>Filter Produk</span>
+                <h3 style="font-size: 0.95rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 6px;">
+                    <svg style="width: 16px; height: 16px; color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+                    <span>Filter Pencarian</span>
                 </h3>
-                <a href="{{ route('catalog') }}" style="font-size: 0.75rem; color: var(--text-dim);">Reset</a>
+                <a href="{{ route('catalog') }}" style="font-size: 0.75rem; color: var(--text-dim); font-weight: 600;">Reset</a>
             </div>
 
             <form action="{{ route('catalog') }}" method="GET" id="catalogFilterForm">
                 <div class="form-group">
                     <label class="form-label">Kata Kunci</label>
-                    <input type="text" name="q" value="{{ request('q') }}" class="input-control" placeholder="Nama, hero, skin...">
+                    <input type="text" name="q" value="{{ request('q') }}" class="input-control" placeholder="Nama, hero, skin, kode...">
                 </div>
 
                 <div class="form-group">
@@ -162,7 +156,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Tipe Bind</label>
+                    <label class="form-label">Tipe Login / Bind</label>
                     <select name="bind" class="input-control">
                         <option value="all">Semua Bind</option>
                         @foreach($availableBinds as $bindName)
@@ -191,27 +185,29 @@
                         <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Terbaru</option>
                         <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Harga Termurah</option>
                         <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Harga Termahal</option>
-                        <option value="popular" {{ request('sort') == 'popular' ? 'selected' : '' }}>Paling Banyak Dilihat</option>
+                        <option value="popular" {{ request('sort') == 'popular' ? 'selected' : '' }}>Paling Populer</option>
                     </select>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-sm" style="width: 100%; margin-top: 8px;">
+                    <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
                     <span>Terapkan Filter</span>
                 </button>
             </form>
         </aside>
 
-        <!-- Product Listings -->
-        <div>
+        <!-- Product Listings Grid -->
+        <div style="min-width: 0; width: 100%;">
             @if($accounts->count() > 0)
                 <div class="accounts-grid">
                     @foreach($accounts as $acc)
-                        <div class="account-card">
+                        <div class="account-card" onclick="if(!event.target.closest('.btn-toggle-wishlist') && !event.target.closest('a')) window.location='{{ route('account.show', $acc->slug) }}';" style="cursor: pointer;">
+                            <a href="{{ route('account.show', $acc->slug) }}" class="account-card-overlay-link" aria-label="{{ $acc->title }}"></a>
                             <div class="account-media">
-                                <img src="{{ $acc->thumbnail_url }}" alt="{{ $acc->title }}" class="account-thumb" loading="lazy">
+                                <img src="{{ $acc->thumbnail_url }}" alt="{{ $acc->title }}" class="account-thumb" loading="lazy" decoding="async" width="380" height="230">
                                 
                                 @if($acc->status === 'available')
-                                    <span class="badge-status badge-available">Ready</span>
+                                    <span class="badge-status badge-available">Ready Stok</span>
                                 @else
                                     <span class="badge-status badge-sold">Terjual</span>
                                 @endif
@@ -219,7 +215,7 @@
                                 <span class="badge-code">#{{ $acc->code }}</span>
 
                                 @if($acc->discount_percent > 0)
-                                    <span class="badge-discount-ribbon">Diskon {{ $acc->discount_percent }}%</span>
+                                    <span class="badge-discount-ribbon">Hemat {{ $acc->discount_percent }}%</span>
                                 @endif
                             </div>
 
@@ -233,7 +229,7 @@
                                     <span class="tag-badge tag-server">{{ $acc->server }}</span>
                                     <span class="tag-badge tag-bind">{{ Str::limit($acc->login_bind, 16) }}</span>
                                     @if($acc->rank_tier)
-                                        <span class="tag-badge" style="color: var(--gold);">{{ $acc->rank_tier }}</span>
+                                        <span class="tag-badge" style="color: var(--gold); border-color: var(--gold-border);">{{ $acc->rank_tier }}</span>
                                     @endif
                                 </div>
 
@@ -247,10 +243,10 @@
 
                                     <div class="account-actions">
                                         @php $isW = Auth::check() && $acc->isWishlistedBy(Auth::user()); @endphp
-                                        <button class="btn btn-secondary btn-icon btn-toggle-wishlist" data-id="{{ $acc->id }}" title="Wishlist" style="width: 32px; height: 32px; {{ $isW ? 'color: var(--danger);' : '' }}">
-                                            <i data-lucide="heart" style="width: 14px; height: 14px; {{ $isW ? 'fill: var(--danger);' : '' }}"></i>
+                                        <button type="button" class="btn btn-secondary btn-icon btn-toggle-wishlist" onclick="event.stopPropagation();" data-id="{{ $acc->id }}" title="Wishlist" style="width: 34px; height: 34px; {{ $isW ? 'color: var(--danger);' : '' }}">
+                                            <svg style="width: 15px; height: 15px; {{ $isW ? 'fill: var(--danger);' : '' }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                                         </button>
-                                        <a href="{{ route('account.show', $acc->slug) }}" class="btn btn-primary btn-sm">
+                                        <a href="{{ route('account.show', $acc->slug) }}" onclick="event.stopPropagation();" class="btn btn-primary btn-sm">
                                             <span>Detail</span>
                                         </a>
                                     </div>
@@ -261,17 +257,17 @@
                 </div>
 
                 <!-- Pagination -->
-                <div style="display: flex; justify-content: center; margin-top: 30px;">
+                <div style="display: flex; justify-content: center; margin-top: 32px;">
                     {{ $accounts->links() }}
                 </div>
             @else
                 <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 50px 20px; text-align: center;">
                     <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: inline-flex; align-items: center; justify-content: center; margin-bottom: 14px;">
-                        <i data-lucide="search-x" style="width: 26px; height: 26px;"></i>
+                        <svg style="width: 26px; height: 26px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="8" x2="14" y2="14"/><line x1="14" y1="8" x2="8" y2="14"/></svg>
                     </div>
-                    <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 6px; font-weight: 700;">Tidak Ada Stok yang Cocok</h3>
+                    <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 6px; font-weight: 800;">Tidak Ada Stok yang Cocok</h3>
                     <p style="color: var(--text-muted); max-width: 420px; margin: 0 auto 18px; font-size: 0.88rem;">
-                        Tidak ada akun game yang sesuai dengan kriteria filter. Coba ubah kata kunci atau reset filter.
+                        Tidak ada akun game yang sesuai dengan kriteria filter Anda. Coba ganti kata kunci atau reset filter.
                     </p>
                     <a href="{{ route('catalog') }}" class="btn btn-primary btn-sm">
                         <span>Reset Semua Filter</span>
