@@ -4,21 +4,38 @@
 <div id="alzis-chatbot-container" style="position: fixed; z-index: 9990; bottom: 24px; right: 24px; font-family: var(--font-sans);">
     
     <!-- 1. Floating Speech Bubble Greeting (Dismissible) -->
-    <div id="chatbot-greeting-bubble" style="display: none; position: absolute; bottom: 70px; right: 0; width: 230px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--primary-glow); transform-origin: bottom right; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); animation: botFloat 3s ease-in-out infinite;">
+    <div id="chatbot-greeting-bubble" style="display: none; position: absolute; bottom: 70px; right: 0; width: 240px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 12px 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px var(--primary-glow); transform-origin: bottom right; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); animation: botFloat 3s ease-in-out infinite;">
         <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 1.1rem;">👋</span>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="width: 34px; height: 34px; flex-shrink: 0;">
+                    <!-- Cute 3D Cyber Bot SVG -->
+                    <svg viewBox="0 0 100 100" style="width: 100%; height: 100%; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));">
+                        <circle cx="50" cy="8" r="4.5" fill="var(--primary)"/>
+                        <path d="M 50 18 L 50 10" stroke="var(--primary)" stroke-width="3.5" stroke-linecap="round"/>
+                        <path d="M 18 52 A 32 32 0 0 1 82 52" fill="none" stroke="#334155" stroke-width="5" stroke-linecap="round"/>
+                        <rect x="22" y="24" width="56" height="52" rx="18" fill="#0f172a" stroke="var(--border)" stroke-width="1.5"/>
+                        <path d="M 50 27 L 56 32 L 54 40 L 50 43 L 46 40 L 44 32 Z" fill="var(--primary)"/>
+                        <path d="M 50.5 31 L 48 35 L 50.5 35 L 49.5 39 L 53 34.5 L 50.5 34.5 Z" fill="#0b1329"/>
+                        <rect x="28" y="44" width="44" height="24" rx="9" fill="#030712" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+                        <path d="M 36 54 Q 40 50 44 54 Q 40 58 36 54 Z" fill="var(--primary)"/>
+                        <path d="M 56 54 Q 60 50 64 54 Q 60 58 56 54 Z" fill="var(--primary)"/>
+                        <rect x="14" y="43" width="9" height="20" rx="4" fill="#1e293b"/>
+                        <circle cx="18" cy="53" r="3" fill="var(--primary)"/>
+                        <rect x="77" y="43" width="9" height="20" rx="4" fill="#1e293b"/>
+                        <circle cx="82" cy="53" r="3" fill="var(--primary)"/>
+                    </svg>
+                </div>
                 <div>
-                    <div style="font-size: 0.72rem; font-weight: 800; color: var(--primary); text-transform: uppercase;">ALzis Assistant</div>
+                    <div style="font-size: 0.72rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">ALzis AI Bot</div>
                     <div style="font-size: 0.8rem; color: #fff; font-weight: 600; line-height: 1.25; margin-top: 2px;">Halo! Ada yang bisa saya bantu?</div>
                 </div>
             </div>
-            <button type="button" onclick="dismissChatbotGreeting(event)" style="border: none; background: transparent; color: var(--text-dim); cursor: pointer; padding: 2px; line-height: 1; font-size: 1.1rem;" title="Tutup">
+            <button type="button" onclick="dismissChatbotGreeting(event)" style="border: none; background: transparent; color: var(--text-dim); cursor: pointer; padding: 2px; line-height: 1; font-size: 1.2rem;" title="Tutup">
                 &times;
             </button>
         </div>
-        <div style="margin-top: 8px; text-align: right;">
-            <button type="button" onclick="openChatbotWindow()" style="background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border); border-radius: 6px; font-size: 0.72rem; font-weight: 700; padding: 3px 8px; cursor: pointer;">
+        <div style="margin-top: 10px; text-align: right;">
+            <button type="button" onclick="openChatbotWindow()" style="background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border); border-radius: 8px; font-size: 0.74rem; font-weight: 800; padding: 4px 10px; cursor: pointer; transition: all 0.2s;">
                 Chat Sekarang &rarr;
             </button>
         </div>
@@ -27,39 +44,72 @@
     </div>
 
     <!-- 2. Floating Avatar Trigger Button -->
-    <button id="chatbot-trigger-btn" type="button" onclick="toggleChatbotWindow()" style="width: 54px; height: 54px; border-radius: 50%; background: var(--primary-gradient); border: 2px solid rgba(255,255,255,0.2); box-shadow: 0 6px 25px rgba(0,0,0,0.5), 0 0 25px var(--primary-glow); cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);">
-        <!-- Bot Icon / Active State Icon -->
-        <span id="chatbot-icon-closed" style="display: flex; align-items: center; justify-content: center;">
-            <svg style="width: 26px; height: 26px; color: #050811;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 8V4H8"></path>
-                <rect width="16" height="12" x="4" y="8" rx="2"></rect>
-                <path d="M2 14h2"></path>
-                <path d="M20 14h2"></path>
-                <path d="M15 13v2"></path>
-                <path d="M9 13v2"></path>
+    <button id="chatbot-trigger-btn" type="button" onclick="toggleChatbotWindow()" style="width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(145deg, var(--bg-surface-elevated), var(--bg-card)); border: 2px solid var(--primary-border); box-shadow: 0 8px 30px rgba(0,0,0,0.6), 0 0 25px var(--primary-glow); cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative; transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1); padding: 5px;">
+        <!-- Bot Robot Avatar Closed State -->
+        <span id="chatbot-icon-closed" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <svg viewBox="0 0 100 100" style="width: 44px; height: 44px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));">
+                <!-- Antenna -->
+                <circle cx="50" cy="8" r="4.5" fill="var(--primary)"/>
+                <path d="M 50 18 L 50 10" stroke="var(--primary)" stroke-width="3.5" stroke-linecap="round"/>
+                <!-- Headset Band -->
+                <path d="M 18 52 A 32 32 0 0 1 82 52" fill="none" stroke="#475569" stroke-width="5.5" stroke-linecap="round"/>
+                <path d="M 23 45 A 28 28 0 0 1 77 45" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round"/>
+                <!-- Robot Head Base -->
+                <rect x="22" y="23" width="56" height="54" rx="18" fill="#0f172a" stroke="rgba(255,255,255,0.18)" stroke-width="1.8"/>
+                <!-- ALZIS Crest Shield on Forehead -->
+                <path d="M 50 26 L 57 32 L 55 41 L 50 44 L 45 41 L 43 32 Z" fill="var(--primary)"/>
+                <path d="M 50 29 L 54 33 L 52.5 39 L 50 41 L 47.5 39 L 46 33 Z" fill="#0b1329"/>
+                <path d="M 51 31 L 48 35.5 L 50.5 35.5 L 49 40 L 53 35 L 50.5 35 Z" fill="var(--primary)"/>
+                <!-- Cyber Visor -->
+                <rect x="27" y="45" width="46" height="24" rx="9" fill="#020617" stroke="var(--border)" stroke-width="1.2"/>
+                <rect x="29" y="46" width="42" height="3" rx="1.5" fill="rgba(255,255,255,0.2)"/>
+                <!-- Glowing LED Eyes -->
+                <path d="M 35 54 Q 40 49 45 54 Q 40 59 35 54 Z" fill="var(--primary)"/>
+                <circle cx="40" cy="54" r="1.5" fill="#fff"/>
+                <path d="M 55 54 Q 60 49 65 54 Q 60 59 55 54 Z" fill="var(--primary)"/>
+                <circle cx="60" cy="54" r="1.5" fill="#fff"/>
+                <!-- Earcups -->
+                <rect x="13" y="42" width="10" height="22" rx="4" fill="#1e293b" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                <circle cx="18" cy="53" r="3.5" fill="var(--primary)"/>
+                <rect x="77" y="42" width="10" height="22" rx="4" fill="#1e293b" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                <circle cx="82" cy="53" r="3.5" fill="var(--primary)"/>
+                <!-- Mic -->
+                <path d="M 79 61 Q 77 74 64 74" fill="none" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="62" cy="74" r="3" fill="var(--primary)"/>
             </svg>
         </span>
-        <span id="chatbot-icon-open" style="display: none; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: #050811; line-height: 1;">
+        <!-- Close State Icon -->
+        <span id="chatbot-icon-open" style="display: none; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800; color: var(--primary); line-height: 1;">
             &times;
         </span>
         <!-- Online Green Pulse Dot -->
-        <span style="position: absolute; top: 1px; right: 1px; width: 12px; height: 12px; border-radius: 50%; background: #10b981; border: 2px solid var(--bg-body); box-shadow: 0 0 8px #10b981;"></span>
+        <span style="position: absolute; top: 1px; right: 1px; width: 13px; height: 13px; border-radius: 50%; background: #10b981; border: 2.5px solid var(--bg-body); box-shadow: 0 0 10px #10b981;"></span>
     </button>
 
     <!-- 3. Interactive Chatbot Modal Window -->
-    <div id="chatbot-window" style="display: none; position: absolute; bottom: 70px; right: 0; width: 350px; max-width: calc(100vw - 32px); height: 480px; max-height: calc(100vh - 120px); background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; box-shadow: 0 15px 40px rgba(0,0,0,0.65), 0 0 30px var(--primary-glow); overflow: hidden; flex-direction: column; z-index: 10000; animation: botPopUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);">
+    <div id="chatbot-window" style="display: none; position: absolute; bottom: 74px; right: 0; width: 350px; max-width: calc(100vw - 32px); height: 490px; max-height: calc(100vh - 120px); background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.65), 0 0 30px var(--primary-glow); overflow: hidden; flex-direction: column; z-index: 10000; animation: botPopUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);">
         
         <!-- Window Header -->
-        <div style="background: linear-gradient(135deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%); padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <div style="background: linear-gradient(135deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%); padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 10px;">
             <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--primary-gradient); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px var(--primary-glow); flex-shrink: 0;">
-                    <svg style="width: 20px; height: 20px; color: #050811;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                        <path d="M12 8V4H8"></path>
-                        <rect width="16" height="12" x="4" y="8" rx="2"></rect>
-                        <path d="M2 14h2"></path>
-                        <path d="M20 14h2"></path>
-                        <path d="M15 13v2"></path>
-                        <path d="M9 13v2"></path>
+                <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--bg-card); border: 1.5px solid var(--primary-border); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px var(--primary-glow); flex-shrink: 0; padding: 2px;">
+                    <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                        <circle cx="50" cy="8" r="4.5" fill="var(--primary)"/>
+                        <path d="M 50 18 L 50 10" stroke="var(--primary)" stroke-width="3.5" stroke-linecap="round"/>
+                        <path d="M 18 52 A 32 32 0 0 1 82 52" fill="none" stroke="#475569" stroke-width="5.5" stroke-linecap="round"/>
+                        <rect x="22" y="23" width="56" height="54" rx="18" fill="#0f172a" stroke="rgba(255,255,255,0.18)" stroke-width="1.8"/>
+                        <path d="M 50 26 L 57 32 L 55 41 L 50 44 L 45 41 L 43 32 Z" fill="var(--primary)"/>
+                        <path d="M 50 29 L 54 33 L 52.5 39 L 50 41 L 47.5 39 L 46 33 Z" fill="#0b1329"/>
+                        <path d="M 51 31 L 48 35.5 L 50.5 35.5 L 49 40 L 53 35 L 50.5 35 Z" fill="var(--primary)"/>
+                        <rect x="27" y="45" width="46" height="24" rx="9" fill="#020617" stroke="var(--border)" stroke-width="1.2"/>
+                        <path d="M 35 54 Q 40 49 45 54 Q 40 59 35 54 Z" fill="var(--primary)"/>
+                        <circle cx="40" cy="54" r="1.5" fill="#fff"/>
+                        <path d="M 55 54 Q 60 49 65 54 Q 60 59 55 54 Z" fill="var(--primary)"/>
+                        <circle cx="60" cy="54" r="1.5" fill="#fff"/>
+                        <rect x="13" y="42" width="10" height="22" rx="4" fill="#1e293b"/>
+                        <circle cx="18" cy="53" r="3.5" fill="var(--primary)"/>
+                        <rect x="77" y="42" width="10" height="22" rx="4" fill="#1e293b"/>
+                        <circle cx="82" cy="53" r="3.5" fill="var(--primary)"/>
                     </svg>
                 </div>
                 <div>
@@ -75,7 +125,7 @@
                 <button type="button" onclick="resetChatbotHistory()" style="border: none; background: rgba(255,255,255,0.06); color: var(--text-muted); width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer;" title="Reset Percakapan">
                     <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
                 </button>
-                <button type="button" onclick="toggleChatbotWindow()" style="border: none; background: rgba(255,255,255,0.06); color: var(--text-muted); width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; line-height: 1;" title="Tutup Chat">
+                <button type="button" onclick="toggleChatbotWindow()" style="border: none; background: rgba(255,255,255,0.06); color: var(--text-muted); width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; line-height: 1;" title="Tutup Chat">
                     &times;
                 </button>
             </div>
@@ -86,8 +136,16 @@
             
             <!-- Bot Welcome Bubble -->
             <div class="bot-msg-wrapper" style="display: flex; gap: 8px; align-items: flex-start; max-width: 88%;">
-                <div style="width: 26px; height: 26px; border-radius: 50%; background: var(--primary-gradient); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
-                    <svg style="width: 14px; height: 14px; color: #050811;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="16" height="12" x="4" y="8" rx="2"></rect></svg>
+                <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--primary-border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; padding: 2px;">
+                    <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                        <circle cx="50" cy="8" r="4.5" fill="var(--primary)"/>
+                        <path d="M 50 18 L 50 10" stroke="var(--primary)" stroke-width="3.5" stroke-linecap="round"/>
+                        <rect x="22" y="24" width="56" height="52" rx="18" fill="#0f172a" stroke="var(--border)" stroke-width="1.5"/>
+                        <path d="M 50 27 L 56 32 L 54 40 L 50 43 L 46 40 L 44 32 Z" fill="var(--primary)"/>
+                        <rect x="28" y="44" width="44" height="24" rx="9" fill="#030712"/>
+                        <path d="M 36 54 Q 40 50 44 54 Q 40 58 36 54 Z" fill="var(--primary)"/>
+                        <path d="M 56 54 Q 60 50 64 54 Q 60 58 56 54 Z" fill="var(--primary)"/>
+                    </svg>
                 </div>
                 <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px 12px 12px 2px; padding: 10px 12px; color: var(--text-main); font-size: 0.82rem; line-height: 1.45; box-shadow: 0 2px 8px rgba(0,0,0,0.25);">
                     Halo! Selamat datang di <strong>ALZIS STORE</strong> 🎮✨<br>
@@ -288,8 +346,16 @@
         const wrapper = document.createElement('div');
         wrapper.style.cssText = 'display: flex; gap: 8px; align-items: flex-start; max-width: 88%;';
         wrapper.innerHTML = `
-            <div style="width: 26px; height: 26px; border-radius: 50%; background: var(--primary-gradient); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
-                <svg style="width: 14px; height: 14px; color: #050811;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="16" height="12" x="4" y="8" rx="2"></rect></svg>
+            <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--primary-border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; padding: 2px;">
+                <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                    <circle cx="50" cy="8" r="4.5" fill="var(--primary)"/>
+                    <path d="M 50 18 L 50 10" stroke="var(--primary)" stroke-width="3.5" stroke-linecap="round"/>
+                    <rect x="22" y="24" width="56" height="52" rx="18" fill="#0f172a" stroke="var(--border)" stroke-width="1.5"/>
+                    <path d="M 50 27 L 56 32 L 54 40 L 50 43 L 46 40 L 44 32 Z" fill="var(--primary)"/>
+                    <rect x="28" y="44" width="44" height="24" rx="9" fill="#030712"/>
+                    <path d="M 36 54 Q 40 50 44 54 Q 40 58 36 54 Z" fill="var(--primary)"/>
+                    <path d="M 56 54 Q 60 50 64 54 Q 60 58 56 54 Z" fill="var(--primary)"/>
+                </svg>
             </div>
             <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px 12px 12px 2px; padding: 10px 12px; color: var(--text-main); font-size: 0.82rem; line-height: 1.45; box-shadow: 0 2px 8px rgba(0,0,0,0.25);">
                 ${htmlContent}
@@ -500,8 +566,16 @@
         if (container) {
             container.innerHTML = `
                 <div class="bot-msg-wrapper" style="display: flex; gap: 8px; align-items: flex-start; max-width: 88%;">
-                    <div style="width: 26px; height: 26px; border-radius: 50%; background: var(--primary-gradient); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
-                        <svg style="width: 14px; height: 14px; color: #050811;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="16" height="12" x="4" y="8" rx="2"></rect></svg>
+                    <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--primary-border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; padding: 2px;">
+                        <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                            <circle cx="50" cy="8" r="4.5" fill="var(--primary)"/>
+                            <path d="M 50 18 L 50 10" stroke="var(--primary)" stroke-width="3.5" stroke-linecap="round"/>
+                            <rect x="22" y="24" width="56" height="52" rx="18" fill="#0f172a" stroke="var(--border)" stroke-width="1.5"/>
+                            <path d="M 50 27 L 56 32 L 54 40 L 50 43 L 46 40 L 44 32 Z" fill="var(--primary)"/>
+                            <rect x="28" y="44" width="44" height="24" rx="9" fill="#030712"/>
+                            <path d="M 36 54 Q 40 50 44 54 Q 40 58 36 54 Z" fill="var(--primary)"/>
+                            <path d="M 56 54 Q 60 50 64 54 Q 60 58 56 54 Z" fill="var(--primary)"/>
+                        </svg>
                     </div>
                     <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px 12px 12px 2px; padding: 10px 12px; color: var(--text-main); font-size: 0.82rem; line-height: 1.45; box-shadow: 0 2px 8px rgba(0,0,0,0.25);">
                         Halo! Percakapan telah direset 🎮 Ada yang bisa saya bantu?
