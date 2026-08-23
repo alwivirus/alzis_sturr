@@ -15,7 +15,12 @@ class AdminGameAccountController extends Controller
 {
     public function index(Request $request)
     {
-        $query = GameAccount::with(['category', 'images', 'user']);
+        $hasUserIdCol = \Illuminate\Support\Facades\Schema::hasColumn('game_accounts', 'user_id');
+
+        $query = GameAccount::with(['category', 'images']);
+        if ($hasUserIdCol) {
+            $query->with('user');
+        }
 
         if ($request->filled('q')) {
             $search = $request->q;
@@ -34,7 +39,7 @@ class AdminGameAccountController extends Controller
         }
 
         // Filter Author (Owner vs Partner)
-        if ($request->filled('creator')) {
+        if ($hasUserIdCol && $request->filled('creator')) {
             if ($request->creator === 'partner') {
                 $query->whereNotNull('user_id')->whereHas('user', function($q) {
                     $q->where('role', 'partner');
@@ -54,7 +59,7 @@ class AdminGameAccountController extends Controller
         $categories = GameCategory::all();
         $partners = \App\Models\User::where('role', 'partner')->get();
 
-        return view('admin.accounts.index', compact('accounts', 'categories', 'partners'));
+        return view('admin.accounts.index', compact('accounts', 'categories', 'partners', 'hasUserIdCol'));
     }
 
     public function create()
@@ -132,9 +137,8 @@ class AdminGameAccountController extends Controller
             $thumbnailPath = $request->thumbnail_url;
         }
 
-        $account = GameAccount::create([
+        $accountData = [
             'game_category_id' => $categoryId,
-            'user_id' => \Illuminate\Support\Facades\Auth::id(),
             'code' => strtoupper($validated['code']),
             'title' => $validated['title'],
             'slug' => Str::slug($validated['title'] . '-' . $validated['code']),
@@ -152,7 +156,13 @@ class AdminGameAccountController extends Controller
             'winrate' => $validated['winrate'] ?? null,
             'is_verified' => $request->boolean('is_verified', true),
             'is_featured' => $request->boolean('is_featured', false),
-        ]);
+        ];
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn('game_accounts', 'user_id')) {
+            $accountData['user_id'] = \Illuminate\Support\Facades\Auth::id();
+        }
+
+        $account = GameAccount::create($accountData);
 
         // Upload additional screenshots if provided
         if ($request->hasFile('screenshots')) {

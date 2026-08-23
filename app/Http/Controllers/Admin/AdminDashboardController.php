@@ -28,29 +28,35 @@ class AdminDashboardController extends Controller
         $totalBanned = User::where('is_banned', true)->count();
 
         $totalViews = GameAccount::sum('views_count');
-        $totalWishlists = Wishlist::count();
+        // Partner Accounts Stats & Safe Column Check
+        $hasUserIdCol = \Illuminate\Support\Facades\Schema::hasColumn('game_accounts', 'user_id');
 
-        // Partner Accounts Stats
-        $partnerAccountsCount = GameAccount::whereHas('user', function($q) {
-            $q->where('role', 'partner');
-        })->count();
+        $partnerAccountsCount = 0;
+        $latestPartnerAccounts = collect();
+
+        if ($hasUserIdCol) {
+            $partnerAccountsCount = GameAccount::whereHas('user', function($q) {
+                $q->where('role', 'partner');
+            })->count();
+
+            $latestPartnerAccounts = GameAccount::with(['category', 'user'])
+                ->whereHas('user', function($q) {
+                    $q->where('role', 'partner');
+                })
+                ->orderBy('created_at', 'desc')
+                ->take(5)
+                ->get();
+        }
 
         // Financial & Stock Valuation
         $totalStockValue = GameAccount::where('status', 'available')->sum(DB::raw('COALESCE(discount_price, price)'));
         $totalSoldValue = GameAccount::where('status', 'sold')->sum(DB::raw('COALESCE(discount_price, price)'));
 
-        $latestAccounts = GameAccount::with(['category', 'user'])
-            ->orderBy('created_at', 'desc')
-            ->take(6)
-            ->get();
-
-        $latestPartnerAccounts = GameAccount::with(['category', 'user'])
-            ->whereHas('user', function($q) {
-                $q->where('role', 'partner');
-            })
-            ->orderBy('created_at', 'desc')
-            ->take(5)
-            ->get();
+        $latestAccountsQuery = GameAccount::with('category');
+        if ($hasUserIdCol) {
+            $latestAccountsQuery->with('user');
+        }
+        $latestAccounts = $latestAccountsQuery->orderBy('created_at', 'desc')->take(6)->get();
 
         $topViewed = GameAccount::with('category')
             ->orderBy('views_count', 'desc')

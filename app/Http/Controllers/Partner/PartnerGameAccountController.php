@@ -17,7 +17,14 @@ class PartnerGameAccountController extends Controller
     public function index(Request $request)
     {
         $partnerId = Auth::id();
-        $query = GameAccount::with(['category', 'images'])->where('user_id', $partnerId);
+        $hasUserIdCol = \Illuminate\Support\Facades\Schema::hasColumn('game_accounts', 'user_id');
+
+        $query = GameAccount::with(['category', 'images']);
+        if ($hasUserIdCol) {
+            $query->where('user_id', $partnerId);
+        } else {
+            $query->whereRaw('1 = 0'); // empty until column exists
+        }
 
         if ($request->filled('q')) {
             $search = $request->q;
@@ -115,9 +122,8 @@ class PartnerGameAccountController extends Controller
 
         $partner = Auth::user();
 
-        $account = GameAccount::create([
+        $accountData = [
             'game_category_id' => $categoryId,
-            'user_id' => $partner->id,
             'code' => strtoupper($validated['code']),
             'title' => $validated['title'],
             'slug' => Str::slug($validated['title'] . '-' . $validated['code']),
@@ -135,7 +141,13 @@ class PartnerGameAccountController extends Controller
             'winrate' => $validated['winrate'] ?? null,
             'is_verified' => $request->boolean('is_verified', true),
             'is_featured' => $request->boolean('is_featured', false),
-        ]);
+        ];
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn('game_accounts', 'user_id')) {
+            $accountData['user_id'] = $partner->id;
+        }
+
+        $account = GameAccount::create($accountData);
 
         // Upload gallery screenshots
         if ($request->hasFile('screenshots')) {

@@ -39,7 +39,12 @@ class AdminUserController extends Controller
             }
         }
 
-        $users = $query->withCount('gameAccounts')->orderBy('created_at', 'desc')->paginate(15)->withQueryString();
+        $hasUserIdCol = \Illuminate\Support\Facades\Schema::hasColumn('game_accounts', 'user_id');
+        if ($hasUserIdCol) {
+            $query->withCount('gameAccounts');
+        }
+
+        $users = $query->orderBy('created_at', 'desc')->paginate(15)->withQueryString();
 
         // Statistics
         $totalUsers = User::count();
