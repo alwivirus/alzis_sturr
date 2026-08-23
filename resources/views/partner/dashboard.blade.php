@@ -13,29 +13,29 @@
 @endsection
 
 @section('content')
-<div style="display: flex; flex-direction: column; gap: 24px;">
+<div style="display: flex; flex-direction: column; gap: 20px;">
 
     <!-- Welcome Banner for Partner -->
-    <div style="background: linear-gradient(135deg, rgba(0, 242, 254, 0.12) 0%, rgba(2, 132, 199, 0.12) 100%); border: 1px solid rgba(0, 242, 254, 0.3); border-radius: 14px; padding: 22px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+    <div style="background: linear-gradient(135deg, rgba(0, 242, 254, 0.12) 0%, rgba(2, 132, 199, 0.12) 100%); border: 1px solid rgba(0, 242, 254, 0.3); border-radius: 14px; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
         <div>
-            <span style="font-size: 0.75rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Selamat Datang di Portal Mitra</span>
-            <h3 style="font-size: 1.4rem; font-weight: 800; color: #fff; margin-top: 4px; font-family: var(--font-heading);">
+            <span style="font-size: 0.72rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Selamat Datang di Portal Mitra</span>
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin-top: 2px; font-family: var(--font-heading);">
                 Halo, {{ Auth::user()->name }}! 👋
             </h3>
-            <p style="font-size: 0.86rem; color: var(--text-muted); margin-top: 4px; max-width: 650px;">
-                Anda dapat menambahkan stok akun game baru, memperbarui spesifikasi, mengatur status ketersediaan stok, dan memantau performa penjualan akun Anda di sini.
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; max-width: 650px; line-height: 1.45;">
+                Kelola stok akun game, perbarui harga, pantau status penjualan dan trafik akun Anda secara real-time.
             </p>
         </div>
         <div>
-            <a href="{{ route('partner.accounts.create') }}" class="btn btn-primary" style="padding: 10px 20px;">
-                <i data-lucide="plus-circle" style="width: 16px; height: 16px;"></i>
+            <a href="{{ route('partner.accounts.create') }}" class="btn btn-primary" style="padding: 9px 18px; font-size: 0.84rem;">
+                <i data-lucide="plus-circle" style="width: 15px; height: 15px;"></i>
                 <span>Mulai Posting Akun</span>
             </a>
         </div>
     </div>
 
     <!-- Metrics Cards Grid -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+    <div class="dashboard-stats-grid">
         
         <!-- Total Akun Saya -->
         <div class="stat-card" style="border-left: 3px solid var(--primary);">
@@ -44,12 +44,12 @@
                     <div class="stat-title" style="color: var(--primary);">Total Akun Saya</div>
                     <div class="stat-value" style="color: #fff;">{{ number_format($myAccountsCount) }}</div>
                 </div>
-                <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(0, 242, 254, 0.15); color: var(--primary); display: flex; align-items: center; justify-content: center;">
+                <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(0, 242, 254, 0.15); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <i data-lucide="gamepad-2" style="width: 18px; height: 18px;"></i>
                 </div>
             </div>
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">
-                Total diposting oleh Anda
+            <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                Diposting oleh Anda
             </div>
         </div>
 
@@ -57,15 +57,15 @@
         <div class="stat-card" style="border-left: 3px solid #10b981;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
-                    <div class="stat-title" style="color: #34d399;">Stok Tersedia (Ready)</div>
+                    <div class="stat-title" style="color: #34d399;">Stok Ready</div>
                     <div class="stat-value" style="color: #34d399;">{{ number_format($myAvailableCount) }}</div>
                 </div>
-                <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(16, 185, 129, 0.15); color: #34d399; display: flex; align-items: center; justify-content: center;">
+                <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(16, 185, 129, 0.15); color: #34d399; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>
                 </div>
             </div>
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">
-                Est. Nilai: <strong style="color: #fff;">Rp {{ number_format($myStockValue, 0, ',', '.') }}</strong>
+            <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                Nilai: <strong style="color: #fff;">Rp {{ number_format($myStockValue, 0, ',', '.') }}</strong>
             </div>
         </div>
 
@@ -76,12 +76,12 @@
                     <div class="stat-title" style="color: #fb7185;">Akun Terjual (Sold)</div>
                     <div class="stat-value" style="color: #fb7185;">{{ number_format($mySoldCount) }}</div>
                 </div>
-                <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(244, 63, 94, 0.15); color: #fb7185; display: flex; align-items: center; justify-content: center;">
+                <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(244, 63, 94, 0.15); color: #fb7185; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <i data-lucide="shopping-bag" style="width: 18px; height: 18px;"></i>
                 </div>
             </div>
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">
-                Total Sold: <strong style="color: #fff;">Rp {{ number_format($mySoldValue, 0, ',', '.') }}</strong>
+            <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                Sold: <strong style="color: #fff;">Rp {{ number_format($mySoldValue, 0, ',', '.') }}</strong>
             </div>
         </div>
 
@@ -92,34 +92,34 @@
                     <div class="stat-title" style="color: #fbbf24;">Trafik & Wishlist</div>
                     <div class="stat-value" style="color: #fbbf24;">{{ number_format($myTotalViews) }}</div>
                 </div>
-                <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(251, 191, 36, 0.15); color: #fbbf24; display: flex; align-items: center; justify-content: center;">
+                <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(251, 191, 36, 0.15); color: #fbbf24; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <i data-lucide="eye" style="width: 18px; height: 18px;"></i>
                 </div>
             </div>
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">
-                Disukai: <strong style="color: #fff;">{{ number_format($myWishlistsCount) }}</strong> pengguna
+            <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                Disukai: <strong style="color: #fff;">{{ number_format($myWishlistsCount) }}</strong> user
             </div>
         </div>
 
     </div>
 
     <!-- Quick Shortcuts -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
-        <a href="{{ route('partner.accounts.create') }}" class="btn btn-outline" style="justify-content: flex-start; padding: 14px 16px; background: rgba(0, 242, 254, 0.05) !important; border-color: rgba(0, 242, 254, 0.3) !important;">
-            <i data-lucide="plus-circle" style="width: 18px; height: 18px; color: var(--primary);"></i>
-            <span style="color: #fff;">+ Post Akun Baru</span>
+    <div class="dashboard-shortcuts-grid">
+        <a href="{{ route('partner.accounts.create') }}" class="btn btn-outline" style="justify-content: flex-start; padding: 12px 14px; background: rgba(0, 242, 254, 0.05) !important; border-color: rgba(0, 242, 254, 0.3) !important;">
+            <i data-lucide="plus-circle" style="width: 16px; height: 16px; color: var(--primary);"></i>
+            <span style="color: #fff;">+ Post Akun</span>
         </a>
-        <a href="{{ route('partner.accounts.index') }}" class="btn btn-outline" style="justify-content: flex-start; padding: 14px 16px;">
-            <i data-lucide="list" style="width: 18px; height: 18px; color: #38bdf8;"></i>
-            <span>Kelola Daftar Akun</span>
+        <a href="{{ route('partner.accounts.index') }}" class="btn btn-outline" style="justify-content: flex-start; padding: 12px 14px;">
+            <i data-lucide="list" style="width: 16px; height: 16px; color: #38bdf8;"></i>
+            <span>Daftar Akun</span>
         </a>
-        <a href="{{ route('profile') }}" class="btn btn-outline" style="justify-content: flex-start; padding: 14px 16px;">
-            <i data-lucide="user-check" style="width: 18px; height: 18px; color: #fbbf24;"></i>
-            <span>Edit Profil Partner</span>
+        <a href="{{ route('profile') }}" class="btn btn-outline" style="justify-content: flex-start; padding: 12px 14px;">
+            <i data-lucide="user-check" style="width: 16px; height: 16px; color: #fbbf24;"></i>
+            <span>Profil Mitra</span>
         </a>
-        <a href="{{ route('home') }}" target="_blank" class="btn btn-outline" style="justify-content: flex-start; padding: 14px 16px;">
-            <i data-lucide="external-link" style="width: 18px; height: 18px; color: #34d399;"></i>
-            <span>Lihat Etalase Toko</span>
+        <a href="{{ route('home') }}" target="_blank" class="btn btn-outline" style="justify-content: flex-start; padding: 12px 14px;">
+            <i data-lucide="external-link" style="width: 16px; height: 16px; color: #34d399;"></i>
+            <span>Toko Publik</span>
         </a>
     </div>
 

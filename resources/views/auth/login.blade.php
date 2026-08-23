@@ -4,27 +4,27 @@
 @section('meta_description', 'Login ke akun ALZIS STORE untuk mengelola profil dan memantau akun game impian Anda.')
 
 @section('content')
-<div style="min-height: calc(100vh - 320px); display: flex; align-items: center; justify-content: center; padding: 48px 18px 80px;">
-    <div style="width: 100%; max-width: 440px; background: var(--bg-card, #0e1628); border: 1px solid var(--border-light, rgba(255,255,255,0.1)); border-radius: 22px; padding: 36px 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 35px rgba(0, 242, 254, 0.08); position: relative; overflow: hidden;">
+<div class="auth-page-wrapper">
+    <div class="auth-card">
         
         <!-- Glowing Top Bar -->
         <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--primary, #00f2fe), var(--accent-purple, #8b5cf6), transparent);"></div>
 
         <!-- Header Brand -->
-        <div style="text-align: center; margin-bottom: 28px;">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 12px;">
-                <img src="{{ asset('images/logo.png') }}" width="42" height="42" decoding="async" alt="Logo" style="height: 42px; width: auto; object-fit: contain; filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.45));">
-                <span class="font-heading" style="font-size: 1.35rem; font-weight: 900; color: #fff; letter-spacing: 0.5px;">ALZIS <span style="color: var(--primary, #00f2fe);">STORE</span></span>
+        <div style="text-align: center; margin-bottom: 22px;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px;">
+                <img src="{{ asset('images/logo.png') }}" width="38" height="38" decoding="async" alt="Logo" style="height: 38px; width: auto; object-fit: contain; filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.45));">
+                <span class="font-heading" style="font-size: 1.25rem; font-weight: 900; color: #fff; letter-spacing: 0.5px;">ALZIS <span style="color: var(--primary, #00f2fe);">STORE</span></span>
             </div>
-            <h1 class="font-heading" style="font-size: 1.55rem; font-weight: 900; color: #fff; margin: 0 0 6px;">Masuk ke Akun</h1>
-            <p style="font-size: 0.86rem; color: var(--text-muted, #94a3b8); margin: 0; line-height: 1.45;">Login untuk menyimpan wishlist & akses akun game Anda.</p>
+            <h1 class="font-heading" style="font-size: 1.4rem; font-weight: 900; color: #fff; margin: 0 0 4px;">Masuk ke Akun</h1>
+            <p style="font-size: 0.82rem; color: var(--text-muted, #94a3b8); margin: 0; line-height: 1.4;">Login untuk menyimpan wishlist & akses akun game Anda.</p>
         </div>
 
         <form action="{{ route('login.post') }}" method="POST">
             @csrf
 
             <!-- Email Field -->
-            <div style="margin-bottom: 18px;">
+            <div style="margin-bottom: 16px;">
                 <label for="email" style="display: block; font-size: 0.82rem; font-weight: 700; color: #cbd5e1; margin-bottom: 6px;">Alamat Email</label>
                 <div style="position: relative; display: flex; align-items: center;">
                     <div style="position: absolute; left: 14px; color: var(--text-dim, #64748b); display: flex; align-items: center; pointer-events: none;">
@@ -39,7 +39,7 @@
             </div>
 
             <!-- Password Field -->
-            <div style="margin-bottom: 18px;">
+            <div style="margin-bottom: 16px;">
                 <label for="password" style="display: block; font-size: 0.82rem; font-weight: 700; color: #cbd5e1; margin-bottom: 6px;">Kata Sandi</label>
                 <div style="position: relative; display: flex; align-items: center;">
                     <div style="position: absolute; left: 14px; color: var(--text-dim, #64748b); display: flex; align-items: center; pointer-events: none;">
@@ -54,21 +54,21 @@
             </div>
 
             <!-- Remember Me -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                <label style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; color: var(--text-muted, #94a3b8); cursor: pointer; user-select: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <label style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--text-muted, #94a3b8); cursor: pointer; user-select: none;">
                     <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }} style="accent-color: var(--primary, #00f2fe); width: 16px; height: 16px; cursor: pointer;">
                     <span>Ingat Saya</span>
                 </label>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; padding: 13px; font-weight: 800; font-size: 0.95rem; border-radius: 12px;">
+            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; padding: 12px; font-weight: 800; font-size: 0.92rem; border-radius: 12px;">
                 <svg style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
                 <span>Masuk Sekarang</span>
             </button>
         </form>
 
-        <div style="text-align: center; margin-top: 24px; font-size: 0.86rem; color: var(--text-muted, #94a3b8);">
+        <div style="text-align: center; margin-top: 20px; font-size: 0.84rem; color: var(--text-muted, #94a3b8);">
             Belum punya akun? 
             <a href="{{ route('register') }}" style="color: var(--primary, #00f2fe); font-weight: 800; text-decoration: none;">Daftar Akun Baru</a>
         </div>

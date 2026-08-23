@@ -19,108 +19,108 @@
 @endsection
 
 @section('content')
-<div style="display: flex; flex-direction: column; gap: 24px;">
+<div style="display: flex; flex-direction: column; gap: 20px;">
 
     <!-- Metrics Cards Grid -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+    <div class="dashboard-stats-grid">
         
         <!-- Stok Ready -->
-        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px;">
+        <div class="stat-card" style="border-left: 3px solid var(--primary);">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
-                    <div style="font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase;">Stok Tersedia (Ready)</div>
-                    <div style="font-size: 1.6rem; font-weight: 800; color: #fff; font-family: var(--font-heading); margin-top: 4px;">
-                        {{ $availableAccounts }} <span style="font-size: 0.82rem; color: var(--text-dim); font-weight: 500;">/ {{ $totalAccounts }} Akun</span>
+                    <div class="stat-title" style="color: var(--primary);">Stok Tersedia (Ready)</div>
+                    <div class="stat-value" style="color: #fff;">
+                        {{ $availableAccounts }} <span style="font-size: 0.76rem; color: var(--text-dim); font-weight: 500;">/ {{ $totalAccounts }}</span>
                     </div>
                 </div>
-                <div style="width: 38px; height: 38px; border-radius: var(--radius-sm); background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center;">
-                    <i data-lucide="check-circle" style="width: 20px; height: 20px;"></i>
+                <div style="width: 34px; height: 34px; border-radius: var(--radius-sm); background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>
                 </div>
             </div>
-            <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.78rem; color: var(--text-muted);">
-                <span>Est. Nilai:</span>
+            <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.74rem; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                <span>Est:</span>
                 <strong style="color: #fff;">Rp {{ number_format($totalStockValue, 0, ',', '.') }}</strong>
             </div>
         </div>
 
         <!-- Akun Terjual -->
-        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px;">
+        <div class="stat-card" style="border-left: 3px solid #f43f5e;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
-                    <div style="font-size: 0.75rem; font-weight: 700; color: #f43f5e; text-transform: uppercase;">Akun Terjual (Sold)</div>
-                    <div style="font-size: 1.6rem; font-weight: 800; color: #fff; font-family: var(--font-heading); margin-top: 4px;">
-                        {{ $soldAccounts }} <span style="font-size: 0.82rem; color: var(--text-dim); font-weight: 500;">Transaksi</span>
+                    <div class="stat-title" style="color: #f43f5e;">Akun Terjual (Sold)</div>
+                    <div class="stat-value" style="color: #f43f5e;">
+                        {{ $soldAccounts }} <span style="font-size: 0.76rem; color: var(--text-dim); font-weight: 500;">Tx</span>
                     </div>
                 </div>
-                <div style="width: 38px; height: 38px; border-radius: var(--radius-sm); background: rgba(244, 63, 94, 0.12); color: #f43f5e; display: flex; align-items: center; justify-content: center;">
-                    <i data-lucide="shopping-bag" style="width: 20px; height: 20px;"></i>
+                <div style="width: 34px; height: 34px; border-radius: var(--radius-sm); background: rgba(244, 63, 94, 0.12); color: #f43f5e; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <i data-lucide="shopping-bag" style="width: 18px; height: 18px;"></i>
                 </div>
             </div>
-            <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.78rem; color: var(--text-muted);">
-                <span>Omset Sold:</span>
+            <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.74rem; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                <span>Omset:</span>
                 <strong style="color: #fff;">Rp {{ number_format($totalSoldValue, 0, ',', '.') }}</strong>
             </div>
         </div>
 
         <!-- Total Pengguna -->
-        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px;">
+        <div class="stat-card" style="border-left: 3px solid #38bdf8;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
-                    <div style="font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); text-transform: uppercase;">Pengguna Terdaftar</div>
-                    <div style="font-size: 1.6rem; font-weight: 800; color: #fff; font-family: var(--font-heading); margin-top: 4px;">
-                        {{ $totalUsers }} <span style="font-size: 0.82rem; color: var(--text-dim); font-weight: 500;">User</span>
+                    <div class="stat-title" style="color: #38bdf8;">Pengguna Terdaftar</div>
+                    <div class="stat-value" style="color: #fff;">
+                        {{ $totalUsers }} <span style="font-size: 0.76rem; color: var(--text-dim); font-weight: 500;">User</span>
                     </div>
                 </div>
-                <div style="width: 38px; height: 38px; border-radius: var(--radius-sm); background: var(--accent-blue-light); color: var(--accent-blue); display: flex; align-items: center; justify-content: center;">
-                    <i data-lucide="users" style="width: 20px; height: 20px;"></i>
+                <div style="width: 34px; height: 34px; border-radius: var(--radius-sm); background: rgba(56, 189, 248, 0.12); color: #38bdf8; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <i data-lucide="users" style="width: 18px; height: 18px;"></i>
                 </div>
             </div>
-            <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.78rem; color: var(--text-muted);">
-                <strong style="color: #00f2fe;">{{ $totalPartners }} Mitra Partner</strong> • {{ $totalCustomers }} Member
+            <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.74rem; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                <strong style="color: #00f2fe;">{{ $totalPartners }} Partner</strong> • {{ $totalCustomers }} Member
             </div>
         </div>
 
         <!-- Trafik Views & Wishlist -->
-        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px;">
+        <div class="stat-card" style="border-left: 3px solid #fbbf24;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
-                    <div style="font-size: 0.75rem; font-weight: 700; color: var(--gold); text-transform: uppercase;">Trafik & Wishlist</div>
-                    <div style="font-size: 1.6rem; font-weight: 800; color: #fff; font-family: var(--font-heading); margin-top: 4px;">
-                        {{ number_format($totalViews) }} <span style="font-size: 0.82rem; color: var(--text-dim); font-weight: 500;">Views</span>
+                    <div class="stat-title" style="color: var(--gold);">Trafik & Wishlist</div>
+                    <div class="stat-value" style="color: #fff;">
+                        {{ number_format($totalViews) }} <span style="font-size: 0.76rem; color: var(--text-dim); font-weight: 500;">Views</span>
                     </div>
                 </div>
-                <div style="width: 38px; height: 38px; border-radius: var(--radius-sm); background: var(--gold-light); color: var(--gold); display: flex; align-items: center; justify-content: center;">
-                    <i data-lucide="heart" style="width: 20px; height: 20px;"></i>
+                <div style="width: 34px; height: 34px; border-radius: var(--radius-sm); background: var(--gold-light); color: var(--gold); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <i data-lucide="heart" style="width: 18px; height: 18px;"></i>
                 </div>
             </div>
-            <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.78rem; color: var(--text-muted);">
-                {{ $totalWishlists }} Akun Disimpan • {{ $partnerAccountsCount }} Akun Mitra
+            <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.74rem; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                {{ $totalWishlists }} Disimpan • {{ $partnerAccountsCount }} Akun Mitra
             </div>
         </div>
     </div>
 
     <!-- Quick Shortcuts -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
-        <a href="{{ route('admin.accounts.create') }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 16px;">
-            <i data-lucide="plus-circle" style="width: 18px; height: 18px; color: var(--primary);"></i>
-            <span>+ Tambah Akun Baru</span>
+    <div class="dashboard-shortcuts-grid">
+        <a href="{{ route('admin.accounts.create') }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 14px;">
+            <i data-lucide="plus-circle" style="width: 16px; height: 16px; color: var(--primary);"></i>
+            <span>+ Tambah Akun</span>
         </a>
-        <a href="{{ route('admin.accounts.index', ['creator' => 'partner']) }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 16px; border-color: rgba(0, 242, 254, 0.3);">
-            <i data-lucide="users" style="width: 18px; height: 18px; color: #00f2fe;"></i>
-            <span>Pantau Akun Partner</span>
+        <a href="{{ route('admin.accounts.index', ['creator' => 'partner']) }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 14px; border-color: rgba(0, 242, 254, 0.3);">
+            <i data-lucide="users" style="width: 16px; height: 16px; color: #00f2fe;"></i>
+            <span>Akun Partner</span>
         </a>
-        <a href="{{ route('admin.users.index', ['role' => 'partner']) }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 16px;">
-            <i data-lucide="user-check" style="width: 18px; height: 18px; color: #38bdf8;"></i>
-            <span>Kelola Mitra Partner</span>
+        <a href="{{ route('admin.users.index', ['role' => 'partner']) }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 14px;">
+            <i data-lucide="user-check" style="width: 16px; height: 16px; color: #38bdf8;"></i>
+            <span>Mitra Partner</span>
         </a>
-        <a href="{{ route('admin.logs.index') }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 16px;">
-            <i data-lucide="shield-check" style="width: 18px; height: 18px; color: #a855f7;"></i>
-            <span>Lihat Log Audit</span>
+        <a href="{{ route('admin.logs.index') }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 14px;">
+            <i data-lucide="shield-check" style="width: 16px; height: 16px; color: #a855f7;"></i>
+            <span>Log Audit</span>
         </a>
     </div>
 
     <!-- Recent Accounts & Activity Logs Split Grid -->
-    <div style="display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px;">
+    <div class="dashboard-split-grid">
         
         <!-- Recent Accounts Table Card -->
         <div class="data-table-card">

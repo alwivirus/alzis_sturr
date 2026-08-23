@@ -214,6 +214,23 @@
             .account-actions{display:flex !important;width:100% !important;gap:4px !important;}
             .account-actions .btn{flex:1 !important;justify-content:center !important;padding:5px 8px !important;font-size:0.74rem !important;text-align:center !important;}
             .account-actions .btn-icon{width:30px !important;height:30px !important;flex:0 0 30px !important;}
+            
+            /* Responsive Header and Nav Actions */
+            .navbar{padding:6px 0 !important;}
+            .nav-wrapper{height:48px !important;}
+            .nav-actions{gap:4px !important;}
+            .nav-actions .user-name-text{display:none !important;}
+            .nav-actions .btn-sm{padding:4px 7px !important;font-size:0.72rem !important;}
+            .nav-actions .btn-icon{width:30px !important;height:30px !important;}
+            .brand-logo img{height:30px !important;}
+            .brand-logo span{font-size:0.95rem !important;}
+        }
+        @media(max-width:380px){
+            .nav-actions{gap:3px !important;}
+            .nav-actions .btn-sm{padding:3px 5px !important;font-size:0.68rem !important;}
+            .nav-actions .btn-icon{width:28px !important;height:28px !important;}
+            .brand-logo img{height:26px !important;}
+            .brand-logo span{font-size:0.86rem !important;}
         }
     </style>
 
@@ -377,7 +394,8 @@
     </header>
 
     <!-- Flash Messages -->
-    <div class="container" style="margin-top: 16px;">
+    @if(session('success') || session('error'))
+    <div class="container" style="margin-top: 14px; margin-bottom: 6px;">
         @if(session('success'))
             <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: var(--radius-md); padding: 12px 18px; color: #34d399; font-size: 0.88rem; display: flex; align-items: center; gap: 10px;">
                 <svg style="width: 18px; height: 18px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
@@ -392,6 +410,7 @@
             </div>
         @endif
     </div>
+    @endif
 
     <!-- Main Content -->
     <main>
@@ -496,10 +515,15 @@
             <span>Bantuan</span>
         </a>
         @auth
-            @if(Auth::user()->isAdmin())
+            @if(Auth::user()->isOwner() || Auth::user()->isAdmin())
                 <a href="{{ route('admin.dashboard') }}" class="mobile-nav-tab {{ request()->routeIs('admin.*') ? 'active' : '' }}">
                     <svg style="color: var(--gold);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    <span style="color: var(--gold);">Admin</span>
+                    <span style="color: var(--gold);">Owner</span>
+                </a>
+            @elseif(Auth::user()->isPartner())
+                <a href="{{ route('partner.dashboard') }}" class="mobile-nav-tab {{ request()->routeIs('partner.*') ? 'active' : '' }}">
+                    <svg style="color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <span style="color: var(--primary);">Partner</span>
                 </a>
             @else
                 <a href="{{ route('profile') }}" class="mobile-nav-tab {{ request()->routeIs('profile') ? 'active' : '' }}">

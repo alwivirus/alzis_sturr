@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Admin Panel') - ALzis STURR Hub</title>
 
@@ -27,7 +27,7 @@
     </script>
 
     <!-- Stylesheets & Direct Self-Contained Admin Theme -->
-    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=9.2">
+    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=9.3">
     <style>
         :root {
             --bg-body: #060913;
@@ -93,8 +93,6 @@
             --primary: #10b981 !important;
             --primary-hover: #34d399 !important;
             --primary-gradient: linear-gradient(135deg, #34d399 0%, #059669 100%) !important;
-            --primary-light: rgba(168, 85, 247, 0.18) !important;
-            --primary-border: rgba(168, 85, 247, 0.4) !important;
             --border: rgba(16, 185, 129, 0.18) !important;
         }
 
@@ -115,7 +113,7 @@
         body { font-family: var(--font-main); background: var(--bg-body); color: var(--text-main); line-height: 1.5; min-height: 100vh; transition: background-color 0.3s ease, color 0.3s ease; }
         
         .admin-layout { display: flex; min-height: 100vh; background: var(--bg-body); }
-        .admin-sidebar { width: 270px; background: var(--bg-surface); border-right: 1px solid var(--border); padding: 20px 16px; display: flex; flex-direction: column; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; z-index: 100; }
+        .admin-sidebar { width: 270px; background: var(--bg-surface); border-right: 1px solid var(--border); padding: 20px 16px; display: flex; flex-direction: column; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; z-index: 100; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .admin-content { flex: 1; min-width: 0; padding: 28px 32px; background: var(--bg-body); }
         
         .admin-nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; color: var(--text-muted); font-size: 0.86rem; font-weight: 600; text-decoration: none; transition: all 0.2s ease; margin-bottom: 2px; }
@@ -128,7 +126,6 @@
             border: 1px solid var(--border) !important;
             border-radius: 14px !important;
             padding: 18px 20px !important;
-            box-shadow: var(--shadow-md) !important;
             transition: transform 0.2s ease, border-color 0.2s ease !important;
             position: relative;
             overflow: hidden;
@@ -142,12 +139,15 @@
         .stat-value { font-family: var(--font-heading); font-size: 1.65rem; font-weight: 900; margin-top: 4px; line-height: 1.1; }
 
         /* Data Tables */
-        .data-table-card { background: var(--bg-card) !important; border: 1px solid var(--border) !important; border-radius: 14px !important; overflow: hidden; box-shadow: var(--shadow-md) !important; }
+        .data-table-card { background: var(--bg-card) !important; border: 1px solid var(--border) !important; border-radius: 14px !important; overflow: hidden; }
         .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .custom-table { width: 100%; border-collapse: collapse; text-align: left; }
         .custom-table th { background: rgba(11, 17, 32, 0.95) !important; padding: 14px 18px; font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.6px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); white-space: nowrap; }
         .custom-table td { padding: 14px 18px; font-size: 0.86rem; border-bottom: 1px solid rgba(255, 255, 255, 0.04); vertical-align: middle; }
         .custom-table tbody tr:hover { background: rgba(0, 242, 254, 0.025); }
+
+        .admin-mobile-header { display: none; }
+        .admin-sidebar-overlay { display: none; }
 
         /* Form Controls */
         .input-control { background: #090f1d !important; border: 1px solid rgba(255, 255, 255, 0.12) !important; border-radius: 8px !important; padding: 8px 14px; color: #fff !important; font-size: 0.85rem; outline: none; transition: all 0.2s ease; width: 100%; }
@@ -249,22 +249,48 @@
 </head>
 <body style="background: var(--bg-body); color: var(--text-main);">
 
+    <!-- Mobile Topbar with Hamburger Toggle -->
+    <div class="admin-mobile-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" style="height: 32px; width: auto;">
+            <div style="font-weight: 800; font-size: 0.95rem; color: #fff; font-family: var(--font-heading);">
+                ALZIS <span style="color: {{ Auth::user()->isOwner() ? 'var(--gold)' : 'var(--primary)' }};">{{ Auth::user()->isOwner() ? 'OWNER' : 'ADMIN' }}</span>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleThemeDropdown(event)" style="padding: 5px 8px; font-size: 0.74rem;">
+                <i data-lucide="palette" style="width: 14px; height: 14px; color: var(--primary);"></i>
+            </button>
+            <button type="button" id="adminSidebarToggleBtn" onclick="toggleAdminSidebar()" class="btn btn-outline btn-sm" style="padding: 5px 9px;">
+                <i data-lucide="menu" style="width: 18px; height: 18px;"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Backdrop Overlay -->
+    <div id="adminSidebarOverlay" class="admin-sidebar-overlay" onclick="toggleAdminSidebar()"></div>
+
     <div class="admin-layout">
         <!-- Sidebar -->
-        <aside class="admin-sidebar">
+        <aside id="adminSidebar" class="admin-sidebar">
             <!-- Brand & Official Logo -->
             <div style="padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 14px;">
-                <a href="{{ route('home') }}" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
-                    <img src="{{ asset('images/logo.png') }}" alt="ALzis Store Logo" style="height: 44px; width: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.4));">
-                    <div>
-                        <div style="font-size: 1.15rem; font-weight: 800; font-family: var(--font-heading); color: #fff; line-height: 1.1;">
-                            ALZIS <span style="color: var(--primary);">STORE</span>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                    <a href="{{ route('home') }}" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+                        <img src="{{ asset('images/logo.png') }}" alt="ALzis Store Logo" style="height: 40px; width: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.4));">
+                        <div>
+                            <div style="font-size: 1.15rem; font-weight: 800; font-family: var(--font-heading); color: #fff; line-height: 1.1;">
+                                ALZIS <span style="color: var(--primary);">STORE</span>
+                            </div>
+                            <span class="brand-badge" style="background: {{ Auth::user()->isOwner() ? 'var(--gold)' : 'var(--primary)' }}; font-size: 0.65rem; padding: 1px 6px; margin-top: 3px; display: inline-block;">
+                                {{ Auth::user()->isOwner() ? '👑 OWNER UTAMA' : 'ADMIN' }}
+                            </span>
                         </div>
-                        <span class="brand-badge" style="background: {{ Auth::user()->isOwner() ? 'var(--gold)' : 'var(--primary)' }}; font-size: 0.65rem; padding: 1px 6px; margin-top: 3px; display: inline-block;">
-                            {{ Auth::user()->isOwner() ? '👑 OWNER UTAMA' : 'ADMIN' }}
-                        </span>
-                    </div>
-                </a>
+                    </a>
+                    <button type="button" onclick="toggleAdminSidebar()" class="btn btn-outline btn-sm" style="display: none; padding: 4px 8px;" id="adminSidebarCloseBtn">
+                        <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+                    </button>
+                </div>
                 
                 <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; margin-top: 14px; display: flex; align-items: center; gap: 10px;">
                     <div style="width: 32px; height: 32px; border-radius: 50%; background: {{ Auth::user()->isOwner() ? 'rgba(245, 158, 11, 0.2)' : 'var(--primary-light)' }}; display: flex; align-items: center; justify-content: center; color: {{ Auth::user()->isOwner() ? 'var(--gold)' : 'var(--primary)' }}; font-weight: 800; font-size: 0.85rem; flex-shrink: 0; border: 1px solid {{ Auth::user()->isOwner() ? 'var(--gold-border)' : 'var(--primary-border)' }};">
@@ -490,16 +516,17 @@
             }).catch(() => {});
         }
 
-        // Highlight active theme on load
-        document.addEventListener('DOMContentLoaded', function() {
-            const current = localStorage.getItem('alzis_theme') || @json(Auth::check() ? (Auth::user()->theme_preference ?? 'default') : 'default');
-            document.querySelectorAll('.theme-option-btn').forEach(el => {
-                const val = el.getAttribute('data-theme-val');
-                if (val === current) {
-                    el.style.background = 'rgba(255, 255, 255, 0.1)';
-                }
-            });
-        });
+        // Mobile Sidebar Toggle
+        function toggleAdminSidebar() {
+            const sidebar = document.getElementById('adminSidebar');
+            const overlay = document.getElementById('adminSidebarOverlay');
+            if (sidebar) sidebar.classList.toggle('open');
+            if (overlay) overlay.classList.toggle('open');
+            const closeBtn = document.getElementById('adminSidebarCloseBtn');
+            if (closeBtn && window.innerWidth <= 991) {
+                closeBtn.style.display = sidebar && sidebar.classList.contains('open') ? 'inline-flex' : 'none';
+            }
+        }
     </script>
     @stack('scripts')
 </body>

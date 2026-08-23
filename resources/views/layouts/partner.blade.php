@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Panel Mitra Partner') - ALzis STURR</title>
 
@@ -27,7 +27,7 @@
     </script>
 
     <!-- Stylesheets & Partner Theme -->
-    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=9.2">
+    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=9.3">
     <style>
         :root {
             --bg-body: #060913;
@@ -166,13 +166,14 @@
         .sidebar-overlay { display: none; }
 
         @media (max-width: 991px) {
-            .mobile-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; background: #090e1c; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 150; }
+            .mobile-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--bg-surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 150; }
             .partner-layout { flex-direction: column; }
             .partner-sidebar { position: fixed; top: 0; left: 0; width: 280px; height: 100vh; transform: translateX(-100%); box-shadow: 4px 0 25px rgba(0,0,0,0.8); z-index: 200; }
             .partner-sidebar.open { transform: translateX(0); }
             .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 190; }
             .sidebar-overlay.open { display: block; }
-            .partner-content { padding: 18px 14px; }
+            .partner-content { padding: 16px 12px 60px; width: 100%; }
+            #sidebarCloseBtn { display: inline-flex !important; }
         }
     </style>
     @stack('styles')
@@ -181,15 +182,20 @@
 
     <!-- Mobile Topbar with Hamburger Toggle -->
     <div class="mobile-header">
-        <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
             <img src="{{ asset('images/logo.png') }}" alt="Logo" style="height: 32px; width: auto;">
-            <div style="font-weight: 800; font-size: 1rem; color: #fff; font-family: var(--font-heading);">
+            <div style="font-weight: 800; font-size: 0.95rem; color: #fff; font-family: var(--font-heading);">
                 PARTNER <span style="color: var(--primary);">PANEL</span>
             </div>
         </div>
-        <button type="button" id="sidebarToggleBtn" class="btn btn-outline btn-sm" style="padding: 6px 10px;">
-            <i data-lucide="menu" style="width: 18px; height: 18px;"></i>
-        </button>
+        <div style="display: flex; align-items: center; gap: 6px;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="toggleThemeDropdown(event)" style="padding: 5px 8px; font-size: 0.74rem;">
+                <i data-lucide="palette" style="width: 14px; height: 14px; color: var(--primary);"></i>
+            </button>
+            <button type="button" id="sidebarToggleBtn" class="btn btn-outline btn-sm" style="padding: 5px 9px;">
+                <i data-lucide="menu" style="width: 18px; height: 18px;"></i>
+            </button>
+        </div>
     </div>
 
     <!-- Mobile Backdrop Overlay -->

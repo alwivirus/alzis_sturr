@@ -4,7 +4,7 @@
 @section('page_title', 'KELOLA KATEGORI GAME')
 
 @section('content')
-<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px; align-items: start;">
+<div class="dashboard-split-grid" style="align-items: start;">
     
     <!-- Form Tambah Kategori -->
     <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px;">

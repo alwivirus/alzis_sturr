@@ -4,15 +4,15 @@
 @section('page_title', 'PENGATURAN TOKO & KONTAK RESMI')
 
 @section('content')
-<div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; max-width: 900px;">
+<div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 22px 18px; max-width: 900px;">
     <form action="{{ route('admin.settings.update') }}" method="POST">
         @csrf
 
-        <h3 class="font-gaming" style="font-size: 1.3rem; color: var(--primary); margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+        <h3 class="font-gaming" style="font-size: 1.2rem; color: var(--primary); margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
             1. IDENTITAS & KONTAK TRANSAKSI UTAMA
         </h3>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div class="form-grid-2" style="margin-bottom: 16px;">
             <div class="form-group">
                 <label class="form-label">Nama Website / Toko <span style="color: var(--danger);">*</span></label>
                 <input type="text" name="site_name" value="{{ old('site_name', $settings['site_name']) }}" class="input-control" required>
@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+        <div class="form-grid-2" style="margin-bottom: 16px;">
             <div class="form-group">
                 <label class="form-label">Nomor WhatsApp Resmi Transaksi</label>
                 <input type="text" name="whatsapp_number" value="{{ old('whatsapp_number', $settings['whatsapp_number'] ?? '6282324634848') }}" class="input-control" placeholder="6282324634848">
@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div class="form-grid-2">
             <div class="form-group">
                 <label class="form-label">Username Instagram Resmi <span style="color: var(--danger);">*</span></label>
                 <input type="text" name="instagram_username" value="{{ old('instagram_username', $settings['instagram_username']) }}" class="input-control" placeholder="alzis_sturr" required>
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <h3 class="font-gaming" style="font-size: 1.3rem; color: var(--primary); margin: 30px 0 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+        <h3 class="font-gaming" style="font-size: 1.2rem; color: var(--primary); margin: 26px 0 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
             2. BANNER PENGUMUMAN & TEKS INFORMASI
         </h3>
 

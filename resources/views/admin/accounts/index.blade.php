@@ -13,40 +13,55 @@
 @section('content')
 
 <!-- Search & Filter Bar -->
-<div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 20px; margin-bottom: 20px;">
-    <form action="{{ route('admin.accounts.index') }}" method="GET" style="display: grid; grid-template-columns: 2fr 1.2fr 1fr 1.2fr auto; gap: 10px; align-items: center;">
-        <input type="text" name="q" value="{{ request('q') }}" class="input-control" placeholder="Cari kode (#AZS-01), nama akun, atau hero...">
+<div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; margin-bottom: 20px;">
+    <form action="{{ route('admin.accounts.index') }}" method="GET" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+        <div style="flex: 2; min-width: 200px;">
+            <input type="text" name="q" value="{{ request('q') }}" class="input-control" placeholder="Cari kode (#AZS-01), nama akun, atau hero...">
+        </div>
         
-        <select name="category" class="input-control">
-            <option value="">Semua Kategori Game</option>
-            @foreach($categories as $cat)
-                <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
-            @endforeach
-        </select>
+        <div style="flex: 1; min-width: 140px;">
+            <select name="category" class="input-control">
+                <option value="">Semua Game</option>
+                @foreach($categories as $cat)
+                    <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                @endforeach
+            </select>
+        </div>
 
-        <select name="status" class="input-control">
-            <option value="">Semua Status</option>
-            <option value="available" {{ request('status') == 'available' ? 'selected' : '' }}>Ready (Tersedia)</option>
-            <option value="sold" {{ request('status') == 'sold' ? 'selected' : '' }}>Terjual (Sold)</option>
-        </select>
+        <div style="flex: 1; min-width: 120px;">
+            <select name="status" class="input-control">
+                <option value="">Semua Status</option>
+                <option value="available" {{ request('status') == 'available' ? 'selected' : '' }}>Ready</option>
+                <option value="sold" {{ request('status') == 'sold' ? 'selected' : '' }}>Sold</option>
+            </select>
+        </div>
 
-        <select name="creator" class="input-control">
-            <option value="">Semua Pembuat</option>
-            <option value="owner" {{ request('creator') == 'owner' ? 'selected' : '' }}>👑 Dibuat Owner</option>
-            <option value="partner" {{ request('creator') == 'partner' ? 'selected' : '' }}>🤝 Dibuat Partner</option>
-            @if(isset($partners) && $partners->count() > 0)
-                <optgroup label="Pilih Partner Spesifik">
-                    @foreach($partners as $p)
-                        <option value="{{ $p->id }}" {{ request('creator') == $p->id ? 'selected' : '' }}>• {{ $p->name }}</option>
-                    @endforeach
-                </optgroup>
+        <div style="flex: 1; min-width: 130px;">
+            <select name="creator" class="input-control">
+                <option value="">Semua Pembuat</option>
+                <option value="owner" {{ request('creator') == 'owner' ? 'selected' : '' }}>👑 Owner</option>
+                <option value="partner" {{ request('creator') == 'partner' ? 'selected' : '' }}>🤝 Partner</option>
+                @if(isset($partners) && $partners->count() > 0)
+                    <optgroup label="Pilih Partner Spesifik">
+                        @foreach($partners as $p)
+                            <option value="{{ $p->id }}" {{ request('creator') == $p->id ? 'selected' : '' }}>• {{ $p->name }}</option>
+                        @endforeach
+                    </optgroup>
+                @endif
+            </select>
+        </div>
+
+        <div style="display: flex; gap: 6px;">
+            <button type="submit" class="btn btn-primary btn-sm" style="padding: 8px 16px;">
+                <i data-lucide="filter" style="width: 15px; height: 15px;"></i>
+                <span>Filter</span>
+            </button>
+            @if(request()->hasAny(['q', 'category', 'status', 'creator']))
+                <a href="{{ route('admin.accounts.index') }}" class="btn btn-outline btn-sm" title="Reset">
+                    <i data-lucide="x" style="width: 15px; height: 15px;"></i>
+                </a>
             @endif
-        </select>
-
-        <button type="submit" class="btn btn-primary btn-sm">
-            <i data-lucide="filter" style="width: 15px; height: 15px;"></i>
-            <span>Filter</span>
-        </button>
+        </div>
     </form>
 </div>
 
