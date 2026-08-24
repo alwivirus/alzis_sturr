@@ -224,9 +224,17 @@ class AdminGameAccountController extends Controller
             'skin_count' => 'nullable|integer|min:0',
             'rank_tier' => 'nullable|string|max:100',
             'winrate' => 'nullable|string|max:50',
+            'partner_phone' => 'nullable|string|max:25',
             'is_verified' => 'nullable|boolean',
             'is_featured' => 'nullable|boolean',
         ]);
+
+        if ($request->filled('partner_phone')) {
+            if ($account->user) {
+                $account->user->phone = trim($request->input('partner_phone'));
+                $account->user->save();
+            }
+        }
 
         $categoryId = $request->input('game_category_id');
 

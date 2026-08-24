@@ -274,6 +274,7 @@ class PartnerGameAccountController extends Controller
 
         $account->update([
             'game_category_id' => $categoryId,
+            'product_type' => $request->input('product_type', $account->product_type ?? 'game_account'),
             'code' => strtoupper($validated['code']),
             'title' => $validated['title'],
             'slug' => Str::slug($validated['title'] . '-' . $validated['code']),
@@ -282,6 +283,10 @@ class PartnerGameAccountController extends Controller
             'login_bind' => $validated['login_bind'],
             'server' => $validated['server'],
             'status' => $validated['status'],
+            'stock_qty' => $request->input('stock_qty', $account->stock_qty ?: 1) ?: 1,
+            'duration_value' => $request->input('duration_value', $account->duration_value),
+            'duration_unit' => $request->input('duration_unit', $account->duration_unit),
+            'account_variant' => $request->input('account_variant', $account->account_variant),
             'thumbnail' => $thumbnailPath,
             'short_description' => $validated['short_description'] ?? null,
             'full_specs' => $validated['full_specs'] ?? null,
