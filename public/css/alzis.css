@@ -835,7 +835,6 @@ button, input, select, textarea {
 .slider-dot.active {
   width: 44px;
   background: var(--primary);
-  box-shadow: 0 0 10px var(--primary-glow);
 }
 
 /* ==========================================================================
@@ -874,10 +873,14 @@ button, input, select, textarea {
   transform: translateY(-1px);
 }
 .category-pill.active {
-  background: var(--primary-light);
-  color: var(--primary);
-  border-color: var(--primary-border);
-  box-shadow: 0 0 14px var(--primary-glow);
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #1d4ed8;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+.category-pill.active .category-pill-count {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
 }
 
 .category-pill-count {

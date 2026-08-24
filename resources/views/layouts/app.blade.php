@@ -168,9 +168,10 @@
         .hero-tag{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:var(--primary-light);border:1px solid var(--primary-border);color:var(--primary);font-size:0.68rem;font-weight:800;margin-bottom:8px;}
         .hero-title{font-family:var(--font-heading);font-size:1.38rem;font-weight:900;color:#fff;line-height:1.2;margin-bottom:8px;}
         @media(min-width:768px){.hero-title{font-size:2.4rem;}}
-        .text-gradient{background:var(--primary-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+        .text-gradient{color:#3b82f6 !important;background:none !important;-webkit-text-fill-color:#3b82f6 !important;}
         .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.84rem;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:all 0.2s ease;}
-        .btn-primary{background:var(--primary-gradient);color:#050811;}
+        .btn-primary{background:#2563eb !important;color:#ffffff !important;font-weight:700;border:1px solid #1d4ed8 !important;box-shadow:0 2px 8px rgba(37,99,235,0.25) !important;}
+        .btn-primary:hover{background:#1d4ed8 !important;color:#ffffff !important;transform:translateY(-1px);}
         .btn-secondary{background:rgba(255,255,255,0.06);border-color:var(--border);color:var(--text-main);}
         .btn-whatsapp{background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);color:#fff!important;font-weight:800;box-shadow:0 4px 15px rgba(37,211,102,0.35);}
         .btn-discord{background:linear-gradient(135deg,#5865F2 0%,#4752C4 100%);color:#fff!important;font-weight:800;box-shadow:0 4px 15px rgba(88,101,242,0.35);}
@@ -249,7 +250,7 @@
     </style>
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=9.5">
+    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=9.6">
 
     @stack('styles')
 </head>
@@ -281,7 +282,7 @@
             <div class="nav-wrapper">
                 <!-- Brand Official Logo -->
                 <a href="{{ route('home') }}" class="brand-logo" style="display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; white-space: nowrap; min-width: max-content;">
-                    <img src="{{ asset('images/logo.png') }}" width="34" height="34" decoding="async" alt="ALZIS STORE Logo" style="height: 34px; width: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.5)); flex-shrink: 0;">
+                    <img src="{{ asset('images/logo.png') }}" width="34" height="34" decoding="async" alt="ALZIS STORE Logo" style="height: 34px; width: auto; object-fit: contain; flex-shrink: 0;">
                     <div style="display: flex; flex-direction: column; white-space: nowrap;">
                         <span style="font-size: 1.05rem; font-weight: 900; font-family: var(--font-heading); color: #fff; line-height: 1.1; letter-spacing: 0.2px; white-space: nowrap;">
                             ALZIS <span style="color: var(--primary);">STORE</span>
@@ -372,7 +373,7 @@
                                 <span>Owner</span>
                             </a>
                         @elseif(Auth::user()->isPartner())
-                            <a href="{{ route('partner.dashboard') }}" class="btn btn-sm" style="background: rgba(0, 242, 254, 0.15); border: 1px solid rgba(0, 242, 254, 0.4); color: var(--primary); font-weight: 800; padding: 5px 9px; font-size: 0.74rem;">
+                            <a href="{{ route('partner.dashboard') }}" class="btn btn-sm" style="background: var(--primary-light); border: 1px solid var(--primary-border); color: var(--primary); font-weight: 800; padding: 5px 9px; font-size: 0.74rem;">
                                 <svg style="width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                                 <span>Panel Partner</span>
                             </a>

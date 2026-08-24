@@ -4,7 +4,7 @@
 @section('meta_description', 'Pelajari alur transaksi pembelian akun game dan jaminan garansi 100% Anti Hackback seumur hidup di ALZIS STORE.')
 
 @section('content')
-<div class="container" style="padding: 36px 18px 80px; max-width: 960px;">
+<div class="container" style="padding: 36px 18px 80px; max-width: 1200px;">
     <div style="margin-bottom: 36px; text-align: center;">
         <span style="font-size: 0.72rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.8px;">PANDUAN PEMBELIAN</span>
         <h1 class="font-heading" style="font-size: 2.1rem; color: #fff; font-weight: 900; margin-top: 4px; margin-bottom: 8px;">
@@ -15,30 +15,34 @@
         </p>
     </div>
 
-    <!-- 4 Steps Timeline Cards -->
-    <div class="steps-cards-grid">
-        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; position: relative; overflow: hidden;">
-            <div style="font-size: 1.8rem; font-weight: 900; color: var(--primary); font-family: var(--font-heading); margin-bottom: 10px;">01</div>
+    <!-- 4 Steps Timeline Cards Grid (Kotak-Kotak Responsif) -->
+    <div class="steps-cards-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 36px;">
+        <!-- Step 1 -->
+        <div class="step-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 22px 18px; display: flex; flex-direction: column; transition: all 0.25s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.25);">
+            <div style="width: 38px; height: 38px; border-radius: 10px; background: var(--primary-light); color: var(--primary); font-weight: 900; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; flex-shrink: 0; border: 1px solid var(--primary-border);">01</div>
             <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Pilih Akun</h4>
-            <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.55;">Pilih akun game yang Anda inginkan di katalog kami sesuai spesifikasi & budget.</p>
+            <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Pilih akun game yang Anda inginkan di katalog kami sesuai spesifikasi & budget.</p>
         </div>
 
-        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; position: relative; overflow: hidden;">
-            <div style="font-size: 1.8rem; font-weight: 900; color: var(--accent-purple); font-family: var(--font-heading); margin-bottom: 10px;">02</div>
+        <!-- Step 2 -->
+        <div class="step-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 22px 18px; display: flex; flex-direction: column; transition: all 0.25s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.25);">
+            <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(139, 92, 246, 0.15); color: #a78bfa; font-weight: 900; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; flex-shrink: 0; border: 1px solid rgba(139, 92, 246, 0.35);">02</div>
             <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Konfirmasi Admin</h4>
-            <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.55;">Klik tombol "Beli via WhatsApp" atau buka "Ticket Discord" untuk verifikasi ketersediaan.</p>
+            <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Klik tombol "Beli via WhatsApp" atau buka "Ticket Discord" untuk verifikasi ketersediaan.</p>
         </div>
 
-        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; position: relative; overflow: hidden;">
-            <div style="font-size: 1.8rem; font-weight: 900; color: var(--gold); font-family: var(--font-heading); margin-bottom: 10px;">03</div>
+        <!-- Step 3 -->
+        <div class="step-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 22px 18px; display: flex; flex-direction: column; transition: all 0.25s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.25);">
+            <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(245, 158, 11, 0.15); color: var(--gold); font-weight: 900; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; flex-shrink: 0; border: 1px solid rgba(245, 158, 11, 0.35);">03</div>
             <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Pembayaran Resmi</h4>
-            <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.55;">Lakukan transfer ke rekening/QRIS/E-Wallet resmi yang diberikan admin.</p>
+            <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Lakukan transfer ke rekening/QRIS/E-Wallet resmi yang diberikan admin.</p>
         </div>
 
-        <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; position: relative; overflow: hidden;">
-            <div style="font-size: 1.8rem; font-weight: 900; color: var(--success); font-family: var(--font-heading); margin-bottom: 10px;">04</div>
+        <!-- Step 4 -->
+        <div class="step-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 22px 18px; display: flex; flex-direction: column; transition: all 0.25s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.25);">
+            <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(16, 185, 129, 0.15); color: var(--success); font-weight: 900; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; flex-shrink: 0; border: 1px solid rgba(16, 185, 129, 0.35);">04</div>
             <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Serah Terima 5 Mnt</h4>
-            <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.55;">Admin memandu pemindahan email sampai tuntas dan memberikan garansi resmi.</p>
+            <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Admin memandu pemindahan email sampai tuntas dan memberikan garansi resmi.</p>
         </div>
     </div>
 
