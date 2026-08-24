@@ -27,7 +27,7 @@
     </script>
 
     <!-- Stylesheets & Direct Self-Contained Admin Theme -->
-    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=10.0">
+    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=10.1">
     <style>
         :root {
             --bg-body: #0a0e17;

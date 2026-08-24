@@ -33,18 +33,18 @@
                 </div>
 
                 <h1 style="font-family: var(--font-heading); font-size: clamp(1.5rem, 3.5vw, 2.5rem); font-weight: 900; color: #ffffff; line-height: 1.18; margin-bottom: 10px; letter-spacing: -0.02em;">
-                    Pusat Jual Beli Akun Game Sultan <span style="color: #f59e0b;">#1 Terpercaya</span>
+                    Pusat Akun Game & Produk Digital Sultan <span style="color: #f59e0b;">#1 Terpercaya</span>
                 </h1>
 
                 <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
-                    Marketplace & rekber resmi akun Mobile Legends, Free Fire, Genshin Impact, PUBGM, & Valorant. Data bersih (all unbind), transaksi instan 5 menit langsung dipandu Admin.
+                    Marketplace & rekber resmi akun Game (MLBB, FF, PUBGM, Genshin, Valorant), Akun Premium (CapCut, Spotify, Canva, Netflix), dan Layanan Fast Tournament (FT). Transaksi instan 5 menit dipandu Admin.
                 </p>
 
                 <!-- Search Bar -->
                 <div style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 4px 6px 4px 14px; display: flex; align-items: center; gap: 8px; max-width: 500px; box-shadow: 0 4px 16px rgba(0,0,0,0.4);">
                     <svg style="width: 16px; height: 16px; color: #64748b; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                     <form action="{{ route('catalog') }}" method="GET" style="display: flex; flex: 1; align-items: center; gap: 6px; min-width: 0;">
-                        <input type="text" name="q" placeholder="Cari nama akun, skin, hero, rank..." style="background: transparent; border: none; outline: none; color: #fff; font-size: 0.84rem; flex: 1; min-width: 0;">
+                        <input type="text" name="q" placeholder="Cari game, CapCut Pro, Spotify, Slot FT..." style="background: transparent; border: none; outline: none; color: #fff; font-size: 0.84rem; flex: 1; min-width: 0;">
                         <button type="submit" style="background: #f59e0b; color: #ffffff; font-weight: 700; font-size: 0.78rem; border: none; border-radius: 8px; padding: 8px 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; transition: background 0.2s;">
                             <span>Cari Stok</span>
                             <svg style="width: 13px; height: 13px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
