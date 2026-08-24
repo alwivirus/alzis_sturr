@@ -204,6 +204,12 @@
         @media(min-width:1200px){.accounts-grid{grid-template-columns:repeat(4,minmax(0,1fr)) !important;gap:22px;}}
         @media(max-width:340px){.accounts-grid{grid-template-columns:1fr !important;gap:8px;}}
 
+        .badge-status{position:absolute;top:10px;left:10px;font-size:0.72rem;font-weight:800;padding:3px 9px;border-radius:var(--radius-full);text-transform:uppercase;letter-spacing:0.5px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:2;white-space:nowrap;line-height:1.2;}
+        .badge-available{background:rgba(16,185,129,0.9);color:#fff;box-shadow:0 2px 8px rgba(16,185,129,0.4);}
+        .badge-sold{background:rgba(244,63,94,0.9);color:#fff;box-shadow:0 2px 8px rgba(244,63,94,0.4);}
+        .badge-code{position:absolute;top:10px;right:10px;font-size:0.7rem;font-weight:800;padding:3px 8px;border-radius:var(--radius-sm);background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--primary);border:1px solid var(--primary-border);z-index:2;white-space:nowrap;line-height:1.2;}
+        .badge-discount-ribbon{position:absolute;bottom:10px;left:10px;font-size:0.72rem;font-weight:800;padding:3px 8px;border-radius:var(--radius-sm);background:var(--gold-gradient);color:#0f172a;box-shadow:0 2px 8px rgba(245,158,11,0.4);z-index:2;white-space:nowrap;letter-spacing:0.2px;line-height:1.2;}
+
         .account-pricing{margin-top:auto;padding-top:8px;border-top:1px solid var(--border,rgba(255,255,255,0.08));display:flex;align-items:center;justify-content:space-between;gap:6px;width:100%;}
         .price-box{display:flex;flex-direction:column;min-width:0;flex:1 1 auto;overflow:hidden;}
         .price-main{font-family:var(--font-heading);font-size:0.95rem;font-weight:900;color:var(--primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -213,8 +219,11 @@
         .account-actions .btn-icon{width:28px !important;height:28px !important;padding:0 !important;flex:0 0 28px !important;}
         
         @media(max-width:768px){
+            .badge-status{top:6px!important;left:6px!important;font-size:clamp(0.56rem,2.2vw,0.65rem)!important;padding:2px 6px!important;letter-spacing:0.2px!important;line-height:1.2!important;font-weight:800!important;border-radius:4px!important;max-width:58%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;}
+            .badge-code{top:6px!important;right:6px!important;font-size:clamp(0.54rem,2vw,0.62rem)!important;padding:2px 5px!important;line-height:1.2!important;font-weight:800!important;border-radius:4px!important;white-space:nowrap!important;max-width:40%!important;overflow:hidden!important;text-overflow:ellipsis!important;}
+            .badge-discount-ribbon{bottom:6px!important;left:6px!important;font-size:clamp(0.56rem,2.2vw,0.65rem)!important;padding:2px 6px!important;line-height:1.2!important;font-weight:800!important;border-radius:4px!important;white-space:nowrap!important;letter-spacing:0.2px!important;max-width:75%!important;overflow:hidden!important;text-overflow:ellipsis!important;box-shadow:0 2px 6px rgba(245,158,11,0.35)!important;}
             .account-pricing{flex-direction:column !important;align-items:stretch !important;gap:6px !important;padding-top:6px !important;}
-            .price-box{display:flex !important;flex-direction:row !important;align-items:baseline !important;gap:6px !important;width:100% !important;}
+            .price-box{display:flex !important;flex-direction:row !important;align-items:baseline !important;gap:6px !important;width:100% !important;flex-wrap:wrap !important;}
             .price-main{font-size:0.92rem !important;color:var(--primary) !important;font-weight:900 !important;}
             .price-strike{font-size:0.65rem !important;}
             .account-actions{display:flex !important;width:100% !important;gap:4px !important;}

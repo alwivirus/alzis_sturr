@@ -962,24 +962,27 @@ button, input, select, textarea {
   position: absolute;
   top: 10px;
   left: 10px;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 800;
   padding: 3px 9px;
   border-radius: var(--radius-full);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   z-index: 2;
+  white-space: nowrap;
+  line-height: 1.2;
 }
 
 .badge-available {
-  background: rgba(16, 185, 129, 0.85);
+  background: rgba(16, 185, 129, 0.9);
   color: #fff;
   box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
 }
 
 .badge-sold {
-  background: rgba(244, 63, 94, 0.85);
+  background: rgba(244, 63, 94, 0.9);
   color: #fff;
   box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4);
 }
@@ -994,16 +997,19 @@ button, input, select, textarea {
   border-radius: var(--radius-sm);
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: var(--primary);
   border: 1px solid var(--primary-border);
   z-index: 2;
+  white-space: nowrap;
+  line-height: 1.2;
 }
 
 .badge-discount-ribbon {
   position: absolute;
   bottom: 10px;
   left: 10px;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 800;
   padding: 3px 8px;
   border-radius: var(--radius-sm);
@@ -1011,6 +1017,9 @@ button, input, select, textarea {
   color: #0f172a;
   box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
   z-index: 2;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+  line-height: 1.2;
 }
 
 .account-body {
@@ -1973,20 +1982,44 @@ html, body {
   .badge-status {
     top: 6px !important;
     left: 6px !important;
-    font-size: 0.62rem !important;
+    font-size: clamp(0.56rem, 2.2vw, 0.65rem) !important;
     padding: 2px 6px !important;
+    letter-spacing: 0.2px !important;
+    line-height: 1.2 !important;
+    font-weight: 800 !important;
+    border-radius: 4px !important;
+    max-width: 58% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
   }
   .badge-code {
     top: 6px !important;
     right: 6px !important;
-    font-size: 0.62rem !important;
+    font-size: clamp(0.54rem, 2vw, 0.62rem) !important;
     padding: 2px 5px !important;
+    line-height: 1.2 !important;
+    font-weight: 800 !important;
+    border-radius: 4px !important;
+    white-space: nowrap !important;
+    max-width: 40% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
   .badge-discount-ribbon {
     bottom: 6px !important;
     left: 6px !important;
-    font-size: 0.62rem !important;
+    font-size: clamp(0.56rem, 2.2vw, 0.65rem) !important;
     padding: 2px 6px !important;
+    line-height: 1.2 !important;
+    font-weight: 800 !important;
+    border-radius: 4px !important;
+    white-space: nowrap !important;
+    letter-spacing: 0.2px !important;
+    max-width: 75% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.35) !important;
   }
   .account-body {
     padding: 8px 8px 10px !important;

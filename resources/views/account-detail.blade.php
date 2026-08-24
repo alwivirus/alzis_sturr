@@ -25,12 +25,16 @@
                 <img id="mainGalleryImg" src="{{ $account->thumbnail_url }}" alt="{{ $account->title }}" decoding="async" style="width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; background: #050811; display: block;">
                 
                 @if($account->status === 'available')
-                    <span class="badge-status badge-available" style="top: 10px; left: 10px; font-size: 0.7rem; padding: 4px 10px;">Ready Stok</span>
+                    <span class="badge-status badge-available">Ready Stok</span>
                 @else
-                    <span class="badge-status badge-sold" style="top: 10px; left: 10px; font-size: 0.7rem; padding: 4px 10px;">Terjual</span>
+                    <span class="badge-status badge-sold">Terjual</span>
                 @endif
 
-                <span class="badge-code" style="bottom: 10px; left: 10px; font-size: 0.7rem; padding: 3px 8px;">#{{ $account->code }}</span>
+                <span class="badge-code">#{{ $account->code }}</span>
+
+                @if($account->discount_percent > 0)
+                    <span class="badge-discount-ribbon">Hemat {{ $account->discount_percent }}%</span>
+                @endif
 
                 <!-- Zoom Prompt Badge -->
                 <button type="button" class="zoom-trigger-btn" onclick="event.stopPropagation(); openLightbox();" title="Klik untuk Zoom Foto Fullscreen" style="position: absolute; bottom: 10px; right: 10px; background: rgba(5, 8, 17, 0.85); backdrop-filter: blur(8px); border: 1px solid rgba(245, 158, 11, 0.4); color: var(--primary); padding: 4px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: all 0.2s ease;">
@@ -93,23 +97,26 @@
                 </h1>
 
                 <!-- Pricing Box -->
-                <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-                    <div>
+                <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                    <div style="min-width: 0; flex: 1;">
                         <span style="font-size: 0.65rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Harga Net:</span>
-                        <div style="display: flex; align-items: baseline; gap: 6px; margin-top: 2px;">
-                            <span class="font-heading" style="font-size: 1.35rem; font-weight: 900; color: #fff;">
+                        <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 2px; flex-wrap: wrap;">
+                            <span class="font-heading" style="font-size: 1.35rem; font-weight: 900; color: #fff; line-height: 1.1;">
                                 {{ $account->formatted_effective_price }}
                             </span>
                             @if($account->discount_price)
-                                <span style="font-size: 0.8rem; color: var(--text-dim); text-decoration: line-through;">
+                                <span style="font-size: 0.82rem; color: var(--text-dim); text-decoration: line-through; white-space: nowrap;">
                                     {{ $account->formatted_price }}
+                                </span>
+                                <span class="badge-discount-ribbon" style="position: static; font-size: 0.68rem; padding: 2px 7px; border-radius: 4px; box-shadow: none; display: inline-flex;">
+                                    Hemat {{ $account->discount_percent }}%
                                 </span>
                             @endif
                         </div>
                     </div>
 
                     @php $isW = Auth::check() && $account->isWishlistedBy(Auth::user()); @endphp
-                    <button type="button" class="btn btn-secondary btn-icon btn-toggle-wishlist" data-id="{{ $account->id }}" title="Wishlist" style="width: 34px; height: 34px; {{ $isW ? 'color: var(--danger);' : '' }}">
+                    <button type="button" class="btn btn-secondary btn-icon btn-toggle-wishlist" data-id="{{ $account->id }}" title="Wishlist" style="width: 34px; height: 34px; flex-shrink: 0; {{ $isW ? 'color: var(--danger);' : '' }}">
                         <svg style="width: 15px; height: 15px; {{ $isW ? 'fill: var(--danger);' : '' }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                     </button>
                 </div>
