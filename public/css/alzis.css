@@ -4,46 +4,46 @@
 
 :root {
   /* Surfaces & Backgrounds */
-  --bg-body: #060913;
-  --bg-surface: #0b1120;
-  --bg-surface-elevated: #10192e;
-  --bg-card: #0e1628;
-  --bg-card-hover: #14203b;
-  --bg-glass: rgba(9, 14, 26, 0.88);
-  --bg-glass-card: rgba(14, 22, 40, 0.75);
-  --bg-input: #090f1d;
+  --bg-body: #0a0e17;
+  --bg-surface: #101726;
+  --bg-surface-elevated: #162035;
+  --bg-card: #131b2e;
+  --bg-card-hover: #19243d;
+  --bg-glass: rgba(10, 14, 23, 0.94);
+  --bg-glass-card: rgba(19, 27, 46, 0.88);
+  --bg-input: #0e1626;
 
   /* Borders */
   --border: rgba(255, 255, 255, 0.08);
   --border-light: rgba(255, 255, 255, 0.14);
-  --border-focus: #00f2fe;
-  --border-hover: rgba(0, 242, 254, 0.35);
+  --border-focus: #3b82f6;
+  --border-hover: rgba(59, 130, 246, 0.35);
 
-  /* Primary Cyber Cyan */
-  --primary: #00f2fe;
-  --primary-hover: #38bdf8;
-  --primary-gradient: linear-gradient(135deg, #00f2fe 0%, #2563eb 100%);
-  --primary-light: rgba(0, 242, 254, 0.1);
-  --primary-border: rgba(0, 242, 254, 0.28);
-  --primary-glow: rgba(0, 242, 254, 0.3);
+  /* Primary Sapphire Slate Blue */
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  --primary-light: rgba(59, 130, 246, 0.12);
+  --primary-border: rgba(59, 130, 246, 0.3);
+  --primary-glow: rgba(59, 130, 246, 0.15);
 
   /* Accents */
   --accent-purple: #8b5cf6;
-  --accent-purple-gradient: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+  --accent-purple-gradient: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
   --accent-purple-light: rgba(139, 92, 246, 0.12);
 
   /* Sultan / VIP Gold */
-  --gold: #fbbf24;
-  --gold-dark: #f59e0b;
-  --gold-gradient: linear-gradient(135deg, #fde68a 0%, #d97706 100%);
-  --gold-light: rgba(251, 191, 36, 0.12);
-  --gold-border: rgba(251, 191, 36, 0.35);
-  --gold-glow: rgba(251, 191, 36, 0.25);
+  --gold: #f59e0b;
+  --gold-dark: #d97706;
+  --gold-gradient: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  --gold-light: rgba(245, 158, 11, 0.12);
+  --gold-border: rgba(245, 158, 11, 0.35);
+  --gold-glow: rgba(245, 158, 11, 0.2);
 
   /* Status Colors */
-  --danger: #f43f5e;
-  --danger-gradient: linear-gradient(135deg, #fb7185 0%, #e11d48 100%);
-  --danger-light: rgba(244, 63, 94, 0.12);
+  --danger: #ef4444;
+  --danger-gradient: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
+  --danger-light: rgba(239, 68, 68, 0.12);
   --success: #10b981;
   --success-gradient: linear-gradient(135deg, #34d399 0%, #059669 100%);
   --success-light: rgba(16, 185, 129, 0.12);
@@ -70,119 +70,119 @@
   --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.55);
   --shadow-lg: 0 20px 45px rgba(0, 0, 0, 0.7);
   --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.45);
-  --shadow-glow: 0 0 25px rgba(0, 242, 254, 0.2);
+  --shadow-glow: 0 4px 20px rgba(59, 130, 246, 0.15);
 }
 
 /* ==========================================================================
    MULTI-THEME PALETTES (User Customizable)
    ========================================================================== */
 
-/* 1. Theme: Cute Pink Pastel (Watermelon #F3809D, Carnation #F5A4C8, Lavender #F6AECE) */
+/* 1. Theme: Soft Rose Sakura */
 [data-theme="pink-sakura"] {
-  --bg-body: #160a13;
-  --bg-surface: #1f0f1b;
-  --bg-surface-elevated: #281423;
-  --bg-card: #251221;
-  --bg-card-hover: #32182c;
-  --bg-glass: rgba(22, 10, 19, 0.95);
-  --bg-glass-card: rgba(37, 18, 33, 0.9);
-  --bg-input: #1c0e18;
+  --bg-body: #140b12;
+  --bg-surface: #1d101b;
+  --bg-surface-elevated: #261524;
+  --bg-card: #221320;
+  --bg-card-hover: #2e1a2b;
+  --bg-glass: rgba(20, 11, 18, 0.95);
+  --bg-glass-card: rgba(34, 19, 32, 0.9);
+  --bg-input: #1a0e18;
 
-  --border: rgba(245, 164, 200, 0.25);
-  --border-light: rgba(246, 174, 206, 0.35);
-  --border-focus: #F3809D;
-  --border-hover: rgba(243, 128, 157, 0.55);
+  --border: rgba(244, 114, 182, 0.18);
+  --border-light: rgba(244, 114, 182, 0.28);
+  --border-focus: #f472b6;
+  --border-hover: rgba(244, 114, 182, 0.45);
 
-  --primary: #F3809D;
-  --primary-hover: #F5A4C8;
-  --primary-gradient: linear-gradient(135deg, #F3809D 0%, #F5A4C8 50%, #F6AECE 100%);
-  --primary-light: rgba(245, 164, 200, 0.2);
-  --primary-border: rgba(243, 128, 157, 0.45);
-  --primary-glow: rgba(243, 128, 157, 0.4);
+  --primary: #f472b6;
+  --primary-hover: #ec4899;
+  --primary-gradient: linear-gradient(135deg, #f472b6 0%, #db2777 100%);
+  --primary-light: rgba(244, 114, 182, 0.15);
+  --primary-border: rgba(244, 114, 182, 0.35);
+  --primary-glow: rgba(244, 114, 182, 0.2);
 
-  --accent-purple: #F6AECE;
-  --accent-purple-gradient: linear-gradient(135deg, #F6AECE 0%, #F5A4C8 100%);
-  --accent-purple-light: rgba(246, 174, 206, 0.2);
+  --accent-purple: #f472b6;
+  --accent-purple-gradient: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+  --accent-purple-light: rgba(244, 114, 182, 0.15);
 
-  --shadow-glow: 0 0 25px rgba(243, 128, 157, 0.4);
+  --shadow-glow: 0 4px 20px rgba(244, 114, 182, 0.2);
 }
 
-/* 2. Theme: Midnight Royal Violet (Esports Purple) */
+/* 2. Theme: Royal Slate Violet */
 [data-theme="purple-neon"] {
-  --bg-body: #0a0614;
-  --bg-surface: #120b22;
-  --bg-surface-elevated: #1a1030;
-  --bg-card: #160e2a;
-  --bg-card-hover: #20143c;
-  --bg-glass: rgba(10, 6, 20, 0.92);
-  --bg-glass-card: rgba(22, 14, 42, 0.82);
-  --bg-input: #0e081c;
+  --bg-body: #0d0a17;
+  --bg-surface: #141024;
+  --bg-surface-elevated: #1c1633;
+  --bg-card: #18132b;
+  --bg-card-hover: #221c3d;
+  --bg-glass: rgba(13, 10, 23, 0.95);
+  --bg-glass-card: rgba(24, 19, 43, 0.88);
+  --bg-input: #120e20;
 
-  --border: rgba(168, 85, 247, 0.16);
-  --border-light: rgba(168, 85, 247, 0.26);
-  --border-focus: #a855f7;
-  --border-hover: rgba(168, 85, 247, 0.45);
+  --border: rgba(139, 92, 246, 0.15);
+  --border-light: rgba(139, 92, 246, 0.25);
+  --border-focus: #8b5cf6;
+  --border-hover: rgba(139, 92, 246, 0.45);
 
-  --primary: #a855f7;
-  --primary-hover: #c084fc;
-  --primary-gradient: linear-gradient(135deg, #c084fc 0%, #7c3aed 100%);
-  --primary-light: rgba(168, 85, 247, 0.15);
-  --primary-border: rgba(168, 85, 247, 0.35);
-  --primary-glow: rgba(168, 85, 247, 0.35);
+  --primary: #8b5cf6;
+  --primary-hover: #7c3aed;
+  --primary-gradient: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+  --primary-light: rgba(139, 92, 246, 0.15);
+  --primary-border: rgba(139, 92, 246, 0.35);
+  --primary-glow: rgba(139, 92, 246, 0.2);
 
-  --shadow-glow: 0 0 25px rgba(168, 85, 247, 0.28);
+  --shadow-glow: 0 4px 20px rgba(139, 92, 246, 0.2);
 }
 
-/* 3. Theme: Emerald Neon Mint (Fresh Green Gaming) */
+/* 3. Theme: Clean Emerald Jade */
 [data-theme="emerald-mint"] {
-  --bg-body: #050e0b;
-  --bg-surface: #0a1813;
-  --bg-surface-elevated: #0f221b;
-  --bg-card: #0d1e18;
-  --bg-card-hover: #132b22;
-  --bg-glass: rgba(5, 14, 11, 0.92);
-  --bg-glass-card: rgba(13, 30, 24, 0.82);
-  --bg-input: #07130f;
+  --bg-body: #07120e;
+  --bg-surface: #0c1c17;
+  --bg-surface-elevated: #112720;
+  --bg-card: #0f221c;
+  --bg-card-hover: #153027;
+  --bg-glass: rgba(7, 18, 14, 0.95);
+  --bg-glass-card: rgba(15, 34, 28, 0.88);
+  --bg-input: #0a1813;
 
-  --border: rgba(16, 185, 129, 0.16);
-  --border-light: rgba(16, 185, 129, 0.26);
+  --border: rgba(16, 185, 129, 0.15);
+  --border-light: rgba(16, 185, 129, 0.25);
   --border-focus: #10b981;
   --border-hover: rgba(16, 185, 129, 0.45);
 
   --primary: #10b981;
-  --primary-hover: #34d399;
-  --primary-gradient: linear-gradient(135deg, #34d399 0%, #059669 100%);
+  --primary-hover: #059669;
+  --primary-gradient: linear-gradient(135deg, #10b981 0%, #047857 100%);
   --primary-light: rgba(16, 185, 129, 0.15);
   --primary-border: rgba(16, 185, 129, 0.35);
-  --primary-glow: rgba(16, 185, 129, 0.35);
+  --primary-glow: rgba(16, 185, 129, 0.2);
 
-  --shadow-glow: 0 0 25px rgba(16, 185, 129, 0.28);
+  --shadow-glow: 0 4px 20px rgba(16, 185, 129, 0.2);
 }
 
-/* 4. Theme: Sunset Blaze & Crimson (Bold Fire Red) */
+/* 4. Theme: Deep Crimson Ruby */
 [data-theme="sunset-crimson"] {
-  --bg-body: #100608;
-  --bg-surface: #1a0a0d;
-  --bg-surface-elevated: #240e13;
-  --bg-card: #200c10;
-  --bg-card-hover: #2c1117;
-  --bg-glass: rgba(16, 6, 8, 0.92);
-  --bg-glass-card: rgba(32, 12, 16, 0.82);
-  --bg-input: #14080a;
+  --bg-body: #14080a;
+  --bg-surface: #1c0c0f;
+  --bg-surface-elevated: #261115;
+  --bg-card: #220e12;
+  --bg-card-hover: #2e1419;
+  --bg-glass: rgba(20, 8, 10, 0.95);
+  --bg-glass-card: rgba(34, 14, 18, 0.88);
+  --bg-input: #180a0d;
 
-  --border: rgba(244, 63, 94, 0.16);
-  --border-light: rgba(244, 63, 94, 0.26);
+  --border: rgba(244, 63, 94, 0.15);
+  --border-light: rgba(244, 63, 94, 0.25);
   --border-focus: #f43f5e;
   --border-hover: rgba(244, 63, 94, 0.45);
 
   --primary: #f43f5e;
-  --primary-hover: #fb7185;
-  --primary-gradient: linear-gradient(135deg, #fb7185 0%, #e11d48 50%, #f59e0b 100%);
+  --primary-hover: #e11d48;
+  --primary-gradient: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
   --primary-light: rgba(244, 63, 94, 0.15);
   --primary-border: rgba(244, 63, 94, 0.35);
-  --primary-glow: rgba(244, 63, 94, 0.35);
+  --primary-glow: rgba(244, 63, 94, 0.2);
 
-  --shadow-glow: 0 0 25px rgba(244, 63, 94, 0.28);
+  --shadow-glow: 0 4px 20px rgba(244, 63, 94, 0.2);
 }
 
 /* ==========================================================================
@@ -204,10 +204,6 @@ html {
 body {
   font-family: var(--font-main);
   background-color: var(--bg-body);
-  background-image: 
-    radial-gradient(circle at 15% 10%, rgba(0, 242, 254, 0.04) 0%, transparent 40%),
-    radial-gradient(circle at 85% 25%, rgba(139, 92, 246, 0.04) 0%, transparent 40%),
-    radial-gradient(circle at 50% 80%, rgba(251, 191, 36, 0.03) 0%, transparent 50%);
   background-attachment: fixed;
   color: var(--text-main);
   line-height: 1.55;
@@ -223,35 +219,19 @@ body {
 }
 
 [data-theme="pink-sakura"] body {
-  background-color: #160a13 !important;
-  background-image: 
-    radial-gradient(circle at 15% 10%, rgba(243, 128, 157, 0.16) 0%, transparent 45%),
-    radial-gradient(circle at 85% 25%, rgba(245, 164, 200, 0.14) 0%, transparent 45%),
-    radial-gradient(circle at 50% 80%, rgba(246, 174, 206, 0.08) 0%, transparent 50%) !important;
+  background-color: #140b12 !important;
 }
 
 [data-theme="purple-neon"] body {
-  background-color: #0b0616 !important;
-  background-image: 
-    radial-gradient(circle at 15% 10%, rgba(168, 85, 247, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 85% 25%, rgba(192, 132, 252, 0.1) 0%, transparent 45%),
-    radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%) !important;
+  background-color: #0d0a17 !important;
 }
 
 [data-theme="emerald-mint"] body {
-  background-color: #06100d !important;
-  background-image: 
-    radial-gradient(circle at 15% 10%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 85% 25%, rgba(52, 211, 153, 0.1) 0%, transparent 45%),
-    radial-gradient(circle at 50% 80%, rgba(5, 150, 105, 0.08) 0%, transparent 50%) !important;
+  background-color: #07120e !important;
 }
 
 [data-theme="sunset-crimson"] body {
-  background-color: #120608 !important;
-  background-image: 
-    radial-gradient(circle at 15% 10%, rgba(244, 63, 94, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 85% 25%, rgba(251, 113, 133, 0.1) 0%, transparent 45%),
-    radial-gradient(circle at 50% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 50%) !important;
+  background-color: #14080a !important;
 }
 
 @media (min-width: 992px) {
@@ -1931,8 +1911,12 @@ html, body {
   }
 
   .feature-highlights-grid {
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .feature-card {
+    padding: 16px 14px !important;
   }
 
   .contact-cards-grid {
@@ -1941,7 +1925,7 @@ html, body {
   }
 
   .steps-cards-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(2, 1fr) !important;
     gap: 10px !important;
   }
 
@@ -2051,7 +2035,7 @@ html, body {
   .price-main {
     font-size: 0.92rem !important;
     font-weight: 900 !important;
-    color: #00f2fe !important;
+    color: var(--primary) !important;
     white-space: nowrap !important;
   }
   .price-strike {
@@ -2381,14 +2365,14 @@ html, body {
   border: 1px solid rgba(16, 185, 129, 0.35);
 }
 .badge-danger {
-  background: rgba(244, 63, 94, 0.15);
-  color: #fb7185;
-  border: 1px solid rgba(244, 63, 94, 0.35);
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.35);
 }
 .badge-primary {
-  background: rgba(0, 242, 254, 0.15);
-  color: #00f2fe;
-  border: 1px solid rgba(0, 242, 254, 0.35);
+  background: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid var(--primary-border);
 }
 .badge-gold {
   background: rgba(251, 191, 36, 0.15);
@@ -2588,12 +2572,27 @@ nav[role="navigation"] svg,
   box-sizing: border-box;
 }
 
+.dashboard-stats-grid .stat-card {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.dashboard-stats-grid .stat-value {
+  font-size: clamp(1.2rem, 2.2vw, 1.65rem);
+  word-break: break-word;
+}
+
 .dashboard-shortcuts-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   width: 100%;
   box-sizing: border-box;
+}
+
+.dashboard-shortcuts-grid .btn {
+  min-height: 42px;
+  width: 100%;
 }
 
 .dashboard-split-grid {
@@ -2619,9 +2618,11 @@ nav[role="navigation"] svg,
 @media (max-width: 1100px) {
   .dashboard-stats-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
   .dashboard-shortcuts-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 }
 
@@ -2643,9 +2644,11 @@ nav[role="navigation"] svg,
   }
   .dashboard-stats-grid .stat-title {
     font-size: 0.7rem !important;
+    line-height: 1.2 !important;
   }
   .dashboard-stats-grid .stat-value {
-    font-size: 1.3rem !important;
+    font-size: clamp(1.1rem, 4vw, 1.35rem) !important;
+    margin-top: 3px !important;
   }
   .dashboard-shortcuts-grid {
     grid-template-columns: repeat(2, 1fr) !important;
@@ -2670,8 +2673,19 @@ nav[role="navigation"] svg,
   .dashboard-stats-grid .stat-card {
     padding: 10px 12px !important;
   }
+  .dashboard-stats-grid .stat-title {
+    font-size: 0.66rem !important;
+  }
   .dashboard-stats-grid .stat-value {
-    font-size: 1.15rem !important;
+    font-size: 1.12rem !important;
+  }
+  .dashboard-shortcuts-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 6px !important;
+  }
+  .dashboard-shortcuts-grid .btn {
+    padding: 8px 10px !important;
+    font-size: 0.74rem !important;
   }
 }
 

@@ -323,39 +323,39 @@
 
         <div class="feature-highlights-grid">
             <!-- Feature 1: Garansi Anti Hackback -->
-            <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; transition: transform 0.2s ease;">
-                <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: linear-gradient(135deg, rgba(0, 242, 254, 0.15) 0%, rgba(37, 99, 235, 0.15) 100%); border: 1px solid rgba(0, 242, 254, 0.35); color: var(--primary); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.15);">
-                    <svg style="width: 26px; height: 26px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            <div class="feature-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px 20px; display: flex; flex-direction: column; transition: all 0.25s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.25);">
+                <div style="width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--primary-light); border: 1px solid var(--primary-border); color: var(--primary); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; flex-shrink: 0;">
+                    <svg style="width: 24px; height: 24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
                 </div>
-                <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Garansi Anti Hackback</h4>
-                <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.6;">Jaminan perlindungan akun seumur hidup. Jika ada kendala sistematis, kami siap refund atau ganti akun setara.</p>
+                <h4 style="font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Garansi Anti Hackback</h4>
+                <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin: 0;">Jaminan perlindungan akun seumur hidup. Jika ada kendala sistematis, siap refund atau ganti akun setara.</p>
             </div>
 
             <!-- Feature 2: Serah Terima 5 Menit -->
-            <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; transition: transform 0.2s ease;">
-                <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%); border: 1px solid rgba(139, 92, 246, 0.35); color: var(--accent-purple); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);">
-                    <svg style="width: 26px; height: 26px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <div class="feature-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px 20px; display: flex; flex-direction: column; transition: all 0.25s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.25);">
+                <div style="width: 44px; height: 44px; border-radius: var(--radius-md); background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.35); color: var(--accent-purple); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; flex-shrink: 0;">
+                    <svg style="width: 24px; height: 24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                 </div>
-                <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Serah Terima 5 Menit</h4>
-                <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.6;">Setelah pembayaran diverifikasi, admin langsung memberikan data login dan memandu pemindahan email sampai tuntas.</p>
+                <h4 style="font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Serah Terima 5 Menit</h4>
+                <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin: 0;">Setelah pembayaran diverifikasi, admin langsung memberikan data login dan memandu pemindahan email sampai tuntas.</p>
             </div>
 
             <!-- Feature 3: Harga Tangan Pertama -->
-            <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; transition: transform 0.2s ease;">
-                <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(217, 119, 6, 0.15) 100%); border: 1px solid rgba(251, 191, 36, 0.35); color: var(--gold); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.15);">
-                    <svg style="width: 26px; height: 26px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            <div class="feature-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px 20px; display: flex; flex-direction: column; transition: all 0.25s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.25);">
+                <div style="width: 44px; height: 44px; border-radius: var(--radius-md); background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); color: var(--gold); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; flex-shrink: 0;">
+                    <svg style="width: 24px; height: 24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
                 </div>
-                <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Harga Tangan Pertama</h4>
-                <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.6;">Langsung dari owner/japost terverifikasi tanpa mark-up liar perantara. Harga termurah dan transparan.</p>
+                <h4 style="font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Harga Tangan Pertama</h4>
+                <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin: 0;">Langsung dari owner/japost terverifikasi tanpa mark-up liar perantara. Harga termurah dan transparan.</p>
             </div>
 
             <!-- Feature 4: Data Bersih (All Unbind) -->
-            <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; transition: transform 0.2s ease;">
-                <div style="width: 48px; height: 48px; border-radius: var(--radius-md); background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.15) 100%); border: 1px solid rgba(16, 185, 129, 0.35); color: var(--success); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15);">
-                    <svg style="width: 26px; height: 26px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <div class="feature-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px 20px; display: flex; flex-direction: column; transition: all 0.25s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.25);">
+                <div style="width: 44px; height: 44px; border-radius: var(--radius-md); background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); color: var(--success); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; flex-shrink: 0;">
+                    <svg style="width: 24px; height: 24px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 </div>
-                <h4 style="font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Data Bersih (All Unbind)</h4>
-                <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.6;">Akun bebas dari bind pihak ketiga yang mencurigakan, siap dikaitkan ke email dan nomor pribadi Anda.</p>
+                <h4 style="font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 6px;">Data Bersih (All Unbind)</h4>
+                <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin: 0;">Akun bebas dari bind pihak ketiga yang mencurigakan, siap dikaitkan ke email dan nomor pribadi Anda.</p>
             </div>
         </div>
     </div>

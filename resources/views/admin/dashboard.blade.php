@@ -63,25 +63,25 @@
         </div>
 
         <!-- Total Pengguna -->
-        <div class="stat-card" style="border-left: 3px solid #38bdf8;">
+        <div class="stat-card" style="border-left: 3px solid var(--primary);">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
-                    <div class="stat-title" style="color: #38bdf8;">Pengguna Terdaftar</div>
+                    <div class="stat-title" style="color: var(--primary);">Pengguna Terdaftar</div>
                     <div class="stat-value" style="color: #fff;">
                         {{ $totalUsers }} <span style="font-size: 0.76rem; color: var(--text-dim); font-weight: 500;">User</span>
                     </div>
                 </div>
-                <div style="width: 34px; height: 34px; border-radius: var(--radius-sm); background: rgba(56, 189, 248, 0.12); color: #38bdf8; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <div style="width: 34px; height: 34px; border-radius: var(--radius-sm); background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <i data-lucide="users" style="width: 18px; height: 18px;"></i>
                 </div>
             </div>
             <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.74rem; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                <strong style="color: #00f2fe;">{{ $totalPartners }} Partner</strong> • {{ $totalCustomers }} Member
+                <strong style="color: var(--primary);">{{ $totalPartners }} Partner</strong> • {{ $totalCustomers }} Member
             </div>
         </div>
 
         <!-- Trafik Views & Wishlist -->
-        <div class="stat-card" style="border-left: 3px solid #fbbf24;">
+        <div class="stat-card" style="border-left: 3px solid var(--gold);">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
                     <div class="stat-title" style="color: var(--gold);">Trafik & Wishlist</div>
@@ -105,8 +105,8 @@
             <i data-lucide="plus-circle" style="width: 16px; height: 16px; color: var(--primary);"></i>
             <span>+ Tambah Akun</span>
         </a>
-        <a href="{{ route('admin.accounts.index', ['creator' => 'partner']) }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 14px; border-color: rgba(0, 242, 254, 0.3);">
-            <i data-lucide="users" style="width: 16px; height: 16px; color: #00f2fe;"></i>
+        <a href="{{ route('admin.accounts.index', ['creator' => 'partner']) }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 14px; border-color: var(--primary-border);">
+            <i data-lucide="users" style="width: 16px; height: 16px; color: var(--primary);"></i>
             <span>Akun Partner</span>
         </a>
         <a href="{{ route('admin.users.index', ['role' => 'partner']) }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 14px;">
@@ -150,7 +150,7 @@
                                 </td>
                                 <td>
                                     @if($acc->user && $acc->user->isPartner())
-                                        <span style="font-size: 0.72rem; color: #00f2fe; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3); padding: 2px 6px; border-radius: 4px; font-weight: 700;">
+                                        <span style="font-size: 0.72rem; color: var(--primary); background: var(--primary-light); border: 1px solid var(--primary-border); padding: 2px 6px; border-radius: 4px; font-weight: 700;">
                                             🤝 {{ $acc->user->name }}
                                         </span>
                                     @else

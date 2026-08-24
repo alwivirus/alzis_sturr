@@ -37,13 +37,13 @@
         </div>
 
         <!-- Mitra Partner -->
-        <div class="stat-card" style="border-left: 3px solid #00f2fe;">
+        <div class="stat-card" style="border-left: 3px solid var(--primary);">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
-                    <div class="stat-title" style="color: #00f2fe;">Mitra Partner</div>
-                    <div class="stat-value" style="color: #00f2fe;">{{ number_format($totalPartners) }}</div>
+                    <div class="stat-title" style="color: var(--primary);">Mitra Partner</div>
+                    <div class="stat-value" style="color: var(--primary);">{{ number_format($totalPartners) }}</div>
                 </div>
-                <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(0, 242, 254, 0.15); color: #00f2fe; display: flex; align-items: center; justify-content: center;">
+                <div style="width: 34px; height: 34px; border-radius: 8px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center;">
                     <i data-lucide="users" style="width: 18px; height: 18px;"></i>
                 </div>
             </div>
@@ -154,14 +154,14 @@
                         <td style="color: var(--text-muted); text-align: center; font-weight: 700; font-size: 0.82rem;">{{ $users->firstItem() + $index }}</td>
                         <td>
                             <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="width: 38px; height: 38px; border-radius: 50%; background: {{ $u->isOwner() ? 'linear-gradient(135deg, #f59e0b, #b45309)' : ($u->isPartner() ? 'linear-gradient(135deg, #00f2fe, #0284c7)' : 'rgba(255, 255, 255, 0.08)') }}; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 0.88rem; border: 1px solid {{ $u->isOwner() ? '#fbbf24' : ($u->isPartner() ? 'var(--primary)' : 'rgba(255,255,255,0.15)') }}; flex-shrink: 0; box-shadow: 0 0 10px {{ $u->isOwner() ? 'rgba(245,158,11,0.3)' : ($u->isPartner() ? 'rgba(0,242,254,0.3)' : 'transparent') }};">
+                                <div style="width: 38px; height: 38px; border-radius: 50%; background: {{ $u->isOwner() ? 'linear-gradient(135deg, #f59e0b, #b45309)' : ($u->isPartner() ? 'linear-gradient(135deg, #3b82f6, #1d4ed8)' : 'rgba(255, 255, 255, 0.08)') }}; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 0.88rem; border: 1px solid {{ $u->isOwner() ? '#fbbf24' : ($u->isPartner() ? 'var(--primary)' : 'rgba(255,255,255,0.15)') }}; flex-shrink: 0;">
                                     {{ strtoupper(substr($u->name, 0, 1)) }}
                                 </div>
                                 <div>
                                     <div style="font-weight: 700; color: #fff; font-size: 0.92rem; display: flex; align-items: center; gap: 6px;">
                                         <span>{{ $u->name }}</span>
                                         @if($u->id === Auth::id())
-                                            <span style="font-size: 0.65rem; background: rgba(0, 242, 254, 0.2); color: #00f2fe; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(0,242,254,0.4); font-weight: 800;">Anda</span>
+                                            <span style="font-size: 0.65rem; background: var(--primary-light); color: var(--primary); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--primary-border); font-weight: 800;">Anda</span>
                                         @endif
                                     </div>
                                     <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 1px;">{{ $u->email }}</div>
@@ -195,7 +195,7 @@
                         </td>
                         <td>
                             @if($u->game_accounts_count > 0)
-                                <a href="{{ route('admin.accounts.index', ['creator' => $u->id]) }}" style="display: inline-flex; align-items: center; gap: 4px; color: #00f2fe; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3); padding: 2px 7px; border-radius: 6px; font-size: 0.78rem; font-weight: 700; text-decoration: none;" title="Lihat postingan akun oleh pengguna ini">
+                                <a href="{{ route('admin.accounts.index', ['creator' => $u->id]) }}" style="display: inline-flex; align-items: center; gap: 4px; color: var(--primary); background: var(--primary-light); border: 1px solid var(--primary-border); padding: 2px 7px; border-radius: 6px; font-size: 0.78rem; font-weight: 700; text-decoration: none;" title="Lihat postingan akun oleh pengguna ini">
                                     <i data-lucide="gamepad-2" style="width: 12px; height: 12px;"></i>
                                     <span>{{ $u->game_accounts_count }} Akun</span>
                                 </a>

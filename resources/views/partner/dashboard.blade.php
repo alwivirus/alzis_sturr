@@ -16,7 +16,7 @@
 <div style="display: flex; flex-direction: column; gap: 20px;">
 
     <!-- Welcome Banner for Partner -->
-    <div style="background: linear-gradient(135deg, rgba(0, 242, 254, 0.12) 0%, rgba(2, 132, 199, 0.12) 100%); border: 1px solid rgba(0, 242, 254, 0.3); border-radius: 14px; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+    <div style="background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-surface-elevated) 100%); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.35);">
         <div>
             <span style="font-size: 0.72rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Selamat Datang di Portal Mitra</span>
             <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin-top: 2px; font-family: var(--font-heading);">
@@ -44,7 +44,7 @@
                     <div class="stat-title" style="color: var(--primary);">Total Akun Saya</div>
                     <div class="stat-value" style="color: #fff;">{{ number_format($myAccountsCount) }}</div>
                 </div>
-                <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(0, 242, 254, 0.15); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <div style="width: 34px; height: 34px; border-radius: 8px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <i data-lucide="gamepad-2" style="width: 18px; height: 18px;"></i>
                 </div>
             </div>
@@ -105,7 +105,7 @@
 
     <!-- Quick Shortcuts -->
     <div class="dashboard-shortcuts-grid">
-        <a href="{{ route('partner.accounts.create') }}" class="btn btn-outline" style="justify-content: flex-start; padding: 12px 14px; background: rgba(0, 242, 254, 0.05) !important; border-color: rgba(0, 242, 254, 0.3) !important;">
+        <a href="{{ route('partner.accounts.create') }}" class="btn btn-outline" style="justify-content: flex-start; padding: 12px 14px; background: var(--primary-light) !important; border-color: var(--primary-border) !important;">
             <i data-lucide="plus-circle" style="width: 16px; height: 16px; color: var(--primary);"></i>
             <span style="color: #fff;">+ Post Akun</span>
         </a>

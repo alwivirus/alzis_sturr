@@ -141,7 +141,7 @@
                                 @if(in_array($log->user_role, ['owner', 'super_admin']))
                                     <span style="color: #fbbf24; font-weight: 700;">👑 OWNER</span>
                                 @elseif($log->user_role === 'partner')
-                                    <span style="color: #00f2fe; font-weight: 700;">🤝 PARTNER</span>
+                                    <span style="color: var(--primary); font-weight: 700;">🤝 PARTNER</span>
                                 @else
                                     <span style="color: #34d399; font-weight: 600;">👤 USER</span>
                                 @endif
@@ -151,7 +151,7 @@
                             @php
                                 $badgeStyle = match($log->action) {
                                     'CREATE_ACCOUNT' => 'background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4);',
-                                    'UPDATE_ACCOUNT', 'UPDATE_SETTINGS' => 'background: rgba(0, 242, 254, 0.15); color: #00f2fe; border: 1px solid rgba(0, 242, 254, 0.4);',
+                                    'UPDATE_ACCOUNT', 'UPDATE_SETTINGS' => 'background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border);',
                                     'DELETE_ACCOUNT', 'DELETE_USER', 'BAN_USER' => 'background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4);',
                                     'CHANGE_ROLE' => 'background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4);',
                                     'TOGGLE_STATUS' => 'background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4);',

@@ -107,7 +107,7 @@
                         </td>
                         <td>
                             @if($acc->user && $acc->user->isPartner())
-                                <div style="display: inline-flex; align-items: center; gap: 4px; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.3); padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; color: #00f2fe; font-weight: 700;">
+                                <div style="display: inline-flex; align-items: center; gap: 4px; background: var(--primary-light); border: 1px solid var(--primary-border); padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; color: var(--primary); font-weight: 700;">
                                     <i data-lucide="users" style="width: 12px; height: 12px;"></i>
                                     <span>{{ $acc->user->name }}</span>
                                 </div>
