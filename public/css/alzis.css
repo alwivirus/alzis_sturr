@@ -970,7 +970,7 @@ button, input, select, textarea {
   letter-spacing: 0.5px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  z-index: 2;
+  z-index: 5;
   white-space: nowrap;
   line-height: 1.2;
 }
@@ -1000,7 +1000,7 @@ button, input, select, textarea {
   -webkit-backdrop-filter: blur(8px);
   color: var(--primary);
   border: 1px solid var(--primary-border);
-  z-index: 2;
+  z-index: 5;
   white-space: nowrap;
   line-height: 1.2;
 }
@@ -1011,12 +1011,12 @@ button, input, select, textarea {
   left: 10px;
   font-size: 0.72rem;
   font-weight: 800;
-  padding: 3px 8px;
+  padding: 3px 9px;
   border-radius: var(--radius-sm);
-  background: var(--gold-gradient);
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
   color: #0f172a;
   box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
-  z-index: 2;
+  z-index: 5;
   white-space: nowrap;
   letter-spacing: 0.2px;
   line-height: 1.2;
@@ -1982,8 +1982,8 @@ html, body {
   .badge-status {
     top: 6px !important;
     left: 6px !important;
-    font-size: clamp(0.56rem, 2.2vw, 0.65rem) !important;
-    padding: 2px 6px !important;
+    font-size: 0.65rem !important;
+    padding: 2.5px 7px !important;
     letter-spacing: 0.2px !important;
     line-height: 1.2 !important;
     font-weight: 800 !important;
@@ -1992,11 +1992,12 @@ html, body {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
+    z-index: 5 !important;
   }
   .badge-code {
     top: 6px !important;
     right: 6px !important;
-    font-size: clamp(0.54rem, 2vw, 0.62rem) !important;
+    font-size: 0.62rem !important;
     padding: 2px 5px !important;
     line-height: 1.2 !important;
     font-weight: 800 !important;
@@ -2005,12 +2006,13 @@ html, body {
     max-width: 40% !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
+    z-index: 5 !important;
   }
   .badge-discount-ribbon {
     bottom: 6px !important;
     left: 6px !important;
-    font-size: clamp(0.56rem, 2.2vw, 0.65rem) !important;
-    padding: 2px 6px !important;
+    font-size: 0.65rem !important;
+    padding: 2.5px 7px !important;
     line-height: 1.2 !important;
     font-weight: 800 !important;
     border-radius: 4px !important;
@@ -2020,6 +2022,7 @@ html, body {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     box-shadow: 0 2px 6px rgba(245, 158, 11, 0.35) !important;
+    z-index: 5 !important;
   }
   .account-body {
     padding: 8px 8px 10px !important;
