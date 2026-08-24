@@ -123,10 +123,10 @@
                 <div class="form-group" style="margin-bottom: 12px;">
                     <label class="form-label" style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Tipe Produk</label>
                     <select name="type" class="input-control" onchange="toggleFilterType(this.value)" style="font-weight: 700;">
-                        <option value="all" {{ !request('type') || request('type') == 'all' ? 'selected' : '' }}>🌟 Semua Produk & Game</option>
+                        <option value="all" {{ !request('type') || request('type') == 'all' ? 'selected' : '' }}>🌟 Semua Produk</option>
                         <option value="game" {{ request('type') == 'game' ? 'selected' : '' }}>🎮 Akun Game (MLBB, FF, dll)</option>
                         <option value="app" {{ request('type') == 'app' ? 'selected' : '' }}>📱 Akun Aplikasi (CapCut, Spotify)</option>
-                        <option value="tournament" {{ request('type') == 'tournament' || request('type') == 'service' ? 'selected' : '' }}>🏆 Fast Tournament & Jasa</option>
+                        <option value="tournament" {{ request('type') == 'tournament' || request('type') == 'service' ? 'selected' : '' }}>🏆 Fast Tournament (FT)</option>
                     </select>
                 </div>
 
@@ -142,33 +142,48 @@
                     <select name="category" class="input-control">
                         <option value="all">-- Semua Kategori --</option>
                         @php
-                            $appSlugs = ['capcut-pro', 'spotify-premium', 'canva-pro', 'netflix-streaming', 'akun-premium'];
-                            $ftSlugs = ['fast-tournament-ft', 'jasa-digital', 'jasa-desain'];
+                            $isApp = function($cat) {
+                                $s = strtolower($cat->name . ' ' . $cat->slug);
+                                return str_contains($s, 'capcut') || str_contains($s, 'alight') || str_contains($s, 'spotify') || str_contains($s, 'canva') || str_contains($s, 'netflix') || str_contains($s, 'aplikasi') || str_contains($s, 'app') || str_contains($s, 'premium');
+                            };
+                            $isFt = function($cat) {
+                                $s = strtolower($cat->name . ' ' . $cat->slug);
+                                return str_contains($s, 'fast tournament') || str_contains($s, 'tournament') || str_contains($s, 'ft') || str_contains($s, 'turnamen');
+                            };
+                            $appCats = $categories->filter($isApp);
+                            $ftCats = $categories->filter($isFt);
+                            $gameCats = $categories->reject($isApp)->reject($isFt);
                         @endphp
                         
+                        @if($gameCats->count() > 0)
                         <optgroup label="🎮 Kategori Game">
-                            @foreach($categories->whereNotIn('slug', array_merge($appSlugs, $ftSlugs)) as $cat)
+                            @foreach($gameCats as $cat)
                                 <option value="{{ $cat->slug }}" {{ request('category') == $cat->slug ? 'selected' : '' }}>
                                     {{ $cat->name }}
                                 </option>
                             @endforeach
                         </optgroup>
+                        @endif
 
-                        <optgroup label="📱 Akun Aplikasi & Streaming">
-                            @foreach($categories->whereIn('slug', $appSlugs) as $cat)
+                        @if($appCats->count() > 0)
+                        <optgroup label="📱 Akun Aplikasi">
+                            @foreach($appCats as $cat)
                                 <option value="{{ $cat->slug }}" {{ request('category') == $cat->slug ? 'selected' : '' }}>
                                     {{ $cat->name }}
                                 </option>
                             @endforeach
                         </optgroup>
+                        @endif
 
-                        <optgroup label="🏆 Fast Tournament & Jasa">
-                            @foreach($categories->whereIn('slug', $ftSlugs) as $cat)
+                        @if($ftCats->count() > 0)
+                        <optgroup label="🏆 Fast Tournament (FT)">
+                            @foreach($ftCats as $cat)
                                 <option value="{{ $cat->slug }}" {{ request('category') == $cat->slug ? 'selected' : '' }}>
                                     {{ $cat->name }}
                                 </option>
                             @endforeach
                         </optgroup>
+                        @endif
                     </select>
                 </div>
 

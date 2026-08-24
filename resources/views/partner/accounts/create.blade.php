@@ -39,8 +39,8 @@
             <button type="button" id="tab-btn-service" class="partner-type-tab" onclick="switchPartnerProductType('fast_tournament')">
                 <span style="font-size: 1.2rem;">🏆</span>
                 <div style="text-align: left;">
-                    <div style="font-weight: 800; font-size: 0.88rem; color: #fff;">Fast Tournament & Jasa</div>
-                    <div style="font-size: 0.72rem; color: var(--text-muted);">Slot FT, Poster Turnamen</div>
+                    <div style="font-weight: 800; font-size: 0.88rem; color: #fff;">Fast Tournament (FT)</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted);">Slot Turnamen MLBB, FF</div>
                 </div>
             </button>
         </div>

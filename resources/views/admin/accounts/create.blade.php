@@ -39,8 +39,8 @@
             <button type="button" id="tab-btn-service" class="type-switcher-tab" onclick="switchProductType('fast_tournament')">
                 <span style="font-size: 1.25rem;">🏆</span>
                 <div style="text-align: left;">
-                    <div style="font-weight: 800; font-size: 0.9rem; color: #fff;">Fast Tournament & Jasa</div>
-                    <div style="font-size: 0.72rem; color: var(--text-muted);">Slot FT, Poster Turnamen, Desain</div>
+                    <div style="font-weight: 800; font-size: 0.9rem; color: #fff;">Fast Tournament (FT)</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted);">Slot Turnamen MLBB, FF, PUBGM</div>
                 </div>
             </button>
         </div>
@@ -118,11 +118,11 @@
             </div>
         </div>
 
-        <!-- 4A. KHUSUS PRODUK APLIKASI (CapCut, Alight Motion, Spotify, Netflix) -->
+        <!-- 4A. KHUSUS PRODUK APLIKASI (CapCut, Alight Motion, Spotify) -->
         <div id="section-app-details" style="display: none; background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 12px; padding: 18px; margin-bottom: 20px;">
             <div style="font-weight: 800; font-size: 0.95rem; color: #fbbf24; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
                 <i data-lucide="smartphone" style="width: 18px; height: 18px;"></i>
-                <span>Detail Paket Aplikasi (CapCut / Alight Motion / Spotify / Netflix)</span>
+                <span>Detail Paket Aplikasi (CapCut / Alight Motion / Spotify)</span>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px;">
@@ -159,11 +159,11 @@
             </div>
         </div>
 
-        <!-- 4B. KHUSUS FAST TOURNAMENT & JASA (Slot Turnamen, Desain Poster FT) -->
+        <!-- 4B. KHUSUS FAST TOURNAMENT (Slot Turnamen FT) -->
         <div id="section-ft-details" style="display: none; background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 12px; padding: 18px; margin-bottom: 20px;">
             <div style="font-weight: 800; font-size: 0.95rem; color: #fbbf24; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
                 <i data-lucide="trophy" style="width: 18px; height: 18px;"></i>
-                <span>Detail Fast Tournament / Layanan Desain</span>
+                <span>Detail Fast Tournament (FT)</span>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;">
@@ -174,8 +174,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Format Pengiriman / Output</label>
-                    <input type="text" name="ft_login_bind" value="{{ old('login_bind', 'File HD PNG/PDF + Format Bracket') }}" class="input-control" placeholder="Contoh: File HD / Grup WA Peserta" onchange="document.getElementById('bindInput').value = this.value;">
+                    <label class="form-label">Format / Ketentuan Turnamen</label>
+                    <input type="text" name="ft_login_bind" value="{{ old('login_bind', 'Slot Tim / Grup WhatsApp Peserta') }}" class="input-control" placeholder="Contoh: Grup WA Peserta" onchange="document.getElementById('bindInput').value = this.value;">
                 </div>
             </div>
         </div>
