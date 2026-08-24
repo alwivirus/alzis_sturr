@@ -148,4 +148,37 @@ class GameAccount extends Model
         }
         return asset('storage/' . ltrim($this->thumbnail, '/'));
     }
+
+    public function isAppProduct(): bool
+    {
+        if (($this->product_type ?? '') === 'app_premium') {
+            return true;
+        }
+        $catName = strtolower($this->category ? $this->category->name : '');
+        $title = strtolower($this->title ?? '');
+        foreach (['canva', 'capcut', 'spotify', 'netflix', 'alight', 'youtube', 'vpn', 'aplikasi', 'chatgpt', 'disney', 'prime'] as $kw) {
+            if (str_contains($catName, $kw) || str_contains($title, $kw)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function isFastTournament(): bool
+    {
+        if (($this->product_type ?? '') === 'fast_tournament') {
+            return true;
+        }
+        $catName = strtolower($this->category ? $this->category->name : '');
+        $title = strtolower($this->title ?? '');
+        return str_contains($catName, 'tournament') || str_contains($catName, 'ft ') || str_contains($title, 'tournament') || str_contains($title, 'slot ft');
+    }
+
+    public function getSellerPhoneAttribute()
+    {
+        if ($this->user && !empty($this->user->phone)) {
+            return $this->user->phone;
+        }
+        return null;
+    }
 }

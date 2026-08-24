@@ -125,47 +125,52 @@
                     $isPartner = $account->isPartnerAccount();
                     $partner = $account->user;
                     $ownerWa = \App\Models\SiteSetting::get('whatsapp_number', '6282324634848');
-                    $partnerPhone = ($isPartner && $partner && $partner->phone) ? preg_replace('/[^0-9]/', '', $partner->phone) : null;
+                    $sellerRawPhone = $account->seller_phone ?: (($partner && $partner->phone) ? $partner->phone : null);
+                    $sellerPhone = $sellerRawPhone ? preg_replace('/[^0-9]/', '', $sellerRawPhone) : null;
 
-                    if ($isPartner) {
-                        $adminWaText = "Halo Admin Rekber ALZIS STORE, saya ingin membeli akun partner *" . $account->title . "* [Kode: " . $account->code . "] seharga *" . $account->formatted_effective_price . "* dari Mitra *" . ($partner ? $partner->name : 'Partner') . "*. Mohon dibantu proses transaksi aman/rekber resminya.";
-                        $partnerWaText = "Halo " . ($partner ? $partner->name : 'Mitra') . ", saya ingin bertanya seputar akun *" . $account->title . "* [Kode: " . $account->code . "] di ALZIS STORE. (Transaksi tetap via Rekber Admin Utama).";
+                    $productName = $account->title;
+                    $productCode = $account->code;
+                    $effectivePrice = $account->formatted_effective_price;
+
+                    if ($isPartner || $sellerPhone) {
+                        $adminWaText = "Halo Admin / Rekber ALZIS STORE, saya ingin membeli postingan *" . $productName . "* [Kode: " . $productCode . "] seharga *" . $effectivePrice . "*. Mohon dibantu proses transaksi aman / rekber resminya.";
+                        $sellerWaText = "Halo Penjual/Mitra ALZIS STORE, saya tertarik dengan *" . $productName . "* [Kode: " . $productCode . "] seharga *" . $effectivePrice . "*. Apakah stok ini ready? (Transaksi tetap via Rekber Admin ALZIS STORE).";
                     } else {
-                        $adminWaText = "Halo Admin ALZIS STORE, saya tertarik membeli akun *" . $account->title . "* [Kode: " . $account->code . "] seharga *" . $account->formatted_effective_price . "*. Apakah stok ini masih tersedia?";
+                        $adminWaText = "Halo Admin ALZIS STORE, saya tertarik membeli produk *" . $productName . "* [Kode: " . $productCode . "] seharga *" . $effectivePrice . "*. Apakah stok ini masih tersedia?";
                     }
                 @endphp
 
-                @if($isPartner)
-                <!-- Anti-Rip & Midman Protection Notice -->
-                <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.08) 100%); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 8px; padding: 10px 12px; margin-bottom: 12px;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 3px; flex-wrap: wrap;">
-                        <div style="font-size: 0.74rem; font-weight: 800; color: #fbbf24; display: flex; align-items: center; gap: 5px;">
-                            <svg style="width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <!-- Anti-Rip & Midman Protection Notice (Always Active for Safety) -->
+                <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(217, 119, 6, 0.08) 100%); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 10px; padding: 10px 12px; margin-bottom: 14px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px; flex-wrap: wrap;">
+                        <div style="font-size: 0.75rem; font-weight: 800; color: #fbbf24; display: flex; align-items: center; gap: 5px;">
+                            <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                             <span>REKBER RESMI ADMIN UTAMA (ANTI-RIP)</span>
                         </div>
+                        @if($isPartner && $partner)
                         <span style="font-size: 0.68rem; background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border); padding: 1px 6px; border-radius: 4px; font-weight: 700;">
-                            🤝 Mitra: {{ $partner ? $partner->name : 'Partner' }}
+                            🤝 Mitra: {{ $partner->name }}
                         </span>
+                        @endif
                     </div>
-                    <p style="font-size: 0.74rem; color: #cbd5e1; margin: 0; line-height: 1.4;">
-                        Untuk keamanan 100%, serah terima akun & pembayaran <strong>wajib diproses via Admin Utama ALZIS STORE</strong> sebagai Rekber/Midman resmi.
+                    <p style="font-size: 0.74rem; color: #cbd5e1; margin: 0; line-height: 1.45;">
+                        Untuk keamanan 100% dan mencegah penipuan, serah terima akun & pembayaran <strong>wajib diproses via Admin / Owner Utama ALZIS STORE</strong> sebagai Rekber & MC resmi.
                     </p>
                 </div>
-                @endif
 
                 <!-- Action Buttons Grid -->
-                <div style="display: grid; grid-template-columns: {{ ($isPartner && $partnerPhone) ? '1.4fr 1fr 1fr' : '1fr 1fr' }}; gap: 8px; margin-bottom: 14px;">
+                <div style="display: grid; grid-template-columns: {{ $sellerPhone ? '1.3fr 1fr 1fr' : '1.2fr 1fr' }}; gap: 8px; margin-bottom: 14px;">
                     <!-- Primary Admin/Rekber WhatsApp Button -->
-                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $ownerWa) }}?text={{ rawurlencode($adminWaText) }}" target="_blank" class="btn btn-whatsapp" style="padding: 9px 10px; font-size: 0.78rem; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 5px;" title="{{ $isPartner ? 'Beli via Rekber Admin Utama' : 'Beli via WhatsApp' }}">
+                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $ownerWa) }}?text={{ rawurlencode($adminWaText) }}" target="_blank" class="btn btn-whatsapp" style="padding: 9px 10px; font-size: 0.78rem; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 5px;" title="Beli via Rekber Admin Utama">
                         <svg style="width: 14px; height: 14px; fill: currentColor; flex-shrink: 0;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                        <span>{{ $isPartner ? 'Beli via Rekber' : 'Beli WhatsApp' }}</span>
+                        <span>{{ $sellerPhone ? 'Beli via Rekber' : 'Beli WhatsApp' }}</span>
                     </a>
 
-                    <!-- Optional Partner WhatsApp Contact -->
-                    @if($isPartner && $partnerPhone)
-                    <a href="https://wa.me/{{ $partnerPhone }}?text={{ rawurlencode($partnerWaText) }}" target="_blank" class="btn btn-secondary" style="padding: 9px 8px; font-size: 0.76rem; border-radius: 8px; border-color: rgba(245, 158, 11, 0.4); color: #fbbf24; display: inline-flex; align-items: center; justify-content: center; gap: 4px;" title="Tanya langsung ke Partner pemilik akun">
+                    <!-- Optional Seller WhatsApp Contact -->
+                    @if($sellerPhone)
+                    <a href="https://wa.me/{{ $sellerPhone }}?text={{ rawurlencode($sellerWaText) }}" target="_blank" class="btn btn-secondary" style="padding: 9px 8px; font-size: 0.76rem; border-radius: 8px; border-color: rgba(245, 158, 11, 0.4); color: #fbbf24; display: inline-flex; align-items: center; justify-content: center; gap: 4px;" title="Tanya langsung ke Penjual / Pemilik Akun">
                         <svg style="width: 13px; height: 13px; fill: currentColor; flex-shrink: 0;" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-                        <span>Chat Mitra</span>
+                        <span>Chat Penjual</span>
                     </a>
                     @endif
 
@@ -178,58 +183,104 @@
                 <!-- Specifications Matrix -->
                 <h3 style="font-size: 0.82rem; font-weight: 800; color: #fff; margin-bottom: 6px; display: flex; align-items: center; gap: 5px;">
                     <svg style="width: 14px; height: 14px; color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                    <span>Spesifikasi Utama Akun</span>
+                    @if($account->isAppProduct())
+                    <span>Rincian & Spesifikasi Paket Aplikasi</span>
+                    @elseif($account->isFastTournament())
+                    <span>Detail & Ketentuan Fast Tournament (FT)</span>
+                    @else
+                    <span>Spesifikasi Utama Akun Game</span>
+                    @endif
                 </h3>
+
                 <div class="specs-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 12px;">
-                    <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
-                        <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Server / Region</span>
-                        <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->server }}</span>
-                    </div>
-                    @if($account->duration_text)
-                    <div class="spec-item" style="background: var(--bg-surface); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 6px; padding: 6px 8px;">
-                        <span class="spec-label" style="font-size: 0.62rem; color: #fbbf24; display: block; font-weight: 700; text-transform: uppercase;">Masa Aktif / Durasi</span>
-                        <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->duration_text }}</span>
-                    </div>
-                    @endif
-                    @if($account->account_variant)
-                    <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
-                        <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Tipe / Varian</span>
-                        <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->account_variant }}</span>
-                    </div>
-                    @endif
-                    @if($account->stock_qty && $account->stock_qty > 1)
-                    <div class="spec-item" style="background: var(--bg-surface); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; padding: 6px 8px;">
-                        <span class="spec-label" style="font-size: 0.62rem; color: #34d399; display: block; font-weight: 700; text-transform: uppercase;">Stok Tersedia</span>
-                        <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->stock_qty }} Slot / Akun Ready</span>
-                    </div>
-                    @endif
-                    <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
-                        <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Format / Tipe Bind</span>
-                        <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->login_bind }}</span>
-                    </div>
-                    @if($account->rank_tier)
-                    <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
-                        <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Rank Saat Ini</span>
-                        <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: var(--gold);">{{ $account->rank_tier }}</span>
-                    </div>
-                    @endif
-                    @if($account->hero_count)
-                    <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
-                        <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Total Hero</span>
-                        <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->hero_count }} Hero</span>
-                    </div>
-                    @endif
-                    @if($account->skin_count)
-                    <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
-                        <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Total Skin</span>
-                        <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->skin_count }} Skin</span>
-                    </div>
-                    @endif
-                    @if($account->winrate)
-                    <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
-                        <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Level Akun</span>
-                        <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fbbf24;">{{ str_starts_with(strtolower(trim($account->winrate)), 'level') || str_starts_with(strtolower(trim($account->winrate)), 'lv') ? $account->winrate : 'Level ' . $account->winrate }}</span>
-                    </div>
+                    @if($account->isAppProduct())
+                        <!-- App Product Matrix (Canva, CapCut, Spotify, etc.) -->
+                        <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
+                            <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Kategori Produk</span>
+                            <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->category ? $account->category->name : 'Aplikasi Digital' }}</span>
+                        </div>
+
+                        <div class="spec-item" style="background: var(--bg-surface); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 6px; padding: 6px 8px;">
+                            <span class="spec-label" style="font-size: 0.62rem; color: #fbbf24; display: block; font-weight: 700; text-transform: uppercase;">Masa Aktif / Durasi</span>
+                            <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fbbf24;">{{ $account->duration_text ?: '1 Bulan / Sesuai Deskripsi' }}</span>
+                        </div>
+
+                        <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
+                            <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Tipe / Varian Akun</span>
+                            <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->account_variant ?: 'Private (Email Pembeli)' }}</span>
+                        </div>
+
+                        <div class="spec-item" style="background: var(--bg-surface); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; padding: 6px 8px;">
+                            <span class="spec-label" style="font-size: 0.62rem; color: #34d399; display: block; font-weight: 700; text-transform: uppercase;">Stok Ketersediaan</span>
+                            <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #34d399;">{{ $account->stock_qty ?: 1 }} Akun Ready</span>
+                        </div>
+
+                        <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; grid-column: span 2;">
+                            <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Format Aktivasi / Akses</span>
+                            <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->login_bind ?: 'Email Pembeli / Akun Private Siap Pakai' }}</span>
+                        </div>
+
+                    @elseif($account->isFastTournament())
+                        <!-- Fast Tournament Matrix -->
+                        <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
+                            <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Game Turnamen</span>
+                            <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->category ? $account->category->name : 'Tournament' }}</span>
+                        </div>
+
+                        <div class="spec-item" style="background: var(--bg-surface); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; padding: 6px 8px;">
+                            <span class="spec-label" style="font-size: 0.62rem; color: #34d399; display: block; font-weight: 700; text-transform: uppercase;">Slot Tersedia</span>
+                            <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #34d399;">{{ $account->stock_qty ?: 16 }} Slot Tim</span>
+                        </div>
+
+                        <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
+                            <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Format / Rule</span>
+                            <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->login_bind ?: 'Grup WhatsApp Peserta' }}</span>
+                        </div>
+
+                        <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
+                            <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Server</span>
+                            <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->server ?: 'Indonesia' }}</span>
+                        </div>
+
+                    @else
+                        <!-- Regular Game Account Matrix -->
+                        <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
+                            <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Server / Region</span>
+                            <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->server }}</span>
+                        </div>
+
+                        <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
+                            <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Format / Tipe Bind</span>
+                            <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->login_bind }}</span>
+                        </div>
+
+                        @if($account->rank_tier)
+                        <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
+                            <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Rank Saat Ini</span>
+                            <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: var(--gold);">{{ $account->rank_tier }}</span>
+                        </div>
+                        @endif
+
+                        @if($account->hero_count)
+                        <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
+                            <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Total Hero</span>
+                            <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->hero_count }} Hero</span>
+                        </div>
+                        @endif
+
+                        @if($account->skin_count)
+                        <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
+                            <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Total Skin</span>
+                            <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->skin_count }} Skin</span>
+                        </div>
+                        @endif
+
+                        @if($account->winrate)
+                        <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
+                            <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Level Akun</span>
+                            <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fbbf24;">{{ str_starts_with(strtolower(trim($account->winrate)), 'level') || str_starts_with(strtolower(trim($account->winrate)), 'lv') ? $account->winrate : 'Level ' . $account->winrate }}</span>
+                        </div>
+                        @endif
                     @endif
                 </div>
 

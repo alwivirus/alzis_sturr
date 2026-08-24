@@ -20,7 +20,10 @@
             TIPE PRODUK POSTINGAN:
         </label>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
-            <button type="button" id="tab-btn-game" class="partner-type-tab {{ old('product_type', $account->product_type ?? 'game_account') === 'game_account' ? 'active' : '' }}" onclick="switchPartnerProductType('game_account')">
+            @php
+                $currentActiveType = old('product_type', $account->isAppProduct() ? 'app_premium' : ($account->isFastTournament() ? 'fast_tournament' : ($account->product_type ?: 'game_account')));
+            @endphp
+            <button type="button" id="tab-btn-game" class="partner-type-tab {{ $currentActiveType === 'game_account' ? 'active' : '' }}" onclick="switchPartnerProductType('game_account')">
                 <span style="font-size: 1.2rem;">🎮</span>
                 <div style="text-align: left;">
                     <div style="font-weight: 800; font-size: 0.88rem; color: #fff;">Akun Game</div>
@@ -28,7 +31,7 @@
                 </div>
             </button>
 
-            <button type="button" id="tab-btn-app" class="partner-type-tab {{ old('product_type', $account->product_type ?? '') === 'app_premium' ? 'active' : '' }}" onclick="switchPartnerProductType('app_premium')">
+            <button type="button" id="tab-btn-app" class="partner-type-tab {{ $currentActiveType === 'app_premium' ? 'active' : '' }}" onclick="switchPartnerProductType('app_premium')">
                 <span style="font-size: 1.2rem;">📱</span>
                 <div style="text-align: left;">
                     <div style="font-weight: 800; font-size: 0.88rem; color: #fff;">Akun Aplikasi</div>
@@ -36,7 +39,7 @@
                 </div>
             </button>
 
-            <button type="button" id="tab-btn-service" class="partner-type-tab {{ old('product_type', $account->product_type ?? '') === 'fast_tournament' ? 'active' : '' }}" onclick="switchPartnerProductType('fast_tournament')">
+            <button type="button" id="tab-btn-service" class="partner-type-tab {{ $currentActiveType === 'fast_tournament' ? 'active' : '' }}" onclick="switchPartnerProductType('fast_tournament')">
                 <span style="font-size: 1.2rem;">🏆</span>
                 <div style="text-align: left;">
                     <div style="font-weight: 800; font-size: 0.88rem; color: #fff;">Fast Tournament (FT)</div>
@@ -49,7 +52,7 @@
     <form action="{{ route('partner.accounts.update', $account->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <input type="hidden" name="product_type" id="product_type_input" value="{{ old('product_type', $account->product_type ?? 'game_account') }}">
+        <input type="hidden" name="product_type" id="product_type_input" value="{{ $currentActiveType }}">
 
         <!-- 1. Main Category & Information -->
         <h3 class="font-heading" style="font-size: 1.15rem; color: var(--primary); margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
