@@ -26,13 +26,34 @@
     </div>
 
     <!-- Category Pills Navigation -->
+    @php
+        $isAppCategory = function($cat) {
+            $s = strtolower($cat->name . ' ' . $cat->slug);
+            return str_contains($s, 'capcut') || str_contains($s, 'alight') || str_contains($s, 'spotify') || str_contains($s, 'canva') || str_contains($s, 'netflix') || str_contains($s, 'youtube') || str_contains($s, 'chatgpt') || str_contains($s, 'aplikasi') || str_contains($s, 'app') || str_contains($s, 'premium');
+        };
+        $isFtCategory = function($cat) {
+            $s = strtolower($cat->name . ' ' . $cat->slug);
+            return str_contains($s, 'fast tournament') || str_contains($s, 'tournament') || str_contains($s, 'ft') || str_contains($s, 'turnamen');
+        };
+
+        $selectedType = request('type', 'all');
+        $filteredCategories = $categories;
+        if ($selectedType === 'app') {
+            $filteredCategories = $categories->filter($isAppCategory);
+        } elseif ($selectedType === 'game') {
+            $filteredCategories = $categories->reject($isAppCategory)->reject($isFtCategory);
+        } elseif ($selectedType === 'tournament' || $selectedType === 'service') {
+            $filteredCategories = $categories->filter($isFtCategory);
+        }
+    @endphp
+
     <div class="category-pills" style="margin-bottom: 22px;">
         <a href="{{ route('catalog', array_merge(request()->except('category', 'page'), ['category' => 'all'])) }}" 
            class="category-pill {{ !request('category') || request('category') === 'all' ? 'active' : '' }}">
             <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-            <span>Semua Produk</span>
+            <span>Semua ({{ $selectedType === 'app' ? 'Aplikasi' : ($selectedType === 'game' ? 'Akun Game' : ($selectedType === 'tournament' ? 'Turnamen' : 'Katalog')) }})</span>
         </a>
-        @foreach($categories as $cat)
+        @foreach($filteredCategories as $cat)
             <a href="{{ route('catalog', array_merge(request()->except('category', 'page'), ['category' => $cat->slug])) }}" 
                class="category-pill {{ request('category') === $cat->slug ? 'active' : '' }}">
                 <span>{{ $cat->name }}</span>
@@ -298,10 +319,25 @@
                                 </h3>
 
                                 <div class="account-tags-row">
-                                    <span class="tag-badge tag-server">{{ $acc->server }}</span>
-                                    <span class="tag-badge tag-bind">{{ Str::limit($acc->login_bind, 16) }}</span>
-                                    @if($acc->rank_tier)
-                                        <span class="tag-badge" style="color: var(--gold); border-color: var(--gold-border);">{{ $acc->rank_tier }}</span>
+                                    @if($acc->isAppProduct())
+                                        <span class="tag-badge" style="color: #fbbf24; border-color: rgba(245, 158, 11, 0.4); font-weight: 700;">⏳ {{ $acc->duration_text ?: '1 Bulan' }}</span>
+                                        @if($acc->account_variant)
+                                            <span class="tag-badge" style="color: #38bdf8; border-color: rgba(56, 189, 248, 0.35);">{{ Str::limit($acc->account_variant, 14) }}</span>
+                                        @endif
+                                        @if($acc->stock_qty && $acc->stock_qty > 1)
+                                            <span class="tag-badge" style="color: #34d399; border-color: rgba(52, 211, 153, 0.35);">📦 {{ $acc->stock_qty }} Ready</span>
+                                        @endif
+                                    @elseif($acc->isFastTournament())
+                                        <span class="tag-badge" style="color: #fbbf24; border-color: rgba(245, 158, 11, 0.4); font-weight: 700;">🏆 Slot FT</span>
+                                        @if($acc->stock_qty)
+                                            <span class="tag-badge" style="color: #34d399; border-color: rgba(52, 211, 153, 0.35);">📦 {{ $acc->stock_qty }} Slot</span>
+                                        @endif
+                                    @else
+                                        <span class="tag-badge tag-server">{{ $acc->server }}</span>
+                                        <span class="tag-badge tag-bind">{{ Str::limit($acc->login_bind, 16) }}</span>
+                                        @if($acc->rank_tier)
+                                            <span class="tag-badge" style="color: var(--gold); border-color: var(--gold-border);">{{ $acc->rank_tier }}</span>
+                                        @endif
                                     @endif
                                 </div>
 

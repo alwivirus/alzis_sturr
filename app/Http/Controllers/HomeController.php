@@ -72,46 +72,88 @@ class HomeController extends Controller
             });
         }
 
-        // Filter Product Type (Game vs App vs Fast Tournament) - Strict Filtering
+        // Filter Product Type (Game vs App vs Fast Tournament) - Strict Isolation
         if ($request->filled('type') && $request->input('type') !== 'all') {
             $type = strtolower(trim($request->input('type')));
             if ($type === 'game') {
                 $query->where(function ($q) {
-                    $q->where('product_type', 'game_account')
-                      ->orWhere(function ($sub) {
-                          $sub->whereNull('product_type')
-                              ->whereDoesntHave('category', function ($catQ) {
-                                  $catQ->where('name', 'like', '%CapCut%')
-                                       ->orWhere('name', 'like', '%Spotify%')
-                                       ->orWhere('name', 'like', '%Alight%')
-                                       ->orWhere('name', 'like', '%Canva%')
-                                       ->orWhere('name', 'like', '%Fast Tournament%')
-                                       ->orWhere('name', 'like', '%Turnamen%');
-                              })
-                              ->where('title', 'not like', '%CapCut%')
-                              ->where('title', 'not like', '%Spotify%')
-                              ->where('title', 'not like', '%Alight%')
-                              ->where('title', 'not like', '%Turnamen%')
-                              ->where('title', 'not like', '%Fast Tournament%');
-                      });
+                    $q->where(function($sub) {
+                        $sub->where('product_type', 'game_account')
+                            ->orWhereNull('product_type');
+                    });
+                    $q->whereDoesntHave('category', function ($catQ) {
+                        $catQ->where('name', 'like', '%Canva%')
+                             ->orWhere('name', 'like', '%CapCut%')
+                             ->orWhere('name', 'like', '%Spotify%')
+                             ->orWhere('name', 'like', '%Netflix%')
+                             ->orWhere('name', 'like', '%Alight%')
+                             ->orWhere('name', 'like', '%YouTube%')
+                             ->orWhere('name', 'like', '%ChatGPT%')
+                             ->orWhere('name', 'like', '%Disney%')
+                             ->orWhere('name', 'like', '%Prime%')
+                             ->orWhere('name', 'like', '%VPN%')
+                             ->orWhere('name', 'like', '%Aplikasi%')
+                             ->orWhere('name', 'like', '%Turnamen%')
+                             ->orWhere('name', 'like', '%Tournament%')
+                             ->orWhere('name', 'like', '%Fast Tournament%')
+                             ->orWhere('slug', 'like', '%canva%')
+                             ->orWhere('slug', 'like', '%capcut%')
+                             ->orWhere('slug', 'like', '%spotify%')
+                             ->orWhere('slug', 'like', '%netflix%')
+                             ->orWhere('slug', 'like', '%alight%')
+                             ->orWhere('slug', 'like', '%tournament%');
+                    });
+                    $q->where('title', 'not like', '%Canva%')
+                      ->where('title', 'not like', '%CapCut%')
+                      ->where('title', 'not like', '%Spotify%')
+                      ->where('title', 'not like', '%Netflix%')
+                      ->where('title', 'not like', '%Alight%')
+                      ->where('title', 'not like', '%YouTube%')
+                      ->where('title', 'not like', '%ChatGPT%')
+                      ->where('title', 'not like', '%Disney%')
+                      ->where('title', 'not like', '%Prime Video%')
+                      ->where('title', 'not like', '%VPN%')
+                      ->where('title', 'not like', '%Aplikasi%')
+                      ->where('title', 'not like', '%Turnamen%')
+                      ->where('title', 'not like', '%Tournament%')
+                      ->where('title', 'not like', '%Fast Tournament%');
                 });
             } elseif ($type === 'app') {
                 $query->where(function ($q) {
                     $q->where('product_type', 'app_premium')
                       ->orWhereHas('category', function ($catQ) {
-                          $catQ->where('name', 'like', '%CapCut%')
+                          $catQ->where('name', 'like', '%Canva%')
+                               ->orWhere('name', 'like', '%CapCut%')
                                ->orWhere('name', 'like', '%Spotify%')
+                               ->orWhere('name', 'like', '%Netflix%')
                                ->orWhere('name', 'like', '%Alight%')
-                               ->orWhere('name', 'like', '%Canva%')
+                               ->orWhere('name', 'like', '%YouTube%')
+                               ->orWhere('name', 'like', '%ChatGPT%')
+                               ->orWhere('name', 'like', '%Disney%')
+                               ->orWhere('name', 'like', '%Prime%')
+                               ->orWhere('name', 'like', '%VPN%')
+                               ->orWhere('name', 'like', '%Aplikasi%')
+                               ->orWhere('name', 'like', '%App%')
+                               ->orWhere('slug', 'like', '%canva%')
                                ->orWhere('slug', 'like', '%capcut%')
                                ->orWhere('slug', 'like', '%spotify%')
+                               ->orWhere('slug', 'like', '%netflix%')
                                ->orWhere('slug', 'like', '%alight%')
-                               ->orWhere('slug', 'like', '%canva%');
+                               ->orWhere('slug', 'like', '%youtube%')
+                               ->orWhere('slug', 'like', '%chatgpt%')
+                               ->orWhere('slug', 'like', '%app%');
                       })
+                      ->orWhere('title', 'like', '%Canva%')
                       ->orWhere('title', 'like', '%CapCut%')
                       ->orWhere('title', 'like', '%Spotify%')
-                      ->orWhere('title', 'like', '%Alight Motion%')
-                      ->orWhere('title', 'like', '%Canva Pro%');
+                      ->orWhere('title', 'like', '%Netflix%')
+                      ->orWhere('title', 'like', '%Alight%')
+                      ->orWhere('title', 'like', '%YouTube%')
+                      ->orWhere('title', 'like', '%ChatGPT%')
+                      ->orWhere('title', 'like', '%Disney%')
+                      ->orWhere('title', 'like', '%Prime Video%')
+                      ->orWhere('title', 'like', '%VPN%')
+                      ->orWhere('title', 'like', '%Aplikasi%');
                 });
             } elseif ($type === 'tournament' || $type === 'service') {
                 $query->where(function ($q) {
@@ -121,10 +163,12 @@ class HomeController extends Controller
                                ->orWhere('name', 'like', '%Turnamen%')
                                ->orWhere('name', 'like', '%Tournament%')
                                ->orWhere('slug', 'like', '%tournament%')
+                               ->orWhere('slug', 'like', '%turnamen%')
                                ->orWhere('slug', 'like', '%ft%');
                       })
                       ->orWhere('title', 'like', '%Fast Tournament%')
                       ->orWhere('title', 'like', '%Turnamen%')
+                      ->orWhere('title', 'like', '%Tournament%')
                       ->orWhere('title', 'like', '%Slot FT%');
                 });
             }
