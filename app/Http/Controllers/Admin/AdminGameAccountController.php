@@ -77,9 +77,14 @@ class AdminGameAccountController extends Controller
             'title' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'discount_price' => 'nullable|numeric|min:0|lt:price',
-            'login_bind' => 'required|string|max:255',
-            'server' => 'required|string|max:255',
+            'login_bind' => 'nullable|string|max:255',
+            'server' => 'nullable|string|max:255',
             'status' => 'required|in:available,sold,booked',
+            'product_type' => 'nullable|string|max:50',
+            'stock_qty' => 'nullable|integer|min:0',
+            'duration_value' => 'nullable|integer|min:1',
+            'duration_unit' => 'nullable|string|max:50',
+            'account_variant' => 'nullable|string|max:100',
             'thumbnail_file' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
             'thumbnail_url' => 'nullable|url',
             'screenshots.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
@@ -94,27 +99,25 @@ class AdminGameAccountController extends Controller
         ], [
             'code.required' => 'Kode akun (SKU) wajib diisi.',
             'code.unique' => 'Kode akun ini sudah digunakan, gunakan kode unik.',
-            'title.required' => 'Judul postingan akun wajib diisi.',
-            'price.required' => 'Harga akun wajib diisi.',
+            'title.required' => 'Judul postingan akun / produk wajib diisi.',
+            'price.required' => 'Harga produk wajib diisi.',
             'discount_price.lt' => 'Harga promo harus lebih kecil dari harga normal.',
-            'login_bind.required' => 'Status login/bind akun wajib diisi.',
-            'server.required' => 'Server / Region wajib diisi.',
         ]);
 
         $categoryId = $request->input('game_category_id');
 
-        // Handle Custom / New Game Input
+        // Handle Custom / New Game / Product Input
         if ($request->filled('new_game_name')) {
             $newGameName = trim($request->input('new_game_name'));
             $catSlug = Str::slug($newGameName);
             if (empty($catSlug)) {
-                $catSlug = 'game-' . Str::random(5);
+                $catSlug = 'prod-' . Str::random(5);
             }
             $category = GameCategory::firstOrCreate(
                 ['slug' => $catSlug],
                 [
                     'name' => $newGameName,
-                    'icon' => 'gamepad-2',
+                    'icon' => 'package',
                     'is_active' => true,
                     'order' => (GameCategory::max('order') ?? 0) + 1,
                 ]
@@ -123,7 +126,7 @@ class AdminGameAccountController extends Controller
         }
 
         if (empty($categoryId)) {
-            return back()->withErrors(['game_category_id' => 'Pilih kategori game yang tersedia atau tulis nama game baru.'])->withInput();
+            return back()->withErrors(['game_category_id' => 'Pilih kategori produk / game yang tersedia atau tulis nama baru.'])->withInput();
         }
 
         // Ensure directories exist
@@ -139,14 +142,19 @@ class AdminGameAccountController extends Controller
 
         $accountData = [
             'game_category_id' => $categoryId,
+            'product_type' => $validated['product_type'] ?? 'game_account',
             'code' => strtoupper($validated['code']),
             'title' => $validated['title'],
             'slug' => Str::slug($validated['title'] . '-' . $validated['code']),
             'price' => $validated['price'],
             'discount_price' => $validated['discount_price'] ?? null,
-            'login_bind' => $validated['login_bind'],
-            'server' => $validated['server'],
+            'login_bind' => $validated['login_bind'] ?? 'Email Sendiri / Private',
+            'server' => $validated['server'] ?? 'Global',
             'status' => $validated['status'],
+            'stock_qty' => $request->input('stock_qty', 1) ?: 1,
+            'duration_value' => $request->input('duration_value'),
+            'duration_unit' => $request->input('duration_unit'),
+            'account_variant' => $request->input('account_variant'),
             'thumbnail' => $thumbnailPath,
             'short_description' => $validated['short_description'] ?? null,
             'full_specs' => $validated['full_specs'] ?? null,
@@ -262,14 +270,19 @@ class AdminGameAccountController extends Controller
 
         $account->update([
             'game_category_id' => $categoryId,
+            'product_type' => $validated['product_type'] ?? $account->product_type ?? 'game_account',
             'code' => strtoupper($validated['code']),
             'title' => $validated['title'],
             'slug' => Str::slug($validated['title'] . '-' . $validated['code']),
             'price' => $validated['price'],
             'discount_price' => $validated['discount_price'] ?? null,
-            'login_bind' => $validated['login_bind'],
-            'server' => $validated['server'],
+            'login_bind' => $validated['login_bind'] ?? $account->login_bind ?? 'Email Sendiri / Private',
+            'server' => $validated['server'] ?? $account->server ?? 'Global',
             'status' => $validated['status'],
+            'stock_qty' => $request->input('stock_qty', $account->stock_qty ?: 1) ?: 1,
+            'duration_value' => $request->input('duration_value', $account->duration_value),
+            'duration_unit' => $request->input('duration_unit', $account->duration_unit),
+            'account_variant' => $request->input('account_variant', $account->account_variant),
             'thumbnail' => $thumbnailPath,
             'short_description' => $validated['short_description'] ?? null,
             'full_specs' => $validated['full_specs'] ?? null,

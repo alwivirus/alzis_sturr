@@ -251,7 +251,7 @@
     </style>
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=10.1">
+    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=10.2">
 
     @stack('styles')
 </head>

@@ -13,6 +13,7 @@ class GameAccount extends Model
     protected $fillable = [
         'game_category_id',
         'user_id',
+        'product_type',
         'code',
         'title',
         'slug',
@@ -21,6 +22,10 @@ class GameAccount extends Model
         'login_bind',
         'server',
         'status',
+        'stock_qty',
+        'duration_value',
+        'duration_unit',
+        'account_variant',
         'thumbnail',
         'short_description',
         'full_specs',
@@ -36,12 +41,25 @@ class GameAccount extends Model
     protected $casts = [
         'price' => 'decimal:2',
         'discount_price' => 'decimal:2',
+        'stock_qty' => 'integer',
+        'duration_value' => 'integer',
         'is_verified' => 'boolean',
         'is_featured' => 'boolean',
         'views_count' => 'integer',
         'hero_count' => 'integer',
         'skin_count' => 'integer',
     ];
+
+    public function getDurationTextAttribute()
+    {
+        if (!$this->duration_value && !$this->duration_unit) {
+            return null;
+        }
+        if ($this->duration_unit === 'Lifetime') {
+            return 'Lifetime / Selamanya';
+        }
+        return ($this->duration_value ?: '1') . ' ' . ($this->duration_unit ?: 'Bulan');
+    }
 
     public static function boot()
     {

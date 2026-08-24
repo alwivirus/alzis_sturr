@@ -178,8 +178,26 @@
                         <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Server / Region</span>
                         <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->server }}</span>
                     </div>
+                    @if($account->duration_text)
+                    <div class="spec-item" style="background: var(--bg-surface); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 6px; padding: 6px 8px;">
+                        <span class="spec-label" style="font-size: 0.62rem; color: #fbbf24; display: block; font-weight: 700; text-transform: uppercase;">Masa Aktif / Durasi</span>
+                        <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->duration_text }}</span>
+                    </div>
+                    @endif
+                    @if($account->account_variant)
                     <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
-                        <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Tipe Bind / Login</span>
+                        <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Tipe / Varian</span>
+                        <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->account_variant }}</span>
+                    </div>
+                    @endif
+                    @if($account->stock_qty && $account->stock_qty > 1)
+                    <div class="spec-item" style="background: var(--bg-surface); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; padding: 6px 8px;">
+                        <span class="spec-label" style="font-size: 0.62rem; color: #34d399; display: block; font-weight: 700; text-transform: uppercase;">Stok Tersedia</span>
+                        <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->stock_qty }} Slot / Akun Ready</span>
+                    </div>
+                    @endif
+                    <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
+                        <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Format / Tipe Bind</span>
                         <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fff;">{{ $account->login_bind }}</span>
                     </div>
                     @if($account->rank_tier)

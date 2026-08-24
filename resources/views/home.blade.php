@@ -29,22 +29,22 @@
             <div class="hero-content-layer" style="position: relative; z-index: 3; padding: 32px 28px; max-width: 640px; box-sizing: border-box;">
                 <div style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); color: #fde68a; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 12px;">
                     <svg style="width: 14px; height: 14px; color: #fbbf24; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-                    <span>GARANSI 100% ANTI HACKBACK SEUMUR HIDUP</span>
+                    <span>GARANSI TRANSAKSI 100% AMAN & RESMI</span>
                 </div>
 
-                <h1 style="font-family: var(--font-heading); font-size: clamp(1.5rem, 3.5vw, 2.5rem); font-weight: 900; color: #ffffff; line-height: 1.18; margin-bottom: 10px; letter-spacing: -0.02em;">
-                    Pusat Akun Game & Produk Digital Sultan <span style="color: #f59e0b;">#1 Terpercaya</span>
+                <h1 style="font-family: var(--font-heading); font-size: clamp(1.4rem, 3.2vw, 2.3rem); font-weight: 900; color: #ffffff; line-height: 1.2; margin-bottom: 10px; letter-spacing: -0.02em;">
+                    Pusat Jual Beli Akun Game & Layanan Produk Digital <span style="color: #f59e0b;">Terpercaya</span>
                 </h1>
 
-                <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
-                    Marketplace & rekber resmi akun Game (MLBB, FF, PUBGM, Genshin, Valorant), Akun Premium (CapCut, Spotify, Canva, Netflix), dan Layanan Fast Tournament (FT). Transaksi instan 5 menit dipandu Admin.
+                <p style="color: #94a3b8; font-size: 0.88rem; line-height: 1.6; margin-bottom: 20px;">
+                    Marketplace & rekber resmi akun game (MLBB, FF, PUBGM, Valorant), langganan aplikasi premium (CapCut, Alight Motion, Spotify), dan layanan fast tournament (FT). Transaksi instan 5 menit langsung dipandu Admin.
                 </p>
 
                 <!-- Search Bar -->
                 <div style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 4px 6px 4px 14px; display: flex; align-items: center; gap: 8px; max-width: 500px; box-shadow: 0 4px 16px rgba(0,0,0,0.4);">
                     <svg style="width: 16px; height: 16px; color: #64748b; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                     <form action="{{ route('catalog') }}" method="GET" style="display: flex; flex: 1; align-items: center; gap: 6px; min-width: 0;">
-                        <input type="text" name="q" placeholder="Cari game, CapCut Pro, Spotify, Slot FT..." style="background: transparent; border: none; outline: none; color: #fff; font-size: 0.84rem; flex: 1; min-width: 0;">
+                        <input type="text" name="q" placeholder="Cari game, CapCut, Alight Motion, Spotify, Slot FT..." style="background: transparent; border: none; outline: none; color: #fff; font-size: 0.84rem; flex: 1; min-width: 0;">
                         <button type="submit" style="background: #f59e0b; color: #ffffff; font-weight: 700; font-size: 0.78rem; border: none; border-radius: 8px; padding: 8px 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; transition: background 0.2s;">
                             <span>Cari Stok</span>
                             <svg style="width: 13px; height: 13px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
@@ -156,14 +156,14 @@
             <div>
                 <span style="font-size: 0.72rem; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: 0.6px; display: inline-flex; align-items: center; gap: 4px;">
                     <svg style="width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    KOLEKSI SULTAN PILIHAN
+                    PRODUK & AKUN REKOMENDASI
                 </span>
                 <h2 class="font-heading" style="font-size: 1.65rem; color: #fff; font-weight: 900; margin-top: 2px;">
-                    Akun Sultan & Koleksi Langka
+                    Pilihan Populer & Terlaris
                 </h2>
             </div>
             <a href="{{ route('catalog') }}" class="btn btn-secondary btn-sm">
-                <span>Lihat Semua Sultan</span>
+                <span>Lihat Semua Produk</span>
                 <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
         </div>

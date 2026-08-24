@@ -56,14 +56,14 @@
         <!-- Pricing & Status -->
         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
             <div class="form-group">
-                <label class="form-label">Harga Asli (Rp) <span style="color: var(--danger);">*</span></label>
-                <input type="number" name="price" value="{{ old('price') }}" class="input-control" placeholder="Contoh: 750000" required>
+                <label class="form-label">Harga Normal (Rp) <span style="color: var(--danger);">*</span></label>
+                <input type="number" name="price" value="{{ old('price') }}" class="input-control" placeholder="Contoh: 35000" required>
                 @error('price') <div class="form-error">{{ $message }}</div> @enderror
             </div>
 
             <div class="form-group">
                 <label class="form-label">Harga Promo / Diskon (Rp) (Opsional)</label>
-                <input type="number" name="discount_price" value="{{ old('discount_price') }}" class="input-control" placeholder="Contoh: 599000">
+                <input type="number" name="discount_price" value="{{ old('discount_price') }}" class="input-control" placeholder="Contoh: 25000">
                 <span class="form-helper">Biarkan kosong jika tidak ada diskon</span>
                 @error('discount_price') <div class="form-error">{{ $message }}</div> @enderror
             </div>
@@ -76,6 +76,49 @@
                     <option value="booked" {{ old('status') == 'booked' ? 'selected' : '' }}>🟡 Booked (DP Masuk)</option>
                 </select>
                 @error('status') <div class="form-error">{{ $message }}</div> @enderror
+            </div>
+        </div>
+
+        <!-- Khusus Produk Aplikasi / Digital (CapCut, Spotify, Alight Motion, FT) -->
+        <div style="background: rgba(245, 158, 11, 0.05); border: 1px dashed rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 18px 20px; margin: 24px 0;">
+            <div style="font-weight: 800; font-size: 0.95rem; color: #fbbf24; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+                <span>Pengaturan Khusus Aplikasi & Digital (CapCut / Alight Motion / Spotify / FT)</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px;">
+                <div class="form-group">
+                    <label class="form-label">Jumlah Stok Ready</label>
+                    <input type="number" name="stock_qty" value="{{ old('stock_qty', 1) }}" min="1" class="input-control" placeholder="Contoh: 10">
+                    <span class="form-helper">Jumlah akun/slot yang tersedia</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Durasi / Masa Aktif</label>
+                    <input type="number" name="duration_value" value="{{ old('duration_value') }}" min="1" class="input-control" placeholder="Contoh: 1, 3, 12, 30">
+                    <span class="form-helper">Berapa hari/bulan/tahun</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Satuan Durasi</label>
+                    <select name="duration_unit" class="input-control">
+                        <option value="Bulan" {{ old('duration_unit') == 'Bulan' ? 'selected' : '' }}>Bulan</option>
+                        <option value="Hari" {{ old('duration_unit') == 'Hari' ? 'selected' : '' }}>Hari</option>
+                        <option value="Tahun" {{ old('duration_unit') == 'Tahun' ? 'selected' : '' }}>Tahun</option>
+                        <option value="Lifetime" {{ old('duration_unit') == 'Lifetime' ? 'selected' : '' }}>Lifetime (Selamanya)</option>
+                        <option value="Slot" {{ old('duration_unit') == 'Slot' ? 'selected' : '' }}>Per Slot (Turnamen)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Tipe / Varian Akun</label>
+                    <select name="account_variant" class="input-control">
+                        <option value="Private (Email Sendiri)" {{ old('account_variant') == 'Private (Email Sendiri)' ? 'selected' : '' }}>Private (Email Sendiri)</option>
+                        <option value="Sharing (Hemat)" {{ old('account_variant') == 'Sharing (Hemat)' ? 'selected' : '' }}>Sharing (Hemat)</option>
+                        <option value="Akun Baru (Fresh)" {{ old('account_variant') == 'Akun Baru (Fresh)' ? 'selected' : '' }}>Akun Baru (Fresh)</option>
+                        <option value="Jasa / Slot FT" {{ old('account_variant') == 'Jasa / Slot FT' ? 'selected' : '' }}>Jasa / Slot FT</option>
+                    </select>
+                </div>
             </div>
         </div>
 

@@ -85,6 +85,49 @@
             </div>
         </div>
 
+        <!-- Khusus Produk Aplikasi / Digital (CapCut, Spotify, Alight Motion, FT) -->
+        <div style="background: rgba(245, 158, 11, 0.05); border: 1px dashed rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 24px;">
+            <div style="font-weight: 800; font-size: 0.95rem; color: #fbbf24; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+                <span>Pengaturan Khusus Aplikasi & Digital (CapCut / Alight Motion / Spotify / FT)</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;">
+                <div>
+                    <label style="display: block; font-size: 0.76rem; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase;">Jumlah Stok Ready</label>
+                    <input type="number" name="stock_qty" value="{{ old('stock_qty', 1) }}" min="1" class="input-control" placeholder="Contoh: 10" style="height: 40px;">
+                    <span style="font-size: 0.7rem; color: var(--text-dim); margin-top: 3px; display: block;">Jumlah akun/slot ready</span>
+                </div>
+
+                <div>
+                    <label style="display: block; font-size: 0.76rem; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase;">Durasi / Masa Aktif</label>
+                    <input type="number" name="duration_value" value="{{ old('duration_value') }}" min="1" class="input-control" placeholder="Contoh: 1, 3, 12, 30" style="height: 40px;">
+                    <span style="font-size: 0.7rem; color: var(--text-dim); margin-top: 3px; display: block;">Angka durasi</span>
+                </div>
+
+                <div>
+                    <label style="display: block; font-size: 0.76rem; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase;">Satuan Durasi</label>
+                    <select name="duration_unit" class="input-control" style="height: 40px;">
+                        <option value="Bulan" {{ old('duration_unit') == 'Bulan' ? 'selected' : '' }}>Bulan</option>
+                        <option value="Hari" {{ old('duration_unit') == 'Hari' ? 'selected' : '' }}>Hari</option>
+                        <option value="Tahun" {{ old('duration_unit') == 'Tahun' ? 'selected' : '' }}>Tahun</option>
+                        <option value="Lifetime" {{ old('duration_unit') == 'Lifetime' ? 'selected' : '' }}>Lifetime (Selamanya)</option>
+                        <option value="Slot" {{ old('duration_unit') == 'Slot' ? 'selected' : '' }}>Per Slot (Turnamen)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label style="display: block; font-size: 0.76rem; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase;">Tipe / Varian Akun</label>
+                    <select name="account_variant" class="input-control" style="height: 40px;">
+                        <option value="Private (Email Sendiri)" {{ old('account_variant') == 'Private (Email Sendiri)' ? 'selected' : '' }}>Private (Email Sendiri)</option>
+                        <option value="Sharing (Hemat)" {{ old('account_variant') == 'Sharing (Hemat)' ? 'selected' : '' }}>Sharing (Hemat)</option>
+                        <option value="Akun Baru (Fresh)" {{ old('account_variant') == 'Akun Baru (Fresh)' ? 'selected' : '' }}>Akun Baru (Fresh)</option>
+                        <option value="Jasa / Slot FT" {{ old('account_variant') == 'Jasa / Slot FT' ? 'selected' : '' }}>Jasa / Slot FT</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <!-- 3. Bind & Server Configuration -->
         <h3 class="font-heading" style="font-size: 1.25rem; color: var(--primary); margin: 30px 0 20px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
             <i data-lucide="shield-alert" style="width: 20px; height: 20px;"></i>
