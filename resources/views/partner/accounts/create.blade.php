@@ -116,35 +116,14 @@
             </div>
         </div>
 
-        <!-- 3. WhatsApp Contact & Safety Recommendation Banner -->
-        <div style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 18px; margin-bottom: 22px;">
-            <div class="form-group" style="margin-bottom: 12px;">
-                <label class="form-label" style="color: #fbbf24; font-weight: 800; display: flex; align-items: center; gap: 6px;">
-                    <i data-lucide="phone-call" style="width: 16px; height: 16px;"></i>
-                    <span>Nomor WhatsApp Anda (Kontak Penjual / Mitra)</span>
-                </label>
-                <input type="text" name="partner_phone" value="{{ old('partner_phone', Auth::user()->phone) }}" class="input-control" placeholder="Contoh: 081234567890" style="height: 42px;">
-                <span class="form-helper">Nomor WhatsApp aktif Anda yang dapat dihubungi pembeli.</span>
-            </div>
-
-            <!-- Warning and Recommendation Notice Box -->
-            <div style="background: rgba(15, 23, 42, 0.9); border: 1px dashed rgba(245, 158, 11, 0.4); border-radius: 8px; padding: 12px 14px;">
-                <div style="font-size: 0.76rem; font-weight: 800; color: #fbbf24; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-                    <i data-lucide="alert-triangle" style="width: 14px; height: 14px;"></i>
-                    <span>PERINGATAN SAAT PRODUK MUNCUL DI KATALOG (SETELAH BARANG DI-UPLOAD):</span>
-                </div>
-                <p style="font-size: 0.74rem; color: #cbd5e1; margin: 0 0 8px 0; line-height: 1.45;">
-                    Nomor WhatsApp ini akan tampil pada tombol kontak Mitra di halaman detail produk katalog untuk konsultasi spesifikasi dengan pembeli.
-                </p>
-
-                <div style="font-size: 0.76rem; font-weight: 800; color: #34d399; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-                    <i data-lucide="shield-check" style="width: 14px; height: 14px;"></i>
-                    <span>SARAN RESMI KEAMANAN TRANSAKSI:</span>
-                </div>
-                <p style="font-size: 0.74rem; color: #94a3b8; margin: 0; line-height: 1.45;">
-                    Utamakan dan sarankan pembeli selalu bertransaksi menggunakan <strong style="color: #fff;">Nomor WhatsApp Admin Utama ALZIS STORE sebagai MC / Rekber Resmi (Anti-Rip)</strong> demi menjaga keamanan transaksi 100% dan mencegah risiko penipuan / sengketa kedua belah pihak.
-                </p>
-            </div>
+        <!-- 3. WhatsApp Contact -->
+        <div class="form-group" style="margin-bottom: 20px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;">
+            <label class="form-label" style="color: #fbbf24; font-weight: 800; display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                <i data-lucide="phone-call" style="width: 16px; height: 16px;"></i>
+                <span>Nomor WhatsApp Anda (Kontak Penjual / Mitra)</span>
+            </label>
+            <input type="text" name="partner_phone" value="{{ old('partner_phone', Auth::user()->phone) }}" class="input-control" placeholder="Contoh: 081234567890" style="height: 42px;">
+            <span class="form-helper" style="font-size: 0.72rem; color: var(--text-dim); margin-top: 4px;">Nomor WhatsApp aktif Anda yang dapat dihubungi pembeli untuk tanya jawab stok.</span>
         </div>
 
         <!-- 3A. Khusus Aplikasi (CapCut, Alight Motion, Spotify) -->

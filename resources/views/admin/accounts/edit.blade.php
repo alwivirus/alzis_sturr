@@ -121,35 +121,14 @@
             </div>
         </div>
 
-        <!-- 4. Seller / Partner WhatsApp Contact & Official Recommendation -->
-        <div style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 18px; margin-bottom: 22px;">
-            <div class="form-group" style="margin-bottom: 12px;">
-                <label class="form-label" style="color: #fbbf24; font-weight: 800; display: flex; align-items: center; gap: 6px;">
-                    <i data-lucide="phone-call" style="width: 16px; height: 16px;"></i>
-                    <span>Nomor WhatsApp Penjual / Kontak Pemilik Akun</span>
-                </label>
-                <input type="text" name="partner_phone" value="{{ old('partner_phone', ($account->user && $account->user->phone) ? $account->user->phone : '') }}" class="input-control" placeholder="Contoh: 081234567890 / 6281234567890">
-                <span class="form-helper">Isi nomor WhatsApp penjual/mitra pemilik produk ini.</span>
-            </div>
-
-            <!-- Warning and Recommendation Notice Box -->
-            <div style="background: rgba(15, 23, 42, 0.9); border: 1px dashed rgba(245, 158, 11, 0.4); border-radius: 8px; padding: 12px 14px;">
-                <div style="font-size: 0.76rem; font-weight: 800; color: #fbbf24; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-                    <i data-lucide="alert-triangle" style="width: 14px; height: 14px;"></i>
-                    <span>PERINGATAN SAAT PRODUK TAMPIL DI KATALOG (SETELAH BARANG DI-UPLOAD):</span>
-                </div>
-                <p style="font-size: 0.74rem; color: #cbd5e1; margin: 0 0 8px 0; line-height: 1.45;">
-                    Nomor WhatsApp di atas akan ditampilkan sebagai tombol kontak langsung penjual/mitra pada halaman detail produk di katalog publik agar pembeli dapat menanyakan rincian akun.
-                </p>
-
-                <div style="font-size: 0.76rem; font-weight: 800; color: #34d399; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-                    <i data-lucide="shield-check" style="width: 14px; height: 14px;"></i>
-                    <span>SARAN RESMI KEAMANAN TRANSAKSI:</span>
-                </div>
-                <p style="font-size: 0.74rem; color: #94a3b8; margin: 0; line-height: 1.45;">
-                    Sangat disarankan mengarahkan semua proses pembayaran dan serah terima data akun melalui <strong style="color: #fff;">Nomor WhatsApp Admin Utama ALZIS STORE sebagai MC / Rekber Resmi (Anti-Rip)</strong> demi menjaga keamanan 100% dan mencegah risiko penipuan / sengketa.
-                </p>
-            </div>
+        <!-- 3. Seller / Partner WhatsApp Contact -->
+        <div class="form-group" style="margin-bottom: 20px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;">
+            <label class="form-label" style="color: #fbbf24; font-weight: 800; display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                <i data-lucide="phone-call" style="width: 16px; height: 16px;"></i>
+                <span>Nomor WhatsApp Penjual / Pemilik Akun (Opsional)</span>
+            </label>
+            <input type="text" name="partner_phone" value="{{ old('partner_phone', ($account->user && $account->user->phone) ? $account->user->phone : '') }}" class="input-control" placeholder="Contoh: 081234567890 / 6281234567890">
+            <span class="form-helper" style="font-size: 0.72rem; color: var(--text-dim); margin-top: 4px;">Isi jika produk/akun ini milik mitra atau penjual tertentu (otomatis tampilkan tombol Chat Penjual di katalog).</span>
         </div>
 
         <!-- 5A. KHUSUS PRODUK APLIKASI (Canva, CapCut, Spotify, Alight Motion) -->

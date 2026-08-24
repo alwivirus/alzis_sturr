@@ -55,28 +55,62 @@
                 @endforeach
             </div>
 
-            <!-- Guarantee Box -->
+            <!-- Dynamic Product Guarantee Box -->
             <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-top: 14px;">
                 <h4 style="font-size: 0.82rem; font-weight: 800; color: #fff; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
                     <svg style="width: 16px; height: 16px; color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
                     <span>Jaminan & Keamanan Transaksi ALZIS STORE</span>
                 </h4>
                 <div class="guarantee-badges" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
-                    <div class="guarantee-card" style="padding: 8px 6px; text-align: center;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width: 18px; height: 18px; color: var(--primary); margin: 0 auto 3px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                        <strong style="font-size: 0.74rem; display: block;">100% Anti HB</strong>
-                        <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 1px;">Garansi Seumur Hidup</div>
-                    </div>
-                    <div class="guarantee-card" style="padding: 8px 6px; text-align: center;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width: 18px; height: 18px; color: var(--accent-purple); margin: 0 auto 3px;"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
-                        <strong style="font-size: 0.74rem; display: block;">All Unbind</strong>
-                        <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 1px;">Siap Bind Pribadi</div>
-                    </div>
-                    <div class="guarantee-card" style="padding: 8px 6px; text-align: center;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width: 18px; height: 18px; color: var(--success); margin: 0 auto 3px;"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-                        <strong style="font-size: 0.74rem; display: block;">Panduan 24/7</strong>
-                        <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 1px;">Dipandu Tuntas</div>
-                    </div>
+                    @if($account->isAppProduct())
+                        <div class="guarantee-card" style="padding: 8px 6px; text-align: center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width: 18px; height: 18px; color: var(--primary); margin: 0 auto 3px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                            <strong style="font-size: 0.74rem; display: block; color: #fff;">100% Anti Drop</strong>
+                            <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 1px;">Garansi Full Durasi</div>
+                        </div>
+                        <div class="guarantee-card" style="padding: 8px 6px; text-align: center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width: 18px; height: 18px; color: var(--accent-purple); margin: 0 auto 3px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            <strong style="font-size: 0.74rem; display: block; color: #fff;">Akun Private / Fresh</strong>
+                            <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 1px;">Email Pribadi / Siap Pakai</div>
+                        </div>
+                        <div class="guarantee-card" style="padding: 8px 6px; text-align: center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width: 18px; height: 18px; color: var(--success); margin: 0 auto 3px;"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                            <strong style="font-size: 0.74rem; display: block; color: #fff;">Support 24/7</strong>
+                            <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 1px;">Proses Cepat 5 Menit</div>
+                        </div>
+                    @elseif($account->isFastTournament())
+                        <div class="guarantee-card" style="padding: 8px 6px; text-align: center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width: 18px; height: 18px; color: var(--primary); margin: 0 auto 3px;"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H7"/><path d="M14 14.66V17c0 .55.45 1 1 1h2"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                            <strong style="font-size: 0.74rem; display: block; color: #fff;">Hadiah Terjamin</strong>
+                            <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 1px;">Pencairan Kilat 100%</div>
+                        </div>
+                        <div class="guarantee-card" style="padding: 8px 6px; text-align: center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width: 18px; height: 18px; color: var(--accent-purple); margin: 0 auto 3px;"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M15 2H9a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1Z"/></svg>
+                            <strong style="font-size: 0.74rem; display: block; color: #fff;">Slot & Bracket Resmi</strong>
+                            <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 1px;">Format Turnamen Jelas</div>
+                        </div>
+                        <div class="guarantee-card" style="padding: 8px 6px; text-align: center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width: 18px; height: 18px; color: var(--success); margin: 0 auto 3px;"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                            <strong style="font-size: 0.74rem; display: block; color: #fff;">Admin Standby</strong>
+                            <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 1px;">Dipandu via WhatsApp</div>
+                        </div>
+                    @else
+                        <div class="guarantee-card" style="padding: 8px 6px; text-align: center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width: 18px; height: 18px; color: var(--primary); margin: 0 auto 3px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            <strong style="font-size: 0.74rem; display: block; color: #fff;">100% Anti HB</strong>
+                            <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 1px;">Garansi Seumur Hidup</div>
+                        </div>
+                        <div class="guarantee-card" style="padding: 8px 6px; text-align: center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width: 18px; height: 18px; color: var(--accent-purple); margin: 0 auto 3px;"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
+                            <strong style="font-size: 0.74rem; display: block; color: #fff;">All Unbind</strong>
+                            <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 1px;">Siap Bind Pribadi</div>
+                        </div>
+                        <div class="guarantee-card" style="padding: 8px 6px; text-align: center;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width: 18px; height: 18px; color: var(--success); margin: 0 auto 3px;"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                            <strong style="font-size: 0.74rem; display: block; color: #fff;">Panduan 24/7</strong>
+                            <div style="font-size: 0.65rem; color: var(--text-dim); margin-top: 1px;">Dipandu Tuntas</div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -85,7 +119,7 @@
         <div class="detail-info-col" style="width: 100%; min-width: 0;">
             <div class="detail-info-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; box-shadow: var(--shadow-card);">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                    <span class="account-category-name" style="font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 0;">{{ $account->category->name }}</span>
+                    <span class="account-category-name" style="font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 0;">{{ $account->category ? $account->category->name : 'Produk Digital' }}</span>
                     <span style="font-size: 0.72rem; color: var(--text-dim); display: flex; align-items: center; gap: 4px;">
                         <svg style="width: 12px; height: 12px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                         {{ $account->views_count }}x dilihat
@@ -132,7 +166,7 @@
                     $productCode = $account->code;
                     $effectivePrice = $account->formatted_effective_price;
 
-                    if ($isPartner || $sellerPhone) {
+                    if ($sellerPhone || $isPartner) {
                         $adminWaText = "Halo Admin / Rekber ALZIS STORE, saya ingin membeli postingan *" . $productName . "* [Kode: " . $productCode . "] seharga *" . $effectivePrice . "*. Mohon dibantu proses transaksi aman / rekber resminya.";
                         $sellerWaText = "Halo Penjual/Mitra ALZIS STORE, saya tertarik dengan *" . $productName . "* [Kode: " . $productCode . "] seharga *" . $effectivePrice . "*. Apakah stok ini ready? (Transaksi tetap via Rekber Admin ALZIS STORE).";
                     } else {
@@ -140,12 +174,12 @@
                     }
                 @endphp
 
-                <!-- Anti-Rip & Midman Protection Notice (Always Active for Safety) -->
-                <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(217, 119, 6, 0.08) 100%); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 10px; padding: 10px 12px; margin-bottom: 14px;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px; flex-wrap: wrap;">
-                        <div style="font-size: 0.75rem; font-weight: 800; color: #fbbf24; display: flex; align-items: center; gap: 5px;">
-                            <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                            <span>REKBER RESMI ADMIN UTAMA (ANTI-RIP)</span>
+                <!-- Rekber Protection & Official Contact Info Box -->
+                <div style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 10px; padding: 12px 14px; margin-bottom: 14px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; flex-wrap: wrap;">
+                        <div style="font-size: 0.78rem; font-weight: 800; color: #fbbf24; display: flex; align-items: center; gap: 6px;">
+                            <svg style="width: 15px; height: 15px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <span>REKBER & MC RESMI ALZIS STORE (ANTI-RIP)</span>
                         </div>
                         @if($isPartner && $partner)
                         <span style="font-size: 0.68rem; background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border); padding: 1px 6px; border-radius: 4px; font-weight: 700;">
@@ -153,29 +187,44 @@
                         </span>
                         @endif
                     </div>
-                    <p style="font-size: 0.74rem; color: #cbd5e1; margin: 0; line-height: 1.45;">
-                        Untuk keamanan 100% dan mencegah penipuan, serah terima akun & pembayaran <strong>wajib diproses via Admin / Owner Utama ALZIS STORE</strong> sebagai Rekber & MC resmi.
+
+                    <!-- Direct Numbers Display -->
+                    <div style="display: grid; grid-template-columns: {{ $sellerPhone ? '1fr 1fr' : '1fr' }}; gap: 8px; margin: 8px 0; background: rgba(0, 0, 0, 0.35); padding: 8px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06);">
+                        <div>
+                            <span style="font-size: 0.64rem; color: #34d399; font-weight: 800; display: block; text-transform: uppercase;">🛡️ WhatsApp Admin / MC:</span>
+                            <span style="font-size: 0.8rem; color: #fff; font-weight: 800; font-family: monospace;">{{ $ownerWa }}</span>
+                        </div>
+                        @if($sellerPhone)
+                        <div>
+                            <span style="font-size: 0.64rem; color: #fbbf24; font-weight: 800; display: block; text-transform: uppercase;">📱 WhatsApp Penjual / Mitra:</span>
+                            <span style="font-size: 0.8rem; color: #fff; font-weight: 800; font-family: monospace;">{{ $sellerPhone }}</span>
+                        </div>
+                        @endif
+                    </div>
+
+                    <p style="font-size: 0.72rem; color: #cbd5e1; margin: 0; line-height: 1.45;">
+                        <strong style="color: #fbbf24;">Saran Keamanan:</strong> Demi mencegah penipuan & menjaga keamanan 100%, serah terima data dan pembayaran <strong>wajib menggunakan WhatsApp Admin / MC ALZIS STORE</strong>.
                     </p>
                 </div>
 
                 <!-- Action Buttons Grid -->
-                <div style="display: grid; grid-template-columns: {{ $sellerPhone ? '1.3fr 1fr 1fr' : '1.2fr 1fr' }}; gap: 8px; margin-bottom: 14px;">
+                <div class="detail-action-buttons" style="display: grid; grid-template-columns: {{ $sellerPhone ? 'repeat(auto-fit, minmax(130px, 1fr))' : '1.2fr 1fr' }}; gap: 8px; margin-bottom: 14px;">
                     <!-- Primary Admin/Rekber WhatsApp Button -->
-                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $ownerWa) }}?text={{ rawurlencode($adminWaText) }}" target="_blank" class="btn btn-whatsapp" style="padding: 9px 10px; font-size: 0.78rem; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 5px;" title="Beli via Rekber Admin Utama">
-                        <svg style="width: 14px; height: 14px; fill: currentColor; flex-shrink: 0;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $ownerWa) }}?text={{ rawurlencode($adminWaText) }}" target="_blank" class="btn btn-whatsapp" style="padding: 10px 10px; font-size: 0.8rem; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-weight: 800;" title="Beli via Rekber Admin Utama">
+                        <svg style="width: 15px; height: 15px; fill: currentColor; flex-shrink: 0;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                         <span>{{ $sellerPhone ? 'Beli via Rekber' : 'Beli WhatsApp' }}</span>
                     </a>
 
                     <!-- Optional Seller WhatsApp Contact -->
                     @if($sellerPhone)
-                    <a href="https://wa.me/{{ $sellerPhone }}?text={{ rawurlencode($sellerWaText) }}" target="_blank" class="btn btn-secondary" style="padding: 9px 8px; font-size: 0.76rem; border-radius: 8px; border-color: rgba(245, 158, 11, 0.4); color: #fbbf24; display: inline-flex; align-items: center; justify-content: center; gap: 4px;" title="Tanya langsung ke Penjual / Pemilik Akun">
-                        <svg style="width: 13px; height: 13px; fill: currentColor; flex-shrink: 0;" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                    <a href="https://wa.me/{{ $sellerPhone }}?text={{ rawurlencode($sellerWaText) }}" target="_blank" class="btn btn-secondary" style="padding: 10px 8px; font-size: 0.78rem; border-radius: 8px; border-color: rgba(245, 158, 11, 0.4); color: #fbbf24; display: inline-flex; align-items: center; justify-content: center; gap: 5px; font-weight: 700;" title="Tanya langsung ke Penjual / Pemilik Akun">
+                        <svg style="width: 14px; height: 14px; fill: currentColor; flex-shrink: 0;" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
                         <span>Chat Penjual</span>
                     </a>
                     @endif
 
-                    <a href="{{ \App\Models\SiteSetting::get('discord_invite_url', 'https://discord.gg/zEGEGs6hat') }}" target="_blank" class="btn btn-discord" style="padding: 9px 10px; font-size: 0.78rem; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 4px;">
-                        <svg style="width: 14px; height: 14px; fill: currentColor; flex-shrink: 0;" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                    <a href="{{ \App\Models\SiteSetting::get('discord_invite_url', 'https://discord.gg/zEGEGs6hat') }}" target="_blank" class="btn btn-discord" style="padding: 10px 10px; font-size: 0.78rem; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; font-weight: 700;">
+                        <svg style="width: 15px; height: 15px; fill: currentColor; flex-shrink: 0;" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
                         <span>Discord</span>
                     </a>
                 </div>
