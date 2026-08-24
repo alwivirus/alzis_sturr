@@ -43,6 +43,7 @@
     <!-- Active Filters Badge Row -->
     @php
         $activeFiltersCount = 0;
+        if(request('type') && request('type') !== 'all') $activeFiltersCount++;
         if(request('q')) $activeFiltersCount++;
         if(request('category') && request('category') !== 'all') $activeFiltersCount++;
         if(request('status') && request('status') !== 'all') $activeFiltersCount++;
@@ -56,6 +57,20 @@
     @if($activeFiltersCount > 0)
     <div class="filter-chips-wrapper">
         <span style="font-size: 0.76rem; font-weight: 800; color: var(--text-muted);">FILTER AKTIF:</span>
+
+        @if(request('type') && request('type') !== 'all')
+            @php
+                $typeNames = [
+                    'game' => '🎮 Akun Game',
+                    'app' => '📱 Akun Aplikasi',
+                    'tournament' => '🏆 Fast Tournament (FT)',
+                ];
+            @endphp
+            <a href="{{ route('catalog', request()->except('type', 'page')) }}" class="filter-chip">
+                <span>Tipe: {{ $typeNames[request('type')] ?? request('type') }}</span>
+                <span class="chip-remove">×</span>
+            </a>
+        @endif
 
         @if(request('q'))
             <a href="{{ route('catalog', request()->except('q', 'page')) }}" class="filter-chip">

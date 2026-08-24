@@ -72,30 +72,60 @@ class HomeController extends Controller
             });
         }
 
-        // Filter Product Type (Game vs App vs Service/FT)
+        // Filter Product Type (Game vs App vs Fast Tournament) - Strict Filtering
         if ($request->filled('type') && $request->input('type') !== 'all') {
-            $type = $request->input('type');
+            $type = strtolower(trim($request->input('type')));
             if ($type === 'game') {
-                $query->where(function($q) {
+                $query->where(function ($q) {
                     $q->where('product_type', 'game_account')
-                      ->orWhereNull('product_type')
-                      ->orWhereHas('category', function($catQ) {
-                          $catQ->whereNotIn('slug', ['capcut-pro', 'spotify-premium', 'canva-pro', 'netflix-streaming', 'akun-premium', 'fast-tournament-ft', 'jasa-digital', 'jasa-desain']);
+                      ->orWhere(function ($sub) {
+                          $sub->whereNull('product_type')
+                              ->whereDoesntHave('category', function ($catQ) {
+                                  $catQ->where('name', 'like', '%CapCut%')
+                                       ->orWhere('name', 'like', '%Spotify%')
+                                       ->orWhere('name', 'like', '%Alight%')
+                                       ->orWhere('name', 'like', '%Canva%')
+                                       ->orWhere('name', 'like', '%Fast Tournament%')
+                                       ->orWhere('name', 'like', '%Turnamen%');
+                              })
+                              ->where('title', 'not like', '%CapCut%')
+                              ->where('title', 'not like', '%Spotify%')
+                              ->where('title', 'not like', '%Alight%')
+                              ->where('title', 'not like', '%Turnamen%')
+                              ->where('title', 'not like', '%Fast Tournament%');
                       });
                 });
             } elseif ($type === 'app') {
-                $query->where(function($q) {
+                $query->where(function ($q) {
                     $q->where('product_type', 'app_premium')
-                      ->orWhereHas('category', function($catQ) {
-                          $catQ->whereIn('slug', ['capcut-pro', 'spotify-premium', 'canva-pro', 'netflix-streaming', 'akun-premium']);
-                      });
+                      ->orWhereHas('category', function ($catQ) {
+                          $catQ->where('name', 'like', '%CapCut%')
+                               ->orWhere('name', 'like', '%Spotify%')
+                               ->orWhere('name', 'like', '%Alight%')
+                               ->orWhere('name', 'like', '%Canva%')
+                               ->orWhere('slug', 'like', '%capcut%')
+                               ->orWhere('slug', 'like', '%spotify%')
+                               ->orWhere('slug', 'like', '%alight%')
+                               ->orWhere('slug', 'like', '%canva%');
+                      })
+                      ->orWhere('title', 'like', '%CapCut%')
+                      ->orWhere('title', 'like', '%Spotify%')
+                      ->orWhere('title', 'like', '%Alight Motion%')
+                      ->orWhere('title', 'like', '%Canva Pro%');
                 });
-            } elseif ($type === 'service' || $type === 'tournament') {
-                $query->where(function($q) {
+            } elseif ($type === 'tournament' || $type === 'service') {
+                $query->where(function ($q) {
                     $q->whereIn('product_type', ['fast_tournament', 'digital_service', 'tournament_slot'])
-                      ->orWhereHas('category', function($catQ) {
-                          $catQ->whereIn('slug', ['fast-tournament-ft', 'jasa-digital', 'jasa-desain']);
-                      });
+                      ->orWhereHas('category', function ($catQ) {
+                          $catQ->where('name', 'like', '%Fast Tournament%')
+                               ->orWhere('name', 'like', '%Turnamen%')
+                               ->orWhere('name', 'like', '%Tournament%')
+                               ->orWhere('slug', 'like', '%tournament%')
+                               ->orWhere('slug', 'like', '%ft%');
+                      })
+                      ->orWhere('title', 'like', '%Fast Tournament%')
+                      ->orWhere('title', 'like', '%Turnamen%')
+                      ->orWhere('title', 'like', '%Slot FT%');
                 });
             }
         }
