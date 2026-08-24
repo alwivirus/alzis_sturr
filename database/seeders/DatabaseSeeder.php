@@ -107,6 +107,30 @@ class DatabaseSeeder extends Seeder
                 'description' => 'Akun Valorant Kuronami, Prime, Reaver, Radiant Rank Server AP/Indonesia.',
                 'order' => 6,
             ],
+            [
+                'name' => 'Akun Premium & Aplikasi',
+                'slug' => 'akun-premium',
+                'icon' => 'app-icon.png',
+                'banner' => 'app-banner.jpg',
+                'description' => 'Akun Premium CapCut Pro, Canva Pro, Netflix, Spotify, YouTube Premium, ChatGPT, dll.',
+                'order' => 7,
+            ],
+            [
+                'name' => 'Fast Tournament & Poster FT',
+                'slug' => 'fast-tournament-ft',
+                'icon' => 'ft-icon.png',
+                'banner' => 'ft-banner.jpg',
+                'description' => 'Slot Turnamen, Desain Poster Fast Tournament (FT), Sertifikat, Bracket & Jasa Turnamen.',
+                'order' => 8,
+            ],
+            [
+                'name' => 'Jasa Desain & Digital',
+                'slug' => 'jasa-digital',
+                'icon' => 'design-icon.png',
+                'banner' => 'design-banner.jpg',
+                'description' => 'Jasa Desain Logo Esport, Banner Sosmed, Overlay Stream, dan Produk Kreatif Digital.',
+                'order' => 9,
+            ],
         ];
 
         $categories = [];

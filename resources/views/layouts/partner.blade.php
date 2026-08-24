@@ -250,13 +250,13 @@
                 </a>
 
                 <a href="{{ route('partner.accounts.index') }}" class="partner-nav-item {{ request()->routeIs('partner.accounts.index') || request()->routeIs('partner.accounts.edit') ? 'active' : '' }}">
-                    <i data-lucide="gamepad-2" style="width: 16px; height: 16px;"></i>
-                    <span>Kelola Stok Akun Saya</span>
+                    <i data-lucide="package" style="width: 16px; height: 16px;"></i>
+                    <span>Kelola Produk & Stok Saya</span>
                 </a>
 
-                <a href="{{ route('partner.accounts.create') }}" class="partner-nav-item {{ request()->routeIs('partner.accounts.create') ? 'active' : '' }}" style="color: #38bdf8;">
+                <a href="{{ route('partner.accounts.create') }}" class="partner-nav-item {{ request()->routeIs('partner.accounts.create') ? 'active' : '' }}" style="color: #60a5fa;">
                     <i data-lucide="plus-circle" style="width: 16px; height: 16px;"></i>
-                    <span>+ Post Akun Game</span>
+                    <span>+ Tambah Produk / Stok</span>
                 </a>
 
                 <div style="font-size: 0.68rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.5px; padding: 12px 12px 2px;">

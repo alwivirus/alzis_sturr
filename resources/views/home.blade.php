@@ -121,9 +121,9 @@
     <div class="container">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
             <div>
-                <span style="font-size: 0.72rem; font-weight: 800; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.6px;">PILIHAN GAME</span>
+                <span style="font-size: 0.72rem; font-weight: 800; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.6px;">KATEGORI & PRODUK</span>
                 <h3 class="font-heading" style="font-size: 1.25rem; color: #fff; font-weight: 800; margin-top: 2px;">
-                    Jelajahi Kategori Game
+                    Jelajahi Kategori Game & Produk Digital
                 </h3>
             </div>
             <a href="{{ route('catalog') }}" style="font-size: 0.82rem; color: #3b82f6; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; text-decoration: none;">
@@ -135,7 +135,7 @@
         <div class="category-pills">
             <a href="{{ route('catalog') }}" class="category-pill active">
                 <svg style="width: 15px; height: 15px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                <span>Semua Game</span>
+                <span>Semua Produk</span>
                 <span class="category-pill-count">{{ $readyAccounts }} Ready</span>
             </a>
             @foreach($categories as $cat)

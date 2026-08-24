@@ -27,7 +27,7 @@
     </script>
 
     <!-- Stylesheets & Direct Self-Contained Admin Theme -->
-    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=9.7">
+    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=9.9">
     <style>
         :root {
             --bg-body: #0a0e17;
@@ -377,13 +377,13 @@
                 </a>
 
                 <a href="{{ route('admin.accounts.index') }}" class="admin-nav-item {{ request()->routeIs('admin.accounts.*') ? 'active' : '' }}">
-                    <i data-lucide="gamepad-2" style="width: 16px; height: 16px;"></i>
-                    <span>Kelola Stok Akun</span>
+                    <i data-lucide="package" style="width: 16px; height: 16px;"></i>
+                    <span>Kelola Produk & Stok</span>
                 </a>
 
                 <a href="{{ route('admin.categories.index') }}" class="admin-nav-item {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
-                    <i data-lucide="folder" style="width: 16px; height: 16px;"></i>
-                    <span>Kategori Game</span>
+                    <i data-lucide="layers" style="width: 16px; height: 16px;"></i>
+                    <span>Kategori Produk & Game</span>
                 </a>
 
                 <a href="{{ route('admin.settings.index') }}" class="admin-nav-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">

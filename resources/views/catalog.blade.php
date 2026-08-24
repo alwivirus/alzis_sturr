@@ -11,15 +11,15 @@
         <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
             <a href="{{ route('home') }}">Beranda</a> 
             <span>/</span> 
-            <span style="color: #fff; font-weight: 700;">Katalog Stok</span>
+            <span style="color: #fff; font-weight: 700;">Katalog Produk & Akun</span>
         </div>
         <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px;">
             <div>
                 <h1 class="font-heading" style="font-size: 1.85rem; color: #fff; font-weight: 900; line-height: 1.2;">
-                    Katalog Stok Akun Game
+                    Katalog Produk & Akun Digital
                 </h1>
                 <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 2px;">
-                    Menampilkan <strong style="color: var(--primary);">{{ $accounts->total() }}</strong> akun game siap ditakeover dengan garansi resmi 100% anti hackback.
+                    Menampilkan <strong style="color: var(--primary);">{{ $accounts->total() }}</strong> akun game, akun premium (CapCut dll), & layanan FT siap transaksi dengan garansi resmi 100% aman.
                 </p>
             </div>
         </div>
@@ -30,7 +30,7 @@
         <a href="{{ route('catalog', array_merge(request()->except('category', 'page'), ['category' => 'all'])) }}" 
            class="category-pill {{ !request('category') || request('category') === 'all' ? 'active' : '' }}">
             <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-            <span>Semua Game</span>
+            <span>Semua Produk</span>
         </a>
         @foreach($categories as $cat)
             <a href="{{ route('catalog', array_merge(request()->except('category', 'page'), ['category' => $cat->slug])) }}" 
