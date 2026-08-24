@@ -39,7 +39,7 @@
                     <div class="stat-title" style="color: var(--primary);">Aktivitas Hari Ini</div>
                     <div class="stat-value" style="color: #fff;">{{ number_format($todayLogs) }}</div>
                 </div>
-                <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(0, 242, 254, 0.15); color: var(--primary); display: flex; align-items: center; justify-content: center;">
+                <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(59, 130, 246, 0.15); color: var(--primary); display: flex; align-items: center; justify-content: center;">
                     <i data-lucide="clock" style="width: 18px; height: 18px;"></i>
                 </div>
             </div>

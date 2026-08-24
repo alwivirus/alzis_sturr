@@ -43,7 +43,7 @@
             --bg-glass-card: rgba(19, 27, 46, 0.88);
             --primary: #3b82f6;
             --primary-hover: #2563eb;
-            --primary-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --primary-gradient: #2563eb;
             --primary-light: rgba(59, 130, 246, 0.12);
             --primary-border: rgba(59, 130, 246, 0.3);
             --accent-purple: #8b5cf6;
@@ -71,7 +71,7 @@
             --bg-glass-card: rgba(34, 19, 32, 0.9) !important;
             --primary: #f472b6 !important;
             --primary-hover: #ec4899 !important;
-            --primary-gradient: linear-gradient(135deg, #f472b6 0%, #db2777 100%) !important;
+            --primary-gradient: #db2777 !important;
             --primary-light: rgba(244, 114, 182, 0.15) !important;
             --primary-border: rgba(244, 114, 182, 0.35) !important;
             --border: rgba(244, 114, 182, 0.18) !important;
@@ -92,7 +92,7 @@
             --bg-glass-card: rgba(24, 19, 43, 0.88) !important;
             --primary: #8b5cf6 !important;
             --primary-hover: #7c3aed !important;
-            --primary-gradient: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%) !important;
+            --primary-gradient: #7c3aed !important;
             --primary-light: rgba(139, 92, 246, 0.15) !important;
             --primary-border: rgba(139, 92, 246, 0.35) !important;
             --border: rgba(139, 92, 246, 0.15) !important;
@@ -130,7 +130,7 @@
             --bg-glass-card: rgba(34, 14, 18, 0.88) !important;
             --primary: #f43f5e !important;
             --primary-hover: #e11d48 !important;
-            --primary-gradient: linear-gradient(135deg, #f43f5e 0%, #be123c 100%) !important;
+            --primary-gradient: #e11d48 !important;
             --primary-light: rgba(244, 63, 94, 0.15) !important;
             --primary-border: rgba(244, 63, 94, 0.35) !important;
             --border: rgba(244, 63, 94, 0.15) !important;
@@ -190,8 +190,8 @@
         @media(max-width:480px){.trust-highlights-grid{grid-template-columns:repeat(2,1fr) !important;gap:8px !important;padding:12px 10px !important;}}
 
         /* Account Card System & Non-Clipping Detail Button */
-        .account-card{position:relative;background:var(--bg-card,#0e1628);border:1px solid var(--border,rgba(255,255,255,0.08));border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-sizing:border-box;cursor:pointer;width:100% !important;min-width:0 !important;-webkit-tap-highlight-color:rgba(0,242,254,0.1);transition:transform 0.25s ease,border-color 0.25s ease,box-shadow 0.25s ease;}
-        .account-card:hover{transform:translateY(-4px);border-color:rgba(0,242,254,0.4);box-shadow:0 12px 30px rgba(0,0,0,0.5),0 0 15px rgba(0,242,254,0.15);}
+        .account-card{position:relative;background:var(--bg-card,#0e1628);border:1px solid var(--border,rgba(255,255,255,0.08));border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-sizing:border-box;cursor:pointer;width:100% !important;min-width:0 !important;-webkit-tap-highlight-color:rgba(59, 130, 246,0.1);transition:transform 0.25s ease,border-color 0.25s ease,box-shadow 0.25s ease;}
+        .account-card:hover{transform:translateY(-4px);border-color:rgba(59, 130, 246,0.4);box-shadow:0 12px 30px rgba(0,0,0,0.5);}
         .account-card-overlay-link{position:absolute;inset:0;z-index:4;border-radius:inherit;display:block;text-indent:-9999px;outline:none;}
         .account-card .btn-toggle-wishlist,
         .account-card .btn,
@@ -250,7 +250,7 @@
     </style>
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=9.6">
+    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=9.7">
 
     @stack('styles')
 </head>
@@ -336,23 +336,23 @@
                                 🎨 Pilih Tema Website
                             </div>
                             <button type="button" onclick="setAppTheme('default')" class="theme-option-btn" data-theme-val="default" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
-                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(59, 130, 246, 0.4);"></span>
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); display: inline-block; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);"></span>
                                 <span>⚡ Sapphire Slate (Default)</span>
                             </button>
                             <button type="button" onclick="setAppTheme('emerald-mint')" class="theme-option-btn" data-theme-val="emerald-mint" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
-                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #047857); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);"></span>
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #047857); display: inline-block; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);"></span>
                                 <span>🌿 Emerald Jade</span>
                             </button>
                             <button type="button" onclick="setAppTheme('purple-neon')" class="theme-option-btn" data-theme-val="purple-neon" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
-                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6, #6d28d9); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(139, 92, 246, 0.4);"></span>
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6, #6d28d9); display: inline-block; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);"></span>
                                 <span>🔮 Royal Violet</span>
                             </button>
                             <button type="button" onclick="setAppTheme('sunset-crimson')" class="theme-option-btn" data-theme-val="sunset-crimson" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
-                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #f43f5e, #be123c); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(244, 63, 94, 0.4);"></span>
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #f43f5e, #be123c); display: inline-block; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);"></span>
                                 <span>🔥 Crimson Ruby</span>
                             </button>
                             <button type="button" onclick="setAppTheme('pink-sakura')" class="theme-option-btn" data-theme-val="pink-sakura" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
-                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #f472b6, #db2777); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(244, 114, 182, 0.4);"></span>
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #f472b6, #db2777); display: inline-block; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);"></span>
                                 <span>🌸 Soft Sakura</span>
                             </button>
                         </div>
@@ -439,7 +439,7 @@
                 <div>
                     <!-- Footer Brand Logo -->
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
-                        <img src="{{ asset('images/logo.png') }}" width="44" height="44" decoding="async" alt="ALZIS STORE Logo" style="height: 44px; width: auto; object-fit: contain; filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.5));">
+                        <img src="{{ asset('images/logo.png') }}" width="44" height="44" decoding="async" alt="ALZIS STORE Logo" style="height: 44px; width: auto; object-fit: contain; filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));">
                         <div>
                             <div style="font-size: 1.25rem; font-weight: 900; font-family: var(--font-heading); color: #fff; line-height: 1.1;">
                                 ALZIS <span style="color: var(--primary);">STORE</span>

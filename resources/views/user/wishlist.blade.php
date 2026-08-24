@@ -7,7 +7,7 @@
 <div class="container" style="padding: 36px 18px 80px; max-width: 1200px;">
     <!-- Wishlist Header Banner -->
     <div style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-xl); padding: 28px 32px; margin-bottom: 32px; position: relative; overflow: hidden; box-shadow: var(--shadow-lg);">
-        <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--danger), var(--primary), transparent);"></div>
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--border);, var(--primary), transparent);"></div>
         
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
             <div>

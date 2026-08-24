@@ -39,7 +39,7 @@
             --bg-input: #0e1626;
             --primary: #3b82f6;
             --primary-hover: #2563eb;
-            --primary-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --primary-gradient: #2563eb;
             --partner-color: #38bdf8;
             --gold: #f59e0b;
             --danger: #ef4444;
@@ -62,7 +62,7 @@
             --bg-glass-card: rgba(34, 19, 32, 0.9) !important;
             --primary: #f472b6 !important;
             --primary-hover: #ec4899 !important;
-            --primary-gradient: linear-gradient(135deg, #f472b6 0%, #db2777 100%) !important;
+            --primary-gradient: #db2777 !important;
             --primary-light: rgba(244, 114, 182, 0.15) !important;
             --primary-border: rgba(244, 114, 182, 0.35) !important;
             --border: rgba(244, 114, 182, 0.18) !important;
@@ -80,7 +80,7 @@
             --bg-card-hover: #221c3d !important;
             --primary: #8b5cf6 !important;
             --primary-hover: #7c3aed !important;
-            --primary-gradient: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%) !important;
+            --primary-gradient: #7c3aed !important;
             --primary-light: rgba(139, 92, 246, 0.15) !important;
             --primary-border: rgba(139, 92, 246, 0.35) !important;
             --border: rgba(139, 92, 246, 0.15) !important;
@@ -108,7 +108,7 @@
             --bg-card-hover: #2e1419 !important;
             --primary: #f43f5e !important;
             --primary-hover: #e11d48 !important;
-            --primary-gradient: linear-gradient(135deg, #f43f5e 0%, #be123c 100%) !important;
+            --primary-gradient: #e11d48 !important;
             --border: rgba(244, 63, 94, 0.15) !important;
         }
 
@@ -125,7 +125,7 @@
 
         /* Stat Cards */
         .stat-card {
-            background: linear-gradient(145deg, var(--bg-card) 0%, var(--bg-surface-elevated) 100%) !important;
+            background: var(--bg-card) !important;
             border: 1px solid var(--border) !important;
             border-radius: 14px !important;
             padding: 18px 20px !important;
@@ -152,16 +152,16 @@
 
         /* Form Controls */
         .input-control { background: #0e1626 !important; border: 1px solid rgba(255, 255, 255, 0.12) !important; border-radius: 8px !important; padding: 8px 14px; color: #fff !important; font-size: 0.85rem; outline: none; transition: all 0.2s ease; width: 100%; }
-        .input-control:focus { border-color: var(--primary) !important; box-shadow: 0 0 12px rgba(59, 130, 246, 0.25) !important; }
+        .input-control:focus { border-color: var(--primary) !important; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important; }
         .input-control option { background: #101726; color: #fff; }
 
         /* Buttons */
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-weight: 700; font-size: 0.84rem; padding: 8px 16px; border-radius: 8px; border: 1px solid transparent; cursor: pointer; text-decoration: none; transition: all 0.2s ease; }
-        .btn-primary { background: var(--primary-gradient) !important; color: #ffffff !important; font-weight: 800; box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35) !important; }
-        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.45) !important; }
+        .btn-primary { background: #2563eb !important; color: #ffffff !important; font-weight: 800; border: 1px solid #1d4ed8 !important; box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25) !important; }
+        .btn-primary:hover { background: #1d4ed8 !important; transform: translateY(-1px); }
         .btn-outline { background: rgba(255, 255, 255, 0.04) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; color: var(--text-main) !important; }
         .btn-outline:hover { background: rgba(255, 255, 255, 0.1) !important; border-color: #fff !important; color: #fff !important; transform: translateY(-1px); }
-        .btn-danger { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important; color: #fff !important; border: 1px solid rgba(239, 68, 68, 0.4) !important; border-radius: 8px; padding: 7px 12px; font-weight: 700; font-size: 0.82rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
+        .btn-danger { background: #dc2626 !important; color: #fff !important; border: 1px solid #b91c1c !important; border-radius: 8px; padding: 7px 12px; font-weight: 700; font-size: 0.82rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
 
         .mobile-header { display: none; }
         .sidebar-overlay { display: none; }
@@ -315,23 +315,23 @@
                                 🎨 Pilih Tema Panel
                             </div>
                             <button type="button" onclick="setAppTheme('default')" class="theme-option-btn" data-theme-val="default" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
-                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(59, 130, 246, 0.4);"></span>
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); display: inline-block; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);"></span>
                                 <span>⚡ Sapphire Slate (Default)</span>
                             </button>
                             <button type="button" onclick="setAppTheme('emerald-mint')" class="theme-option-btn" data-theme-val="emerald-mint" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
-                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #047857); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);"></span>
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #10b981, #047857); display: inline-block; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);"></span>
                                 <span>🌿 Emerald Jade</span>
                             </button>
                             <button type="button" onclick="setAppTheme('purple-neon')" class="theme-option-btn" data-theme-val="purple-neon" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
-                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6, #6d28d9); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(139, 92, 246, 0.4);"></span>
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6, #6d28d9); display: inline-block; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);"></span>
                                 <span>🔮 Royal Violet</span>
                             </button>
                             <button type="button" onclick="setAppTheme('sunset-crimson')" class="theme-option-btn" data-theme-val="sunset-crimson" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
-                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #f43f5e, #be123c); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(244, 63, 94, 0.4);"></span>
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #f43f5e, #be123c); display: inline-block; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);"></span>
                                 <span>🔥 Crimson Ruby</span>
                             </button>
                             <button type="button" onclick="setAppTheme('pink-sakura')" class="theme-option-btn" data-theme-val="pink-sakura" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
-                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #f472b6, #db2777); display: inline-block; flex-shrink: 0; box-shadow: 0 0 6px rgba(244, 114, 182, 0.4);"></span>
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #f472b6, #db2777); display: inline-block; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);"></span>
                                 <span>🌸 Soft Sakura</span>
                             </button>
                         </div>

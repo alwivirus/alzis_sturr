@@ -16,7 +16,7 @@
 <div style="display: flex; flex-direction: column; gap: 20px;">
 
     <!-- Welcome Banner for Partner -->
-    <div style="background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-surface-elevated) 100%); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.35);">
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.35);">
         <div>
             <span style="font-size: 0.72rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px;">Selamat Datang di Portal Mitra</span>
             <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin-top: 2px; font-family: var(--font-heading);">
@@ -172,7 +172,7 @@
                                 </div>
                             </td>
                             <td>
-                                <span class="badge" style="background: rgba(0, 242, 254, 0.12); color: var(--primary); border: 1px solid rgba(0, 242, 254, 0.3);">
+                                <span class="badge" style="background: rgba(59, 130, 246, 0.12); color: var(--primary); border: 1px solid rgba(59, 130, 246, 0.3);">
                                     {{ $acc->category->name }}
                                 </span>
                             </td>
