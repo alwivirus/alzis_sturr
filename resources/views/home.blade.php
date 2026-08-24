@@ -10,102 +10,106 @@
 @section('content')
 
 <!-- Hero Banner Section -->
-<section class="hero-section">
+<section class="hero-section" style="padding: 16px 0 24px;">
     <div class="container">
-        <div class="hero-banner-card">
+        <div class="hero-banner-card" style="position: relative; border-radius: 20px; overflow: hidden; background: #0b0f19; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); min-height: 320px;">
             
             <!-- Sliding Background Wallpaper -->
-            <div class="hero-slider-container" id="heroSliderContainer">
+            <div class="hero-slider-container" id="heroSliderContainer" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1;">
                 <div class="hero-slide active" style="background-image: url('{{ asset('images/slides/slide-valorant.jpg') }}');" data-game="Valorant"></div>
                 <div class="hero-slide" data-bg="{{ asset('images/slides/slide-mlbb.jpg') }}" data-game="Mobile Legends"></div>
                 <div class="hero-slide" data-bg="{{ asset('images/slides/slide-ff.jpg') }}" data-game="Free Fire"></div>
                 <div class="hero-slide" data-bg="{{ asset('images/slides/slide-pubg.jpg') }}" data-game="PUBG Mobile"></div>
             </div>
 
-            <!-- Dark Gradient Cyber Overlay -->
-            <div class="hero-slider-overlay"></div>
+            <!-- Clean Dark Vignette Overlay -->
+            <div class="hero-slider-overlay" style="position: absolute; inset: 0; z-index: 2; background: linear-gradient(90deg, rgba(11, 15, 25, 0.96) 0%, rgba(11, 15, 25, 0.88) 50%, rgba(11, 15, 25, 0.4) 100%);"></div>
 
             <!-- Foreground Content Layer -->
-            <div class="hero-content-layer">
-                <div class="hero-tag">
-                    <svg style="width: 15px; height: 15px; color: var(--primary); flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            <div class="hero-content-layer" style="position: relative; z-index: 3; padding: 32px 28px; max-width: 640px; box-sizing: border-box;">
+                <div style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; background: rgba(37, 99, 235, 0.12); border: 1px solid rgba(37, 99, 235, 0.35); color: #93c5fd; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 12px;">
+                    <svg style="width: 14px; height: 14px; color: #60a5fa; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
                     <span>GARANSI 100% ANTI HACKBACK SEUMUR HIDUP</span>
                 </div>
 
-                <h1 class="hero-title">
-                    Pusat Jual Beli Akun Game Sultan <span class="text-gradient">#1 Terpercaya</span>
+                <h1 style="font-family: var(--font-heading); font-size: clamp(1.5rem, 3.5vw, 2.5rem); font-weight: 900; color: #ffffff; line-height: 1.18; margin-bottom: 10px; letter-spacing: -0.02em;">
+                    Pusat Jual Beli Akun Game Sultan <span style="color: #3b82f6;">#1 Terpercaya</span>
                 </h1>
 
-                <p class="hero-subtitle">
+                <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
                     Marketplace & rekber resmi akun Mobile Legends, Free Fire, Genshin Impact, PUBGM, & Valorant. Data bersih (all unbind), transaksi instan 5 menit langsung dipandu Admin.
                 </p>
 
                 <!-- Search Bar -->
-                <div class="hero-search-wrapper">
-                    <svg style="width: 16px; height: 16px; color: var(--text-dim); margin-left: 2px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <div style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 4px 6px 4px 14px; display: flex; align-items: center; gap: 8px; max-width: 500px; box-shadow: 0 4px 16px rgba(0,0,0,0.4);">
+                    <svg style="width: 16px; height: 16px; color: #64748b; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                     <form action="{{ route('catalog') }}" method="GET" style="display: flex; flex: 1; align-items: center; gap: 6px; min-width: 0;">
-                        <input type="text" name="q" placeholder="Cari nama akun, skin, hero, rank..." style="min-width: 0; flex: 1; font-size: 0.82rem;">
-                        <button type="submit" class="btn btn-primary btn-sm" style="white-space: nowrap; flex-shrink: 0; padding: 6px 12px; height: 36px; font-size: 0.76rem; border-radius: 8px; gap: 4px;">
+                        <input type="text" name="q" placeholder="Cari nama akun, skin, hero, rank..." style="background: transparent; border: none; outline: none; color: #fff; font-size: 0.84rem; flex: 1; min-width: 0;">
+                        <button type="submit" style="background: #2563eb; color: #ffffff; font-weight: 700; font-size: 0.78rem; border: none; border-radius: 8px; padding: 8px 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; transition: background 0.2s;">
                             <span>Cari Stok</span>
-                            <svg style="width: 13px; height: 13px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            <svg style="width: 13px; height: 13px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
                         </button>
                     </form>
                 </div>
             </div>
 
             <!-- Slider Indicator Bars -->
-            <div class="hero-slider-indicators">
-                <div class="slider-dot active" onclick="jumpToSlide(0)" title="Valorant"></div>
-                <div class="slider-dot" onclick="jumpToSlide(1)" title="Mobile Legends"></div>
-                <div class="slider-dot" onclick="jumpToSlide(2)" title="Free Fire"></div>
-                <div class="slider-dot" onclick="jumpToSlide(3)" title="PUBG Mobile"></div>
+            <div class="hero-slider-indicators" style="position: absolute; bottom: 18px; right: 22px; z-index: 4; display: flex; gap: 6px;">
+                <div class="slider-dot active" onclick="jumpToSlide(0)" title="Valorant" style="width: 32px; height: 4px; border-radius: 4px; background: #3b82f6; cursor: pointer;"></div>
+                <div class="slider-dot" onclick="jumpToSlide(1)" title="Mobile Legends" style="width: 16px; height: 4px; border-radius: 4px; background: rgba(255,255,255,0.25); cursor: pointer;"></div>
+                <div class="slider-dot" onclick="jumpToSlide(2)" title="Free Fire" style="width: 16px; height: 4px; border-radius: 4px; background: rgba(255,255,255,0.25); cursor: pointer;"></div>
+                <div class="slider-dot" onclick="jumpToSlide(3)" title="PUBG Mobile" style="width: 16px; height: 4px; border-radius: 4px; background: rgba(255,255,255,0.25); cursor: pointer;"></div>
             </div>
 
         </div>
     </div>
 </section>
 
-<!-- Trust Counters / Quick Highlights Bar -->
+<!-- Trust Counters / Quick Highlights Bar (4 Kotak Rapi Responsif) -->
 <section style="padding: 0 0 24px;">
     <div class="container">
-        <div class="trust-highlights-grid">
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="width: 42px; height: 42px; border-radius: var(--radius-sm); background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                    <svg style="width: 22px; height: 22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+            <!-- Highlight 1 -->
+            <div style="background: #111827; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
+                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(37, 99, 235, 0.12); color: #60a5fa; border: 1px solid rgba(37, 99, 235, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
                 </div>
                 <div>
-                    <div style="font-size: 0.95rem; font-weight: 800; color: #fff;">100% Anti Hackback</div>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Garansi Resmi Seumur Hidup</div>
+                    <div style="font-size: 0.9rem; font-weight: 800; color: #ffffff;">100% Anti Hackback</div>
+                    <div style="font-size: 0.74rem; color: #94a3b8;">Garansi Resmi Seumur Hidup</div>
                 </div>
             </div>
 
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="width: 42px; height: 42px; border-radius: var(--radius-sm); background: rgba(139, 92, 246, 0.12); color: var(--accent-purple); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                    <svg style="width: 22px; height: 22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <!-- Highlight 2 -->
+            <div style="background: #111827; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
+                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(139, 92, 246, 0.12); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 </div>
                 <div>
-                    <div style="font-size: 0.95rem; font-weight: 800; color: #fff;">Proses 5 Menit</div>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Serah Terima Data Kilat</div>
+                    <div style="font-size: 0.9rem; font-weight: 800; color: #ffffff;">Proses 5 Menit</div>
+                    <div style="font-size: 0.74rem; color: #94a3b8;">Serah Terima Data Kilat</div>
                 </div>
             </div>
 
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="width: 42px; height: 42px; border-radius: var(--radius-sm); background: var(--gold-light); color: var(--gold); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                    <svg style="width: 22px; height: 22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 3h12l4 6-10 12L2 9z"/></svg>
+            <!-- Highlight 3 -->
+            <div style="background: #111827; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
+                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                 </div>
                 <div>
-                    <div style="font-size: 0.95rem; font-weight: 800; color: #fff;">Tangan Pertama</div>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Harga Bersaing & Legal</div>
+                    <div style="font-size: 0.9rem; font-weight: 800; color: #ffffff;">Tangan Pertama</div>
+                    <div style="font-size: 0.74rem; color: #94a3b8;">Harga Bersaing & Legal</div>
                 </div>
             </div>
 
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="width: 42px; height: 42px; border-radius: var(--radius-sm); background: rgba(16, 185, 129, 0.12); color: var(--success); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                    <svg style="width: 22px; height: 22px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+            <!-- Highlight 4 -->
+            <div style="background: #111827; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
+                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(16, 185, 129, 0.12); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                 </div>
                 <div>
-                    <div style="font-size: 0.95rem; font-weight: 800; color: #fff;">Admin Standby 24/7</div>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Dipandu Sampai Berhasil</div>
+                    <div style="font-size: 0.9rem; font-weight: 800; color: #ffffff;">Admin Standby 24/7</div>
+                    <div style="font-size: 0.74rem; color: #94a3b8;">Dipandu Sampai Berhasil</div>
                 </div>
             </div>
         </div>
@@ -117,12 +121,12 @@
     <div class="container">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
             <div>
-                <span style="font-size: 0.72rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.6px;">PILIHAN GAME</span>
+                <span style="font-size: 0.72rem; font-weight: 800; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.6px;">PILIHAN GAME</span>
                 <h3 class="font-heading" style="font-size: 1.25rem; color: #fff; font-weight: 800; margin-top: 2px;">
                     Jelajahi Kategori Game
                 </h3>
             </div>
-            <a href="{{ route('catalog') }}" style="font-size: 0.82rem; color: var(--primary); font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+            <a href="{{ route('catalog') }}" style="font-size: 0.82rem; color: #3b82f6; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; text-decoration: none;">
                 <span>Lihat Semua Katalog</span>
                 <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
             </a>
