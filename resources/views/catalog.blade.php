@@ -109,78 +109,120 @@
     <!-- Catalog Main Layout -->
     <div class="catalog-layout">
         <!-- Filter Sidebar -->
-        <aside class="catalog-sidebar">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border);">
-                <h3 style="font-size: 0.95rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 6px;">
+        <aside class="catalog-sidebar" id="catalogSidebarDrawer">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border);">
+                <h3 style="font-size: 0.92rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 6px; margin: 0;">
                     <svg style="width: 16px; height: 16px; color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
                     <span>Filter Pencarian</span>
                 </h3>
-                <a href="{{ route('catalog') }}" style="font-size: 0.75rem; color: var(--text-dim); font-weight: 600;">Reset</a>
+                <a href="{{ route('catalog') }}" style="font-size: 0.74rem; color: #f59e0b; font-weight: 700; text-decoration: none;">Reset</a>
             </div>
 
             <form action="{{ route('catalog') }}" method="GET" id="catalogFilterForm">
-                <div class="form-group">
-                    <label class="form-label">Kata Kunci</label>
-                    <input type="text" name="q" value="{{ request('q') }}" class="input-control" placeholder="Nama, hero, skin, kode...">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Kategori Game</label>
-                    <select name="category" class="input-control">
-                        <option value="all">Semua Game</option>
-                        @foreach($categories as $cat)
-                            <option value="{{ $cat->slug }}" {{ request('category') == $cat->slug ? 'selected' : '' }}>
-                                {{ $cat->name }}
-                            </option>
-                        @endforeach
+                <!-- 1. Tipe Produk Filter -->
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label class="form-label" style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Tipe Produk</label>
+                    <select name="type" class="input-control" onchange="toggleFilterType(this.value)" style="font-weight: 700;">
+                        <option value="all" {{ !request('type') || request('type') == 'all' ? 'selected' : '' }}>🌟 Semua Produk & Game</option>
+                        <option value="game" {{ request('type') == 'game' ? 'selected' : '' }}>🎮 Akun Game (MLBB, FF, dll)</option>
+                        <option value="app" {{ request('type') == 'app' ? 'selected' : '' }}>📱 Akun Aplikasi (CapCut, Spotify)</option>
+                        <option value="tournament" {{ request('type') == 'tournament' || request('type') == 'service' ? 'selected' : '' }}>🏆 Fast Tournament & Jasa</option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Status Stok</label>
+                <!-- 2. Kata Kunci -->
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label class="form-label" style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Kata Kunci</label>
+                    <input type="text" name="q" value="{{ request('q') }}" class="input-control" placeholder="Nama produk, game, kode...">
+                </div>
+
+                <!-- 3. Kategori Terstruktur -->
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label class="form-label" style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Pilih Kategori</label>
+                    <select name="category" class="input-control">
+                        <option value="all">-- Semua Kategori --</option>
+                        @php
+                            $appSlugs = ['capcut-pro', 'spotify-premium', 'canva-pro', 'netflix-streaming', 'akun-premium'];
+                            $ftSlugs = ['fast-tournament-ft', 'jasa-digital', 'jasa-desain'];
+                        @endphp
+                        
+                        <optgroup label="🎮 Kategori Game">
+                            @foreach($categories->whereNotIn('slug', array_merge($appSlugs, $ftSlugs)) as $cat)
+                                <option value="{{ $cat->slug }}" {{ request('category') == $cat->slug ? 'selected' : '' }}>
+                                    {{ $cat->name }}
+                                </option>
+                            @endforeach
+                        </optgroup>
+
+                        <optgroup label="📱 Akun Aplikasi & Streaming">
+                            @foreach($categories->whereIn('slug', $appSlugs) as $cat)
+                                <option value="{{ $cat->slug }}" {{ request('category') == $cat->slug ? 'selected' : '' }}>
+                                    {{ $cat->name }}
+                                </option>
+                            @endforeach
+                        </optgroup>
+
+                        <optgroup label="🏆 Fast Tournament & Jasa">
+                            @foreach($categories->whereIn('slug', $ftSlugs) as $cat)
+                                <option value="{{ $cat->slug }}" {{ request('category') == $cat->slug ? 'selected' : '' }}>
+                                    {{ $cat->name }}
+                                </option>
+                            @endforeach
+                        </optgroup>
+                    </select>
+                </div>
+
+                <!-- 4. Status Stok -->
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label class="form-label" style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Status Stok</label>
                     <select name="status" class="input-control">
                         <option value="all">Semua Status</option>
-                        <option value="available" {{ request('status') == 'available' ? 'selected' : '' }}>Ready (Tersedia)</option>
-                        <option value="sold" {{ request('status') == 'sold' ? 'selected' : '' }}>Terjual</option>
+                        <option value="available" {{ request('status') == 'available' ? 'selected' : '' }}>🟢 Ready (Tersedia)</option>
+                        <option value="sold" {{ request('status') == 'sold' ? 'selected' : '' }}>🔴 Terjual</option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Server / Region</label>
-                    <select name="server" class="input-control">
-                        <option value="all">Semua Server</option>
-                        <option value="Indonesia" {{ request('server') == 'Indonesia' ? 'selected' : '' }}>Indonesia</option>
-                        <option value="Asia" {{ request('server') == 'Asia' ? 'selected' : '' }}>Asia</option>
-                        <option value="Global" {{ request('server') == 'Global' ? 'selected' : '' }}>Global / Lainnya</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Tipe Login / Bind</label>
-                    <select name="bind" class="input-control">
-                        <option value="all">Semua Bind</option>
-                        @foreach($availableBinds as $bindName)
-                            <option value="{{ $bindName }}" {{ request('bind') == $bindName ? 'selected' : '' }}>{{ $bindName }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Rentang Harga (Rp)</label>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                        <input type="number" id="minPriceInput" name="min_price" value="{{ request('min_price') }}" class="input-control" placeholder="Min">
-                        <input type="number" id="maxPriceInput" name="max_price" value="{{ request('max_price') }}" class="input-control" placeholder="Max">
+                <!-- 5. Khusus Game (Server & Bind) -->
+                <div id="catalog-game-filters" style="{{ request('type') === 'app' || request('type') === 'tournament' ? 'display:none;' : '' }}">
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label class="form-label" style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Server / Region (Game)</label>
+                        <select name="server" class="input-control">
+                            <option value="all">Semua Server</option>
+                            <option value="Indonesia" {{ request('server') == 'Indonesia' ? 'selected' : '' }}>Indonesia</option>
+                            <option value="Asia" {{ request('server') == 'Asia' ? 'selected' : '' }}>Asia</option>
+                            <option value="Global" {{ request('server') == 'Global' ? 'selected' : '' }}>Global / Lainnya</option>
+                        </select>
                     </div>
-                    <div class="price-quick-btns">
-                        <button type="button" class="price-pill-btn" onclick="setPriceFilter(0, 500000)">&lt; 500rb</button>
-                        <button type="button" class="price-pill-btn" onclick="setPriceFilter(500000, 1000000)">500rb-1jt</button>
-                        <button type="button" class="price-pill-btn" onclick="setPriceFilter(1000000, 2000000)">1jt-2jt</button>
-                        <button type="button" class="price-pill-btn" onclick="setPriceFilter(2000000, '')">&gt; 2jt</button>
+
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label class="form-label" style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Tipe Login / Bind (Game)</label>
+                        <select name="bind" class="input-control">
+                            <option value="all">Semua Bind</option>
+                            @foreach($availableBinds as $bindName)
+                                <option value="{{ $bindName }}" {{ request('bind') == $bindName ? 'selected' : '' }}>{{ $bindName }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label">Urutan</label>
+                <!-- 6. Rentang Harga Fleksibel -->
+                <div class="form-group" style="margin-bottom: 14px;">
+                    <label class="form-label" style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Rentang Harga (Rp)</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 6px;">
+                        <input type="number" id="minPriceInput" name="min_price" value="{{ request('min_price') }}" class="input-control" placeholder="Min (Rp)">
+                        <input type="number" id="maxPriceInput" name="max_price" value="{{ request('max_price') }}" class="input-control" placeholder="Max (Rp)">
+                    </div>
+                    <div class="price-quick-btns" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px;">
+                        <button type="button" class="price-pill-btn" onclick="setPriceFilter(0, 50000)">&lt; 50rb (App/FT)</button>
+                        <button type="button" class="price-pill-btn" onclick="setPriceFilter(50000, 200000)">50rb - 200rb</button>
+                        <button type="button" class="price-pill-btn" onclick="setPriceFilter(200000, 500000)">200rb - 500rb</button>
+                        <button type="button" class="price-pill-btn" onclick="setPriceFilter(500000, '')">&gt; 500rb</button>
+                    </div>
+                </div>
+
+                <!-- 7. Urutan -->
+                <div class="form-group" style="margin-bottom: 14px;">
+                    <label class="form-label" style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase;">Urutan</label>
                     <select name="sort" class="input-control">
                         <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Terbaru</option>
                         <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Harga Termurah</option>
@@ -189,7 +231,7 @@
                     </select>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-sm" style="width: 100%; margin-top: 8px;">
+                <button type="submit" class="btn btn-primary btn-sm" style="width: 100%; height: 38px; font-weight: 800;">
                     <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
                     <span>Terapkan Filter</span>
                 </button>
@@ -284,6 +326,17 @@
         document.getElementById('minPriceInput').value = min;
         document.getElementById('maxPriceInput').value = max;
         document.getElementById('catalogFilterForm').submit();
+    }
+
+    function toggleFilterType(val) {
+        const gameSection = document.getElementById('catalog-game-filters');
+        if (gameSection) {
+            if (val === 'app' || val === 'tournament') {
+                gameSection.style.display = 'none';
+            } else {
+                gameSection.style.display = 'block';
+            }
+        }
     }
 </script>
 @endpush

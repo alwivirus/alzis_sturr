@@ -72,6 +72,34 @@ class HomeController extends Controller
             });
         }
 
+        // Filter Product Type (Game vs App vs Service/FT)
+        if ($request->filled('type') && $request->input('type') !== 'all') {
+            $type = $request->input('type');
+            if ($type === 'game') {
+                $query->where(function($q) {
+                    $q->where('product_type', 'game_account')
+                      ->orWhereNull('product_type')
+                      ->orWhereHas('category', function($catQ) {
+                          $catQ->whereNotIn('slug', ['capcut-pro', 'spotify-premium', 'canva-pro', 'netflix-streaming', 'akun-premium', 'fast-tournament-ft', 'jasa-digital', 'jasa-desain']);
+                      });
+                });
+            } elseif ($type === 'app') {
+                $query->where(function($q) {
+                    $q->where('product_type', 'app_premium')
+                      ->orWhereHas('category', function($catQ) {
+                          $catQ->whereIn('slug', ['capcut-pro', 'spotify-premium', 'canva-pro', 'netflix-streaming', 'akun-premium']);
+                      });
+                });
+            } elseif ($type === 'service' || $type === 'tournament') {
+                $query->where(function($q) {
+                    $q->whereIn('product_type', ['fast_tournament', 'digital_service', 'tournament_slot'])
+                      ->orWhereHas('category', function($catQ) {
+                          $catQ->whereIn('slug', ['fast-tournament-ft', 'jasa-digital', 'jasa-desain']);
+                      });
+                });
+            }
+        }
+
         // Filter Category (Accepts Slug or ID)
         if ($request->filled('category') && $request->input('category') !== 'all') {
             $cat = $request->input('category');

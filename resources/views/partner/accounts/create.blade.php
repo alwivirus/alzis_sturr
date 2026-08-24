@@ -1,10 +1,10 @@
 @extends('layouts.partner')
 
-@section('title', 'Posting Akun Game Baru - Panel Mitra Partner')
-@section('page_title', 'POSTING STOK AKUN GAME BARU')
+@section('title', 'Posting Produk / Akun Baru - Partner Area')
+@section('page_title', 'POSTING PRODUK ATAU AKUN BARU')
 
 @section('header_actions')
-<a href="{{ route('partner.accounts.index') }}" class="btn btn-outline btn-sm">
+<a href="{{ route('partner.accounts.index') }}" class="btn btn-secondary btn-sm">
     <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
     <span>Kembali ke Stok Saya</span>
 </a>
@@ -12,258 +12,294 @@
 
 @section('content')
 
-<div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; max-width: 1000px;">
-    
+<div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; max-width: 960px;">
+
+    <!-- 1. Segmented Product Type Selector -->
+    <div style="margin-bottom: 24px;">
+        <label style="display: block; font-size: 0.8rem; font-weight: 800; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase;">
+            PILIH TIPE PRODUK:
+        </label>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+            <button type="button" id="tab-btn-game" class="partner-type-tab active" onclick="switchPartnerProductType('game_account')">
+                <span style="font-size: 1.2rem;">🎮</span>
+                <div style="text-align: left;">
+                    <div style="font-weight: 800; font-size: 0.88rem; color: #fff;">Akun Game</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted);">MLBB, FF, Genshin, PUBGM</div>
+                </div>
+            </button>
+
+            <button type="button" id="tab-btn-app" class="partner-type-tab" onclick="switchPartnerProductType('app_premium')">
+                <span style="font-size: 1.2rem;">📱</span>
+                <div style="text-align: left;">
+                    <div style="font-weight: 800; font-size: 0.88rem; color: #fff;">Akun Aplikasi</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted);">CapCut, Alight Motion, Spotify</div>
+                </div>
+            </button>
+
+            <button type="button" id="tab-btn-service" class="partner-type-tab" onclick="switchPartnerProductType('fast_tournament')">
+                <span style="font-size: 1.2rem;">🏆</span>
+                <div style="text-align: left;">
+                    <div style="font-weight: 800; font-size: 0.88rem; color: #fff;">Fast Tournament & Jasa</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted);">Slot FT, Poster Turnamen</div>
+                </div>
+            </button>
+        </div>
+    </div>
+
     <form action="{{ route('partner.accounts.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" name="product_type" id="product_type_input" value="{{ old('product_type', 'game_account') }}">
 
-        <!-- 1. Basic Information -->
-        <h3 class="font-heading" style="font-size: 1.25rem; color: var(--primary); margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
-            <i data-lucide="gamepad-2" style="width: 20px; height: 20px;"></i>
-            1. INFORMASI UTAMA & KATEGORI GAME
+        <!-- 1. Main Category & Information -->
+        <h3 class="font-heading" style="font-size: 1.15rem; color: var(--primary); margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="info" style="width: 18px; height: 18px;"></i>
+            <span>1. INFORMASI PRODUK</span>
         </h3>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 18px;">
-            <div>
-                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Pilih Kategori Game</label>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 16px;">
+            <div class="form-group">
+                <label class="form-label">Kategori</label>
                 <select name="game_category_id" id="game_category_select" class="input-control" style="height: 42px;">
-                    <option value="">-- Pilih Game yang Ada --</option>
+                    <option value="">-- Pilih Kategori yang Ada --</option>
                     @foreach($categories as $cat)
                         <option value="{{ $cat->id }}" {{ old('game_category_id') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                     @endforeach
                 </select>
-                @error('game_category_id') <div style="color: var(--danger); font-size: 0.75rem; margin-top: 4px;">{{ $message }}</div> @enderror
+                @error('game_category_id') <div class="form-error">{{ $message }}</div> @enderror
             </div>
 
-            <div>
-                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Atau Game Baru (Custom)</label>
-                <input type="text" name="new_game_name" value="{{ old('new_game_name') }}" class="input-control" placeholder="Misal: Roblox, FC Mobile, Honkai, PB..." style="height: 42px;">
-                <span style="font-size: 0.72rem; color: #38bdf8; margin-top: 4px; display: block;">Tulis jika nama game belum ada di pilihan.</span>
+            <div class="form-group">
+                <label class="form-label">Atau Tulis Kategori Baru</label>
+                <input type="text" name="new_game_name" value="{{ old('new_game_name') }}" class="input-control" placeholder="Misal: Alight Motion, CapCut..." style="height: 42px;">
             </div>
 
-            <div>
-                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Kode Akun (SKU Unik) <span style="color: var(--danger);">*</span></label>
-                <input type="text" name="code" value="{{ old('code', 'PTR-' . strtoupper(Str::random(5))) }}" class="input-control" placeholder="Contoh: PTR-ML-01" required style="height: 42px; font-family: monospace; font-weight: 700;">
-                @error('code') <div style="color: var(--danger); font-size: 0.75rem; margin-top: 4px;">{{ $message }}</div> @enderror
+            <div class="form-group">
+                <label class="form-label">Kode SKU Unik <span style="color: var(--danger);">*</span></label>
+                <input type="text" name="code" value="{{ old('code', 'AZS-' . strtoupper(Str::random(5))) }}" class="input-control" placeholder="Contoh: AZS-PTR-01" required style="height: 42px;">
+                @error('code') <div class="form-error">{{ $message }}</div> @enderror
             </div>
         </div>
 
-        <div style="margin-bottom: 22px;">
-            <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Judul Postingan Akun <span style="color: var(--danger);">*</span></label>
-            <input type="text" name="title" value="{{ old('title') }}" class="input-control" placeholder="Contoh: MLBB Mythical Glory 100★ | 5 Collector + 2 KOF + Lesley Aspirants" required style="height: 44px; font-size: 0.95rem;">
-            @error('title') <div style="color: var(--danger); font-size: 0.75rem; margin-top: 4px;">{{ $message }}</div> @enderror
+        <div class="form-group" style="margin-bottom: 18px;">
+            <label class="form-label" id="partner-title-label">Judul Postingan Produk <span style="color: var(--danger);">*</span></label>
+            <input type="text" name="title" id="partner_title_input" value="{{ old('title') }}" class="input-control" placeholder="Contoh: MLBB Mythical Glory 100★ | 5 Collector" required style="height: 42px;">
+            @error('title') <div class="form-error">{{ $message }}</div> @enderror
         </div>
 
         <!-- 2. Pricing & Status -->
-        <h3 class="font-heading" style="font-size: 1.25rem; color: var(--primary); margin: 30px 0 20px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
-            <i data-lucide="tag" style="width: 20px; height: 20px;"></i>
-            2. PENETAPAN HARGA & STATUS STOK
+        <h3 class="font-heading" style="font-size: 1.15rem; color: var(--primary); margin: 24px 0 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="tag" style="width: 18px; height: 18px;"></i>
+            <span>2. PENETAPAN HARGA & STATUS</span>
         </h3>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 22px;">
-            <div>
-                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Harga Normal (Rp) <span style="color: var(--danger);">*</span></label>
-                <input type="number" name="price" value="{{ old('price') }}" class="input-control" placeholder="Contoh: 750000" required style="height: 42px; font-weight: 700;">
-                @error('price') <div style="color: var(--danger); font-size: 0.75rem; margin-top: 4px;">{{ $message }}</div> @enderror
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 18px;">
+            <div class="form-group">
+                <label class="form-label">Harga Normal (Rp) <span style="color: var(--danger);">*</span></label>
+                <input type="number" name="price" value="{{ old('price') }}" class="input-control" placeholder="Contoh: 35000" required style="height: 42px;">
+                @error('price') <div class="form-error">{{ $message }}</div> @enderror
             </div>
 
-            <div>
-                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Harga Promo / Diskon (Rp) (Opsional)</label>
-                <input type="number" name="discount_price" value="{{ old('discount_price') }}" class="input-control" placeholder="Contoh: 599000" style="height: 42px;">
-                <span style="font-size: 0.72rem; color: var(--text-dim); margin-top: 4px; display: block;">Biarkan kosong jika tanpa diskon</span>
-                @error('discount_price') <div style="color: var(--danger); font-size: 0.75rem; margin-top: 4px;">{{ $message }}</div> @enderror
+            <div class="form-group">
+                <label class="form-label">Harga Promo / Diskon (Rp) (Opsional)</label>
+                <input type="number" name="discount_price" value="{{ old('discount_price') }}" class="input-control" placeholder="Contoh: 25000" style="height: 42px;">
+                @error('discount_price') <div class="form-error">{{ $message }}</div> @enderror
             </div>
 
-            <div>
-                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Status Stok <span style="color: var(--danger);">*</span></label>
-                <select name="status" class="input-control" required style="height: 42px; font-weight: 700;">
+            <div class="form-group">
+                <label class="form-label">Status Stok <span style="color: var(--danger);">*</span></label>
+                <select name="status" class="input-control" required style="height: 42px;">
                     <option value="available" {{ old('status', 'available') == 'available' ? 'selected' : '' }}>🟢 Ready (Tersedia)</option>
-                    <option value="sold" {{ old('status') == 'sold' ? 'selected' : '' }}>🔴 Terjual (Sold Out)</option>
-                    <option value="booked" {{ old('status') == 'booked' ? 'selected' : '' }}>🟡 Booked (DP Masuk)</option>
+                    <option value="sold" {{ old('status') == 'sold' ? 'selected' : '' }}>🔴 Terjual</option>
+                    <option value="booked" {{ old('status') == 'booked' ? 'selected' : '' }}>🟡 Booked</option>
                 </select>
-                @error('status') <div style="color: var(--danger); font-size: 0.75rem; margin-top: 4px;">{{ $message }}</div> @enderror
+                @error('status') <div class="form-error">{{ $message }}</div> @enderror
             </div>
         </div>
 
-        <!-- Khusus Produk Aplikasi / Digital (CapCut, Spotify, Alight Motion, FT) -->
-        <div style="background: rgba(245, 158, 11, 0.05); border: 1px dashed rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 24px;">
-            <div style="font-weight: 800; font-size: 0.95rem; color: #fbbf24; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-                <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
-                <span>Pengaturan Khusus Aplikasi & Digital (CapCut / Alight Motion / Spotify / FT)</span>
+        <!-- 3A. Khusus Aplikasi (CapCut, Alight Motion, Spotify) -->
+        <div id="section-partner-app" style="display: none; background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 12px; padding: 18px; margin-bottom: 20px;">
+            <div style="font-weight: 800; font-size: 0.92rem; color: #fbbf24; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                <i data-lucide="smartphone" style="width: 16px; height: 16px;"></i>
+                <span>Detail Paket Aplikasi (CapCut / Spotify / Alight Motion)</span>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;">
-                <div>
-                    <label style="display: block; font-size: 0.76rem; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase;">Jumlah Stok Ready</label>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px;">
+                <div class="form-group">
+                    <label class="form-label">Jumlah Stok Ready</label>
                     <input type="number" name="stock_qty" value="{{ old('stock_qty', 1) }}" min="1" class="input-control" placeholder="Contoh: 10" style="height: 40px;">
-                    <span style="font-size: 0.7rem; color: var(--text-dim); margin-top: 3px; display: block;">Jumlah akun/slot ready</span>
                 </div>
 
-                <div>
-                    <label style="display: block; font-size: 0.76rem; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase;">Durasi / Masa Aktif</label>
-                    <input type="number" name="duration_value" value="{{ old('duration_value') }}" min="1" class="input-control" placeholder="Contoh: 1, 3, 12, 30" style="height: 40px;">
-                    <span style="font-size: 0.7rem; color: var(--text-dim); margin-top: 3px; display: block;">Angka durasi</span>
+                <div class="form-group">
+                    <label class="form-label">Durasi / Masa Aktif</label>
+                    <input type="number" name="duration_value" value="{{ old('duration_value', 1) }}" min="1" class="input-control" placeholder="Contoh: 1, 3, 12" style="height: 40px;">
                 </div>
 
-                <div>
-                    <label style="display: block; font-size: 0.76rem; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase;">Satuan Durasi</label>
+                <div class="form-group">
+                    <label class="form-label">Satuan Durasi</label>
                     <select name="duration_unit" class="input-control" style="height: 40px;">
-                        <option value="Bulan" {{ old('duration_unit') == 'Bulan' ? 'selected' : '' }}>Bulan</option>
-                        <option value="Hari" {{ old('duration_unit') == 'Hari' ? 'selected' : '' }}>Hari</option>
-                        <option value="Tahun" {{ old('duration_unit') == 'Tahun' ? 'selected' : '' }}>Tahun</option>
-                        <option value="Lifetime" {{ old('duration_unit') == 'Lifetime' ? 'selected' : '' }}>Lifetime (Selamanya)</option>
-                        <option value="Slot" {{ old('duration_unit') == 'Slot' ? 'selected' : '' }}>Per Slot (Turnamen)</option>
+                        <option value="Bulan">Bulan</option>
+                        <option value="Hari">Hari</option>
+                        <option value="Tahun">Tahun</option>
+                        <option value="Lifetime">Lifetime</option>
                     </select>
                 </div>
 
-                <div>
-                    <label style="display: block; font-size: 0.76rem; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase;">Tipe / Varian Akun</label>
+                <div class="form-group">
+                    <label class="form-label">Tipe / Varian</label>
                     <select name="account_variant" class="input-control" style="height: 40px;">
-                        <option value="Private (Email Sendiri)" {{ old('account_variant') == 'Private (Email Sendiri)' ? 'selected' : '' }}>Private (Email Sendiri)</option>
-                        <option value="Sharing (Hemat)" {{ old('account_variant') == 'Sharing (Hemat)' ? 'selected' : '' }}>Sharing (Hemat)</option>
-                        <option value="Akun Baru (Fresh)" {{ old('account_variant') == 'Akun Baru (Fresh)' ? 'selected' : '' }}>Akun Baru (Fresh)</option>
-                        <option value="Jasa / Slot FT" {{ old('account_variant') == 'Jasa / Slot FT' ? 'selected' : '' }}>Jasa / Slot FT</option>
+                        <option value="Private (Email Sendiri)">Private (Email Pembeli)</option>
+                        <option value="Sharing (Hemat)">Sharing (Hemat)</option>
+                        <option value="Akun Baru (Fresh)">Akun Fresh</option>
                     </select>
                 </div>
             </div>
         </div>
 
-        <!-- 3. Bind & Server Configuration -->
-        <h3 class="font-heading" style="font-size: 1.25rem; color: var(--primary); margin: 30px 0 20px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
-            <i data-lucide="shield-alert" style="width: 20px; height: 20px;"></i>
-            3. PENGATURAN BIND & SERVER
-        </h3>
+        <!-- 3B. Khusus Akun Game -->
+        <div id="section-partner-game">
+            <h3 class="font-heading" style="font-size: 1.15rem; color: var(--primary); margin: 24px 0 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+                <i data-lucide="shield-check" style="width: 18px; height: 18px;"></i>
+                <span>3. PENGATURAN BIND & SERVER GAME</span>
+            </h3>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 22px;">
-            <div>
-                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Status Bind / Login Akun <span style="color: var(--danger);">*</span></label>
-                <input type="text" id="bindInput" name="login_bind" value="{{ old('login_bind') }}" class="input-control" placeholder="Contoh: Moonton Sepaket (All Unbind)" required style="height: 42px;">
-                <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;">
-                    <span style="font-size: 0.7rem; color: var(--text-dim);">Preset:</span>
-                    <button type="button" class="btn btn-outline btn-sm" style="font-size: 0.7rem; padding: 2px 8px;" onclick="document.getElementById('bindInput').value = 'Moonton Sepaket (All Unbind)'">Moonton Sepaket</button>
-                    <button type="button" class="btn btn-outline btn-sm" style="font-size: 0.7rem; padding: 2px 8px;" onclick="document.getElementById('bindInput').value = 'Google Play Bersih (Siap Takeover)'">Google Play</button>
-                    <button type="button" class="btn btn-outline btn-sm" style="font-size: 0.7rem; padding: 2px 8px;" onclick="document.getElementById('bindInput').value = 'All Unbind / Clean Bind'">All Unbind</button>
-                    <button type="button" class="btn btn-outline btn-sm" style="font-size: 0.7rem; padding: 2px 8px;" onclick="document.getElementById('bindInput').value = 'Single Email Bersih'">Single Email</button>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 18px;">
+                <div class="form-group">
+                    <label class="form-label">Status Bind / Login</label>
+                    <input type="text" id="partnerBindInput" name="login_bind" value="{{ old('login_bind', 'Moonton Sepaket (All Unbind)') }}" class="input-control" style="height: 40px;">
                 </div>
-                @error('login_bind') <div style="color: var(--danger); font-size: 0.75rem; margin-top: 4px;">{{ $message }}</div> @enderror
-            </div>
 
-            <div>
-                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Server / Region <span style="color: var(--danger);">*</span></label>
-                <input type="text" id="serverInput" name="server" value="{{ old('server', 'Indonesia') }}" class="input-control" placeholder="Contoh: Indonesia, Asia, Global" required style="height: 42px;">
-                <div style="display: flex; gap: 6px; margin-top: 8px;">
-                    <span style="font-size: 0.7rem; color: var(--text-dim);">Preset:</span>
-                    <button type="button" class="btn btn-outline btn-sm" style="font-size: 0.7rem; padding: 2px 8px;" onclick="document.getElementById('serverInput').value = 'Indonesia'">Indonesia</button>
-                    <button type="button" class="btn btn-outline btn-sm" style="font-size: 0.7rem; padding: 2px 8px;" onclick="document.getElementById('serverInput').value = 'Asia'">Asia</button>
-                    <button type="button" class="btn btn-outline btn-sm" style="font-size: 0.7rem; padding: 2px 8px;" onclick="document.getElementById('serverInput').value = 'Global'">Global</button>
+                <div class="form-group">
+                    <label class="form-label">Server / Region</label>
+                    <input type="text" id="partnerServerInput" name="server" value="{{ old('server', 'Indonesia') }}" class="input-control" style="height: 40px;">
                 </div>
-                @error('server') <div style="color: var(--danger); font-size: 0.75rem; margin-top: 4px;">{{ $message }}</div> @enderror
             </div>
 
-            <div>
-                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Nomor WhatsApp Anda (Kontak Penjual)</label>
-                <input type="text" name="partner_phone" value="{{ old('partner_phone', Auth::user()->phone) }}" class="input-control" placeholder="Contoh: 081234567890" style="height: 42px;">
-                <span style="font-size: 0.72rem; color: #38bdf8; margin-top: 4px; display: block;">Pembeli dapat bertanya langsung ke WA Anda, namun pembayaran & serah terima akun <strong>wajib via Rekber Admin Utama</strong> (Anti-Rip).</span>
+            <!-- Specs Game -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 18px;">
+                <div class="form-group">
+                    <label class="form-label">Rank / Tier</label>
+                    <input type="text" name="rank_tier" value="{{ old('rank_tier') }}" class="input-control" placeholder="Contoh: Mythic" style="height: 40px;">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Level Akun</label>
+                    <input type="text" name="winrate" value="{{ old('winrate') }}" class="input-control" placeholder="Contoh: Level 50" style="height: 40px;">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Total Skin</label>
+                    <input type="number" name="skin_count" value="{{ old('skin_count') }}" class="input-control" placeholder="Contoh: 150" style="height: 40px;">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Total Hero</label>
+                    <input type="number" name="hero_count" value="{{ old('hero_count') }}" class="input-control" placeholder="Contoh: 100" style="height: 40px;">
+                </div>
             </div>
         </div>
 
-        <!-- 4. Specs & Attributes -->
-        <h3 class="font-heading" style="font-size: 1.25rem; color: var(--primary); margin: 30px 0 20px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
-            <i data-lucide="layers" style="width: 20px; height: 20px;"></i>
-            4. SPESIFIKASI & ATRIBUT GAME
+        <!-- 4. Deskripsi & Foto -->
+        <h3 class="font-heading" style="font-size: 1.15rem; color: var(--primary); margin: 24px 0 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="file-text" style="width: 18px; height: 18px;"></i>
+            <span>DESKRIPSI & FOTO</span>
         </h3>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 18px;">
-            <div>
-                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Rank / Tier</label>
-                <input type="text" name="rank_tier" value="{{ old('rank_tier') }}" class="input-control" placeholder="Contoh: Mythical Glory" style="height: 42px;">
-            </div>
-
-            <div>
-                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Winrate / Level</label>
-                <input type="text" name="winrate" value="{{ old('winrate') }}" class="input-control" placeholder="Contoh: 68.5% / Lv 70" style="height: 42px;">
-            </div>
-
-            <div>
-                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Total Skin</label>
-                <input type="number" name="skin_count" value="{{ old('skin_count') }}" class="input-control" placeholder="Contoh: 280" style="height: 42px;">
-            </div>
-
-            <div>
-                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Total Hero</label>
-                <input type="number" name="hero_count" value="{{ old('hero_count') }}" class="input-control" placeholder="Contoh: 124" style="height: 42px;">
-            </div>
+        <div class="form-group" style="margin-bottom: 14px;">
+            <label class="form-label">Ringkasan Singkat</label>
+            <input type="text" name="short_description" value="{{ old('short_description') }}" class="input-control" placeholder="Contoh: Garansi resmi, proses cepat." style="height: 40px;">
         </div>
 
-        <div style="margin-bottom: 18px;">
-            <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Ringkasan Pendek (Highlight Akun)</label>
-            <input type="text" name="short_description" value="{{ old('short_description') }}" class="input-control" placeholder="Contoh: Akun pribadi tangan pertama, full skin collector siap mabar!" style="height: 42px;">
+        <div class="form-group" style="margin-bottom: 20px;">
+            <label class="form-label">Deskripsi Lengkap & Rincian Fitur</label>
+            <textarea name="full_specs" rows="4" class="input-control" placeholder="• Detail spesifikasi produk...">{{ old('full_specs') }}</textarea>
         </div>
 
-        <div style="margin-bottom: 22px;">
-            <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Deskripsi Lengkap & Rincian Spek (Baris per Baris)</label>
-            <textarea name="full_specs" rows="5" class="input-control" placeholder="• Rank: Mythical Glory&#10;• Total Skin: 300+ Skin&#10;• Skin Mewah: Collector Chou, KOF Gusion&#10;• Bind: Moonton All Unbind">{{ old('full_specs') }}</textarea>
-        </div>
-
-        <!-- 5. Photos & Screenshots -->
-        <h3 class="font-heading" style="font-size: 1.25rem; color: var(--primary); margin: 30px 0 20px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
-            <i data-lucide="image" style="width: 20px; height: 20px;"></i>
-            5. FOTO THUMBNAIL & GALERI SCREENSHOT
-        </h3>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-bottom: 22px;">
-            <div>
-                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Upload Foto Thumbnail Utama</label>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 20px;">
+            <div class="form-group">
+                <label class="form-label">Foto Thumbnail Utama</label>
                 <input type="file" name="thumbnail_file" class="input-control" accept="image/*">
-                <span style="font-size: 0.72rem; color: var(--text-dim); margin: 6px 0 4px; display: block;">Atau masukkan link URL gambar:</span>
-                <input type="url" name="thumbnail_url" value="{{ old('thumbnail_url') }}" class="input-control" placeholder="https://contoh-gambar.com/foto.jpg" style="height: 38px;">
             </div>
 
-            <div>
-                <label style="display: block; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase;">Upload Screenshot Galeri (Banyak Foto)</label>
+            <div class="form-group">
+                <label class="form-label">Screenshot Tambahan</label>
                 <input type="file" name="screenshots[]" multiple class="input-control" accept="image/*">
-                <span style="font-size: 0.72rem; color: var(--text-dim); margin-top: 6px; display: block;">Bisa pilih beberapa foto sekaligus (Profil, Skin, Vault, Emblem, dsb).</span>
             </div>
         </div>
 
-        <!-- Badges & Options -->
-        <div style="display: flex; flex-wrap: wrap; gap: 24px; margin: 24px 0; padding: 14px 18px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px;">
-            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                <input type="checkbox" name="is_verified" value="1" {{ old('is_verified', '1') ? 'checked' : '' }}>
-                <span style="font-weight: 700; color: #fff; font-size: 0.85rem;">🛡️ Sertakan Garansi 100% Anti Hackback</span>
-            </label>
-
-            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                <input type="checkbox" name="is_featured" value="1" {{ old('is_featured') ? 'checked' : '' }}>
-                <span style="font-weight: 700; color: var(--gold); font-size: 0.85rem;">⭐ Akun Rekomendasi / Sultan</span>
-            </label>
-        </div>
-
-        <!-- Submit Buttons -->
-        <div style="padding-top: 20px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-            <button type="submit" id="submitPartnerAccountBtn" class="btn btn-primary" style="padding: 10px 24px;">
+        <!-- Submit Button -->
+        <div style="padding-top: 18px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 12px;">
+            <button type="submit" class="btn btn-primary btn-lg">
                 <i data-lucide="plus-circle" style="width: 18px; height: 18px;"></i>
-                <span>Posting Akun Sekarang</span>
+                <span>Simpan & Terbitkan</span>
             </button>
-            <a href="{{ route('partner.accounts.index') }}" class="btn btn-outline" style="padding: 10px 20px;">Batal</a>
-            <span id="partnerUploadProgress" style="display: none; color: var(--primary); font-size: 0.85rem; font-weight: 700;">
-                ⏳ Mengunggah foto akun...
-            </span>
+            <a href="{{ route('partner.accounts.index') }}" class="btn btn-secondary btn-lg">Batal</a>
         </div>
     </form>
 </div>
 
+<style>
+.partner-type-tab {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: #0c121c;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+.partner-type-tab.active {
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid #d97706;
+}
+</style>
+
 @push('scripts')
 <script>
-    const partnerForm = document.querySelector('form[action="{{ route('partner.accounts.store') }}"]');
-    if (partnerForm) {
-        partnerForm.addEventListener('submit', function() {
-            const btn = document.getElementById('submitPartnerAccountBtn');
-            const progress = document.getElementById('partnerUploadProgress');
-            if (btn) btn.disabled = true;
-            if (progress) progress.style.display = 'inline';
-        });
+    function switchPartnerProductType(type) {
+        document.getElementById('product_type_input').value = type;
+
+        document.getElementById('tab-btn-game').classList.remove('active');
+        document.getElementById('tab-btn-app').classList.remove('active');
+        document.getElementById('tab-btn-service').classList.remove('active');
+
+        const gameBox = document.getElementById('section-partner-game');
+        const appBox = document.getElementById('section-partner-app');
+        const titleLabel = document.getElementById('partner-title-label');
+        const titleInput = document.getElementById('partner_title_input');
+
+        if (type === 'game_account') {
+            document.getElementById('tab-btn-game').classList.add('active');
+            gameBox.style.display = 'block';
+            appBox.style.display = 'none';
+            titleLabel.innerHTML = 'Judul Postingan Akun Game <span style="color: var(--danger);">*</span>';
+            titleInput.placeholder = 'Contoh: MLBB Mythical Glory 100★ | 5 Collector';
+            document.getElementById('partnerBindInput').value = 'Moonton Sepaket (All Unbind)';
+            document.getElementById('partnerServerInput').value = 'Indonesia';
+        } else if (type === 'app_premium') {
+            document.getElementById('tab-btn-app').classList.add('active');
+            gameBox.style.display = 'none';
+            appBox.style.display = 'block';
+            titleLabel.innerHTML = 'Nama Produk / Akun Aplikasi <span style="color: var(--danger);">*</span>';
+            titleInput.placeholder = 'Contoh: CapCut Pro 1 Tahun / Spotify Premium 3 Bulan';
+            document.getElementById('partnerBindInput').value = 'Email Pembeli / Akun Private';
+            document.getElementById('partnerServerInput').value = 'Global';
+        } else if (type === 'fast_tournament') {
+            document.getElementById('tab-btn-service').classList.add('active');
+            gameBox.style.display = 'none';
+            appBox.style.display = 'none';
+            titleLabel.innerHTML = 'Nama Layanan / Turnamen <span style="color: var(--danger);">*</span>';
+            titleInput.placeholder = 'Contoh: Slot Fast Tournament MLBB / Jasa Desain Poster FT';
+            document.getElementById('partnerBindInput').value = 'File HD PNG/PDF + Format Bracket';
+            document.getElementById('partnerServerInput').value = 'Online Delivery';
+        }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        switchPartnerProductType('game_account');
+    });
 </script>
 @endpush
 @endsection
