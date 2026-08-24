@@ -41,11 +41,11 @@
             --bg-card-hover: #19243d;
             --bg-glass: rgba(10, 14, 23, 0.94);
             --bg-glass-card: rgba(19, 27, 46, 0.88);
-            --primary: #3b82f6;
-            --primary-hover: #2563eb;
-            --primary-gradient: #2563eb;
-            --primary-light: rgba(59, 130, 246, 0.12);
-            --primary-border: rgba(59, 130, 246, 0.3);
+            --primary: #f59e0b;
+            --primary-hover: #f59e0b;
+            --primary-gradient: #f59e0b;
+            --primary-light: rgba(245, 158, 11, 0.12);
+            --primary-border: rgba(245, 158, 11, 0.3);
             --accent-purple: #8b5cf6;
             --gold: #f59e0b;
             --danger: #ef4444;
@@ -166,13 +166,13 @@
         @media(max-width:768px){.hero-slider-overlay{background:linear-gradient(180deg,rgba(11,15,25,0.95) 0%,rgba(11,15,25,0.85) 60%,rgba(11,15,25,0.98) 100%);}}
         .hero-content-layer{position:relative;z-index:2;padding:20px 14px;width:100% !important;max-width:100% !important;box-sizing:border-box !important;}
         @media(min-width:768px){.hero-content-layer{padding:44px 36px;max-width:680px !important;}}
-        .hero-tag{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.35);color:#93c5fd;font-size:0.68rem;font-weight:800;margin-bottom:8px;}
+        .hero-tag{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.35);color:#fde68a;font-size:0.68rem;font-weight:800;margin-bottom:8px;}
         .hero-title{font-family:var(--font-heading);font-size:1.38rem;font-weight:900;color:#fff;line-height:1.2;margin-bottom:8px;}
         @media(min-width:768px){.hero-title{font-size:2.4rem;}}
-        .text-gradient{color:#3b82f6 !important;background:none !important;-webkit-text-fill-color:#3b82f6 !important;}
+        .text-gradient{color:#f59e0b !important;background:none !important;-webkit-text-fill-color:#f59e0b !important;}
         .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border-radius:10px;font-weight:700;font-size:0.84rem;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:all 0.2s ease;}
-        .btn-primary{background:#2563eb !important;color:#ffffff !important;font-weight:700;border:1px solid #1d4ed8 !important;box-shadow:0 2px 8px rgba(37,99,235,0.25) !important;}
-        .btn-primary:hover{background:#1d4ed8 !important;color:#ffffff !important;transform:translateY(-1px);}
+        .btn-primary{background:#f59e0b !important;color:#ffffff !important;font-weight:700;border:1px solid #f59e0b !important;box-shadow:0 2px 8px rgba(37,99,235,0.25) !important;}
+        .btn-primary:hover{background:#f59e0b !important;color:#ffffff !important;transform:translateY(-1px);}
         .btn-secondary{background:rgba(255,255,255,0.06);border-color:var(--border);color:var(--text-main);}
         .btn-whatsapp{background:#16a34a !important;color:#fff!important;font-weight:800;border:1px solid #15803d !important;box-shadow:0 2px 8px rgba(22,163,74,0.25) !important;}
         .btn-discord{background:#4f46e5 !important;color:#fff!important;font-weight:800;border:1px solid #4338ca !important;box-shadow:0 2px 8px rgba(79,70,229,0.25) !important;}
@@ -191,8 +191,8 @@
         @media(max-width:480px){.trust-highlights-grid{grid-template-columns:repeat(2,1fr) !important;gap:8px !important;padding:12px 10px !important;}}
 
         /* Account Card System & Non-Clipping Detail Button */
-        .account-card{position:relative;background:var(--bg-card,#0e1628);border:1px solid var(--border,rgba(255,255,255,0.08));border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-sizing:border-box;cursor:pointer;width:100% !important;min-width:0 !important;-webkit-tap-highlight-color:rgba(59, 130, 246,0.1);transition:transform 0.25s ease,border-color 0.25s ease,box-shadow 0.25s ease;}
-        .account-card:hover{transform:translateY(-4px);border-color:rgba(59, 130, 246,0.4);box-shadow:0 12px 30px rgba(0,0,0,0.5);}
+        .account-card{position:relative;background:var(--bg-card,#0e1628);border:1px solid var(--border,rgba(255,255,255,0.08));border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-sizing:border-box;cursor:pointer;width:100% !important;min-width:0 !important;-webkit-tap-highlight-color:rgba(245, 158, 11,0.1);transition:transform 0.25s ease,border-color 0.25s ease,box-shadow 0.25s ease;}
+        .account-card:hover{transform:translateY(-4px);border-color:rgba(245, 158, 11,0.4);box-shadow:0 12px 30px rgba(0,0,0,0.5);}
         .account-card-overlay-link{position:absolute;inset:0;z-index:4;border-radius:inherit;display:block;text-indent:-9999px;outline:none;}
         .account-card .btn-toggle-wishlist,
         .account-card .btn,
@@ -251,7 +251,7 @@
     </style>
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=9.9">
+    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=10.0">
 
     @stack('styles')
 </head>
@@ -337,7 +337,7 @@
                                 🎨 Pilih Tema Website
                             </div>
                             <button type="button" onclick="setAppTheme('default')" class="theme-option-btn" data-theme-val="default" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
-                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); display: inline-block; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);"></span>
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #f59e0b); display: inline-block; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);"></span>
                                 <span>⚡ Sapphire Slate (Default)</span>
                             </button>
                             <button type="button" onclick="setAppTheme('emerald-mint')" class="theme-option-btn" data-theme-val="emerald-mint" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
@@ -440,7 +440,7 @@
                 <div>
                     <!-- Footer Brand Logo -->
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
-                        <img src="{{ asset('images/logo.png') }}" width="44" height="44" decoding="async" alt="ALZIS STORE Logo" style="height: 44px; width: auto; object-fit: contain; filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));">
+                        <img src="{{ asset('images/logo.png') }}" width="44" height="44" decoding="async" alt="ALZIS STORE Logo" style="height: 44px; width: auto; object-fit: contain; filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));">
                         <div>
                             <div style="font-size: 1.25rem; font-weight: 900; font-family: var(--font-heading); color: #fff; line-height: 1.1;">
                                 ALZIS <span style="color: var(--primary);">STORE</span>

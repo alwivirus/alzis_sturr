@@ -27,7 +27,7 @@
     </script>
 
     <!-- Stylesheets & Direct Self-Contained Admin Theme -->
-    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=9.9">
+    <link rel="stylesheet" href="{{ asset('css/alzis.css') }}?v=10.0">
     <style>
         :root {
             --bg-body: #0a0e17;
@@ -36,17 +36,17 @@
             --bg-card: #131b2e;
             --bg-card-hover: #19243d;
             --bg-input: #0e1626;
-            --primary: #3b82f6;
-            --primary-hover: #2563eb;
-            --primary-gradient: #2563eb;
-            --primary-light: rgba(59, 130, 246, 0.12);
-            --primary-border: rgba(59, 130, 246, 0.3);
+            --primary: #f59e0b;
+            --primary-hover: #f59e0b;
+            --primary-gradient: #f59e0b;
+            --primary-light: rgba(245, 158, 11, 0.12);
+            --primary-border: rgba(245, 158, 11, 0.3);
             --gold: #f59e0b;
             --gold-gradient: #d97706;
             --danger: #ef4444;
             --success: #10b981;
             --border: rgba(255, 255, 255, 0.08);
-            --border-glow: rgba(59, 130, 246, 0.2);
+            --border-glow: rgba(245, 158, 11, 0.2);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --text-dim: #64748b;
@@ -153,7 +153,7 @@
         .custom-table { width: 100%; border-collapse: collapse; text-align: left; }
         .custom-table th { background: rgba(16, 23, 38, 0.95) !important; padding: 14px 18px; font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.6px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); white-space: nowrap; }
         .custom-table td { padding: 14px 18px; font-size: 0.86rem; border-bottom: 1px solid rgba(255, 255, 255, 0.04); vertical-align: middle; }
-        .custom-table tbody tr:hover { background: rgba(59, 130, 246, 0.04); }
+        .custom-table tbody tr:hover { background: rgba(245, 158, 11, 0.04); }
 
         .admin-mobile-header { display: none; }
         .admin-sidebar-overlay { display: none; }
@@ -165,8 +165,8 @@
 
         /* Buttons */
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-weight: 700; font-size: 0.84rem; padding: 8px 16px; border-radius: 8px; border: 1px solid transparent; cursor: pointer; text-decoration: none; transition: all 0.2s ease; }
-        .btn-primary { background: var(--primary-gradient) !important; color: #ffffff !important; font-weight: 800; box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35) !important; }
-        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.45) !important; }
+        .btn-primary { background: var(--primary-gradient) !important; color: #ffffff !important; font-weight: 800; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35) !important; }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45) !important; }
         .btn-secondary { background: rgba(255, 255, 255, 0.06) !important; border: 1px solid rgba(255, 255, 255, 0.12) !important; color: var(--text-main) !important; }
         .btn-secondary:hover { background: rgba(255, 255, 255, 0.12) !important; border-color: rgba(255, 255, 255, 0.25) !important; color: #fff !important; }
         .btn-outline { background: rgba(255, 255, 255, 0.04) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; color: var(--text-main) !important; }
@@ -218,18 +218,18 @@
             user-select: none !important;
         }
         .page-link:hover, ul.pagination li a:hover, nav[role="navigation"] a:hover {
-            background: rgba(59, 130, 246, 0.15) !important;
+            background: rgba(245, 158, 11, 0.15) !important;
             border-color: var(--primary) !important;
             color: #fff !important;
             transform: translateY(-1px) !important;
-            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.25) !important;
+            box-shadow: 0 2px 10px rgba(245, 158, 11, 0.25) !important;
         }
         .page-item.active .page-link, ul.pagination li.active span, nav[role="navigation"] span[aria-current="page"] {
-            background: #2563eb !important;
-            border-color: #1d4ed8 !important;
+            background: #f59e0b !important;
+            border-color: #f59e0b !important;
             color: #ffffff !important;
             font-weight: 900 !important;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3) !important;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3) !important;
         }
         .page-item.disabled .page-link, ul.pagination li.disabled span {
             opacity: 0.35 !important;
@@ -335,7 +335,7 @@
             <div style="padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 14px;">
                 <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
                     <a href="{{ route('home') }}" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
-                        <img src="{{ asset('images/logo.png') }}" alt="ALzis Store Logo" style="height: 40px; width: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.4));">
+                        <img src="{{ asset('images/logo.png') }}" alt="ALzis Store Logo" style="height: 40px; width: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.4));">
                         <div>
                             <div style="font-size: 1.15rem; font-weight: 800; font-family: var(--font-heading); color: #fff; line-height: 1.1;">
                                 ALZIS <span style="color: var(--primary);">STORE</span>
@@ -452,7 +452,7 @@
                                 🎨 Pilih Tema Panel
                             </div>
                             <button type="button" onclick="setAppTheme('default')" class="theme-option-btn" data-theme-val="default" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">
-                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); display: inline-block; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);"></span>
+                                <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #f59e0b); display: inline-block; flex-shrink: 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);"></span>
                                 <span>⚡ Sapphire Slate (Default)</span>
                             </button>
                             <button type="button" onclick="setAppTheme('emerald-mint')" class="theme-option-btn" data-theme-val="emerald-mint" style="width: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: none; background: transparent; color: #fff; font-size: 0.78rem; font-weight: 700; cursor: pointer; text-align: left; transition: all 0.2s;">

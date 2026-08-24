@@ -136,10 +136,10 @@
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 16px;">
             <!-- Sapphire Slate (Default) -->
-            <button type="button" onclick="setAppTheme('default')" class="theme-card-picker" data-theme-val="default" style="background: rgba(59, 130, 246, 0.06); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 10px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.2s;">
+            <button type="button" onclick="setAppTheme('default')" class="theme-card-picker" data-theme-val="default" style="background: rgba(245, 158, 11, 0.06); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 10px; padding: 12px; text-align: left; cursor: pointer; transition: all 0.2s;">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                    <span style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35); display: inline-block;"></span>
-                    <span style="font-size: 0.68rem; font-weight: 800; color: #3b82f6; background: rgba(59, 130, 246, 0.15); padding: 1px 6px; border-radius: 4px;">Default</span>
+                    <span style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #f59e0b); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35); display: inline-block;"></span>
+                    <span style="font-size: 0.68rem; font-weight: 800; color: #f59e0b; background: rgba(245, 158, 11, 0.15); padding: 1px 6px; border-radius: 4px;">Default</span>
                 </div>
                 <div style="font-size: 0.84rem; font-weight: 800; color: #fff;">⚡ Sapphire Slate</div>
                 <div style="font-size: 0.7rem; color: var(--text-dim); margin-top: 2px;">Modern slate & royal blue</div>

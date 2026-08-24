@@ -27,13 +27,13 @@
 
             <!-- Foreground Content Layer -->
             <div class="hero-content-layer" style="position: relative; z-index: 3; padding: 32px 28px; max-width: 640px; box-sizing: border-box;">
-                <div style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; background: rgba(37, 99, 235, 0.12); border: 1px solid rgba(37, 99, 235, 0.35); color: #93c5fd; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 12px;">
-                    <svg style="width: 14px; height: 14px; color: #60a5fa; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                <div style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); color: #fde68a; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 12px;">
+                    <svg style="width: 14px; height: 14px; color: #fbbf24; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
                     <span>GARANSI 100% ANTI HACKBACK SEUMUR HIDUP</span>
                 </div>
 
                 <h1 style="font-family: var(--font-heading); font-size: clamp(1.5rem, 3.5vw, 2.5rem); font-weight: 900; color: #ffffff; line-height: 1.18; margin-bottom: 10px; letter-spacing: -0.02em;">
-                    Pusat Jual Beli Akun Game Sultan <span style="color: #3b82f6;">#1 Terpercaya</span>
+                    Pusat Jual Beli Akun Game Sultan <span style="color: #f59e0b;">#1 Terpercaya</span>
                 </h1>
 
                 <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
@@ -45,7 +45,7 @@
                     <svg style="width: 16px; height: 16px; color: #64748b; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                     <form action="{{ route('catalog') }}" method="GET" style="display: flex; flex: 1; align-items: center; gap: 6px; min-width: 0;">
                         <input type="text" name="q" placeholder="Cari nama akun, skin, hero, rank..." style="background: transparent; border: none; outline: none; color: #fff; font-size: 0.84rem; flex: 1; min-width: 0;">
-                        <button type="submit" style="background: #2563eb; color: #ffffff; font-weight: 700; font-size: 0.78rem; border: none; border-radius: 8px; padding: 8px 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; transition: background 0.2s;">
+                        <button type="submit" style="background: #f59e0b; color: #ffffff; font-weight: 700; font-size: 0.78rem; border: none; border-radius: 8px; padding: 8px 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; transition: background 0.2s;">
                             <span>Cari Stok</span>
                             <svg style="width: 13px; height: 13px; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
                         </button>
@@ -55,7 +55,7 @@
 
             <!-- Slider Indicator Bars -->
             <div class="hero-slider-indicators" style="position: absolute; bottom: 18px; right: 22px; z-index: 4; display: flex; gap: 6px;">
-                <div class="slider-dot active" onclick="jumpToSlide(0)" title="Valorant" style="width: 32px; height: 4px; border-radius: 4px; background: #3b82f6; cursor: pointer;"></div>
+                <div class="slider-dot active" onclick="jumpToSlide(0)" title="Valorant" style="width: 32px; height: 4px; border-radius: 4px; background: #f59e0b; cursor: pointer;"></div>
                 <div class="slider-dot" onclick="jumpToSlide(1)" title="Mobile Legends" style="width: 16px; height: 4px; border-radius: 4px; background: rgba(255,255,255,0.25); cursor: pointer;"></div>
                 <div class="slider-dot" onclick="jumpToSlide(2)" title="Free Fire" style="width: 16px; height: 4px; border-radius: 4px; background: rgba(255,255,255,0.25); cursor: pointer;"></div>
                 <div class="slider-dot" onclick="jumpToSlide(3)" title="PUBG Mobile" style="width: 16px; height: 4px; border-radius: 4px; background: rgba(255,255,255,0.25); cursor: pointer;"></div>
@@ -71,7 +71,7 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
             <!-- Highlight 1 -->
             <div style="background: #111827; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);">
-                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(37, 99, 235, 0.12); color: #60a5fa; border: 1px solid rgba(37, 99, 235, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(245, 158, 11, 0.12); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
                 </div>
                 <div>
@@ -121,12 +121,12 @@
     <div class="container">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
             <div>
-                <span style="font-size: 0.72rem; font-weight: 800; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.6px;">KATEGORI & PRODUK</span>
+                <span style="font-size: 0.72rem; font-weight: 800; color: #f59e0b; text-transform: uppercase; letter-spacing: 0.6px;">KATEGORI & PRODUK</span>
                 <h3 class="font-heading" style="font-size: 1.25rem; color: #fff; font-weight: 800; margin-top: 2px;">
                     Jelajahi Kategori Game & Produk Digital
                 </h3>
             </div>
-            <a href="{{ route('catalog') }}" style="font-size: 0.82rem; color: #3b82f6; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; text-decoration: none;">
+            <a href="{{ route('catalog') }}" style="font-size: 0.82rem; color: #f59e0b; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; text-decoration: none;">
                 <span>Lihat Semua Katalog</span>
                 <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
             </a>

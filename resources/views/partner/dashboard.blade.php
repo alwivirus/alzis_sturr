@@ -110,7 +110,7 @@
             <span style="color: #fff;">+ Post Akun</span>
         </a>
         <a href="{{ route('partner.accounts.index') }}" class="btn btn-outline" style="justify-content: flex-start; padding: 12px 14px;">
-            <i data-lucide="list" style="width: 16px; height: 16px; color: #38bdf8;"></i>
+            <i data-lucide="list" style="width: 16px; height: 16px; color: #fbbf24;"></i>
             <span>Daftar Akun</span>
         </a>
         <a href="{{ route('profile') }}" class="btn btn-outline" style="justify-content: flex-start; padding: 12px 14px;">
@@ -172,7 +172,7 @@
                                 </div>
                             </td>
                             <td>
-                                <span class="badge" style="background: rgba(59, 130, 246, 0.12); color: var(--primary); border: 1px solid rgba(59, 130, 246, 0.3);">
+                                <span class="badge" style="background: rgba(245, 158, 11, 0.12); color: var(--primary); border: 1px solid rgba(245, 158, 11, 0.3);">
                                     {{ $acc->category->name }}
                                 </span>
                             </td>

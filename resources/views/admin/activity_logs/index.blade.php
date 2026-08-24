@@ -39,7 +39,7 @@
                     <div class="stat-title" style="color: var(--primary);">Aktivitas Hari Ini</div>
                     <div class="stat-value" style="color: #fff;">{{ number_format($todayLogs) }}</div>
                 </div>
-                <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(59, 130, 246, 0.15); color: var(--primary); display: flex; align-items: center; justify-content: center;">
+                <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(245, 158, 11, 0.15); color: var(--primary); display: flex; align-items: center; justify-content: center;">
                     <i data-lucide="clock" style="width: 18px; height: 18px;"></i>
                 </div>
             </div>
@@ -155,7 +155,7 @@
                                     'DELETE_ACCOUNT', 'DELETE_USER', 'BAN_USER' => 'background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4);',
                                     'CHANGE_ROLE' => 'background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4);',
                                     'TOGGLE_STATUS' => 'background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4);',
-                                    'LOGIN' => 'background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4);',
+                                    'LOGIN' => 'background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4);',
                                     default => 'background: rgba(148, 163, 184, 0.15); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.3);'
                                 };
                             @endphp

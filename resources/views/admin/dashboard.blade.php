@@ -110,7 +110,7 @@
             <span>Akun Partner</span>
         </a>
         <a href="{{ route('admin.users.index', ['role' => 'partner']) }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 14px;">
-            <i data-lucide="user-check" style="width: 16px; height: 16px; color: #38bdf8;"></i>
+            <i data-lucide="user-check" style="width: 16px; height: 16px; color: #fbbf24;"></i>
             <span>Mitra Partner</span>
         </a>
         <a href="{{ route('admin.logs.index') }}" class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 14px;">

@@ -15,7 +15,7 @@
                     <div class="stat-title" style="color: var(--primary);">Total Terdaftar</div>
                     <div class="stat-value" style="color: #fff;">{{ number_format($totalUsers) }}</div>
                 </div>
-                <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(59, 130, 246, 0.12); color: var(--primary); display: flex; align-items: center; justify-content: center;">
+                <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(245, 158, 11, 0.12); color: var(--primary); display: flex; align-items: center; justify-content: center;">
                     <i data-lucide="users" style="width: 18px; height: 18px;"></i>
                 </div>
             </div>
@@ -154,7 +154,7 @@
                         <td style="color: var(--text-muted); text-align: center; font-weight: 700; font-size: 0.82rem;">{{ $users->firstItem() + $index }}</td>
                         <td>
                             <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="width: 38px; height: 38px; border-radius: 50%; background: {{ $u->isOwner() ? 'linear-gradient(135deg, #f59e0b, #b45309)' : ($u->isPartner() ? 'linear-gradient(135deg, #3b82f6, #1d4ed8)' : 'rgba(255, 255, 255, 0.08)') }}; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 0.88rem; border: 1px solid {{ $u->isOwner() ? '#fbbf24' : ($u->isPartner() ? 'var(--primary)' : 'rgba(255,255,255,0.15)') }}; flex-shrink: 0;">
+                                <div style="width: 38px; height: 38px; border-radius: 50%; background: {{ $u->isOwner() ? 'linear-gradient(135deg, #f59e0b, #b45309)' : ($u->isPartner() ? 'linear-gradient(135deg, #f59e0b, #f59e0b)' : 'rgba(255, 255, 255, 0.08)') }}; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 0.88rem; border: 1px solid {{ $u->isOwner() ? '#fbbf24' : ($u->isPartner() ? 'var(--primary)' : 'rgba(255,255,255,0.15)') }}; flex-shrink: 0;">
                                     {{ strtoupper(substr($u->name, 0, 1)) }}
                                 </div>
                                 <div>
@@ -284,7 +284,7 @@
 
 <!-- Modal Reset Password -->
 <div id="resetPasswordModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(8px);">
-    <div style="background: #0d1322; border: 1px solid rgba(59, 130, 246, 0.3); border-radius: var(--radius-lg); max-width: 420px; width: 90%; padding: 26px; box-shadow: 0 20px 50px rgba(0,0,0,0.8);">
+    <div style="background: #0d1322; border: 1px solid rgba(245, 158, 11, 0.3); border-radius: var(--radius-lg); max-width: 420px; width: 90%; padding: 26px; box-shadow: 0 20px 50px rgba(0,0,0,0.8);">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08);">
             <h3 class="font-gaming" style="font-size: 1.15rem; color: #fff; margin: 0; display: flex; align-items: center; gap: 8px;">
                 <i data-lucide="key" style="width: 18px; height: 18px; color: var(--primary);"></i>

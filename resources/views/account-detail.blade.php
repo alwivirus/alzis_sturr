@@ -33,7 +33,7 @@
                 <span class="badge-code" style="bottom: 10px; left: 10px; font-size: 0.7rem; padding: 3px 8px;">#{{ $account->code }}</span>
 
                 <!-- Zoom Prompt Badge -->
-                <button type="button" class="zoom-trigger-btn" onclick="event.stopPropagation(); openLightbox();" title="Klik untuk Zoom Foto Fullscreen" style="position: absolute; bottom: 10px; right: 10px; background: rgba(5, 8, 17, 0.85); backdrop-filter: blur(8px); border: 1px solid rgba(59, 130, 246, 0.4); color: var(--primary); padding: 4px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: all 0.2s ease;">
+                <button type="button" class="zoom-trigger-btn" onclick="event.stopPropagation(); openLightbox();" title="Klik untuk Zoom Foto Fullscreen" style="position: absolute; bottom: 10px; right: 10px; background: rgba(5, 8, 17, 0.85); backdrop-filter: blur(8px); border: 1px solid rgba(245, 158, 11, 0.4); color: var(--primary); padding: 4px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: all 0.2s ease;">
                     <svg style="width: 13px; height: 13px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
                     <span>Zoom Foto</span>
                 </button>
@@ -156,7 +156,7 @@
 
                     <!-- Optional Partner WhatsApp Contact -->
                     @if($isPartner && $partnerPhone)
-                    <a href="https://wa.me/{{ $partnerPhone }}?text={{ rawurlencode($partnerWaText) }}" target="_blank" class="btn btn-secondary" style="padding: 9px 8px; font-size: 0.76rem; border-radius: 8px; border-color: rgba(59, 130, 246, 0.4); color: #38bdf8; display: inline-flex; align-items: center; justify-content: center; gap: 4px;" title="Tanya langsung ke Partner pemilik akun">
+                    <a href="https://wa.me/{{ $partnerPhone }}?text={{ rawurlencode($partnerWaText) }}" target="_blank" class="btn btn-secondary" style="padding: 9px 8px; font-size: 0.76rem; border-radius: 8px; border-color: rgba(245, 158, 11, 0.4); color: #fbbf24; display: inline-flex; align-items: center; justify-content: center; gap: 4px;" title="Tanya langsung ke Partner pemilik akun">
                         <svg style="width: 13px; height: 13px; fill: currentColor; flex-shrink: 0;" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
                         <span>Chat Mitra</span>
                     </a>
@@ -203,7 +203,7 @@
                     @if($account->winrate)
                     <div class="spec-item" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;">
                         <span class="spec-label" style="font-size: 0.62rem; color: var(--text-dim); display: block; font-weight: 700; text-transform: uppercase;">Level Akun</span>
-                        <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #38bdf8;">{{ str_starts_with(strtolower(trim($account->winrate)), 'level') || str_starts_with(strtolower(trim($account->winrate)), 'lv') ? $account->winrate : 'Level ' . $account->winrate }}</span>
+                        <span class="spec-val" style="font-size: 0.78rem; font-weight: 700; color: #fbbf24;">{{ str_starts_with(strtolower(trim($account->winrate)), 'level') || str_starts_with(strtolower(trim($account->winrate)), 'lv') ? $account->winrate : 'Level ' . $account->winrate }}</span>
                     </div>
                     @endif
                 </div>
